@@ -368,8 +368,9 @@
         form {
             background: var(--card-bg);
             padding: 2rem;
-            border-radius: 1.5rem;
+            border-radius: 1.5rem 1.5rem 0 0;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 0;
         }
         
         form p {
@@ -450,16 +451,19 @@
             color: var(--bark);
         }
         
-        /* Service details grid */
+        /* Service details grid - layered under form */
         .service-details {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 0.75rem;
+            padding: 1.5rem 2rem 2rem 2rem;
+            background: rgba(154, 140, 66, 0.15);
+            border-radius: 0 0 1.5rem 1.5rem;
             font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            position: relative;
+            margin-top: -0.5rem;
+            z-index: -1;
         }
         
         /* Footer */
@@ -513,7 +517,7 @@
             }
             
             .service-details {
-                background: rgba(74, 69, 63, 0.8);
+                background: rgba(74, 69, 63, 0.9);
                 color: var(--text-primary);
             }
             
