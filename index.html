@@ -58,6 +58,7 @@
         
         /* Global button styles */
         .btn {
+        font-size: 1rem;
           display: inline-block;
           padding: 0.75rem 1.5rem;
           border-radius: 2rem;
@@ -164,11 +165,12 @@
         }
         
         header h1 {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0rem;
             transition: transform 0.3s ease;
         }
         
         header h1:hover {
+            margin-bottom: 0rem;
             transform: scale(1.02);
         }
         
@@ -187,7 +189,7 @@
         /* Phone button in top right */
         .header-phone {
             position: absolute;
-            top: 1rem;
+            top: 3rem;
             right: 0;
             
         }
@@ -622,7 +624,8 @@
         }
         
         /* Dark mode */
-        @media (prefers-color-scheme: dark) {
+        
+        /*@media (prefers-color-scheme: dark) {
             html {
                 background: #3a3530;
             }
@@ -641,6 +644,15 @@
                 --card-bg: #4a453f;
             }
             
+            
+            .hero-image::after {
+              background: linear-gradient(
+                to bottom right,
+                rgba(80, 97, 122, 0.294),
+                rgba(79, 56, 32, 0.35)
+              );
+            }
+            
             aside {
                 background: linear-gradient(135deg, 
                     rgba(181, 168, 100, 0.9), 
@@ -653,7 +665,7 @@
             }
             
             aside h3 {
-                color: #F5F0E8; /* Light cream for dark mode */
+                color: #F5F0E8; 
                 text-shadow: 0 2px 4px rgba(0,0,0,0.3);
             }
             
@@ -680,7 +692,7 @@
                 background: rgba(229, 194, 155, 0.25);
                 color: var(--text-primary);
             }
-        }
+        } */
         
         /* Mobile responsive */
         @media (max-width: 600px) {
