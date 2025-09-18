@@ -368,9 +368,11 @@
         form {
             background: var(--card-bg);
             padding: 2rem;
-            border-radius: 1.5rem 1.5rem 0 0;
+            border-radius: 1.5rem;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             margin-bottom: 0;
+            position: relative;
+            z-index: 1;
         }
         
         form p {
@@ -456,14 +458,19 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
-            padding: 1.5rem 2rem 2rem 2rem;
-            background: rgba(154, 140, 66, 0.15);
+            padding: 3rem 2rem 2rem 2rem;
+            background: var(--bark);
+            color: var(--cream);
             border-radius: 0 0 1.5rem 1.5rem;
             font-size: 0.95rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             position: relative;
-            margin-top: -0.5rem;
-            z-index: -1;
+            margin-top: -1rem;
+            z-index: 0;
+        }
+        
+        .service-details strong {
+            color: var(--cream);
         }
         
         /* Footer */
@@ -517,8 +524,12 @@
             }
             
             .service-details {
-                background: rgba(74, 69, 63, 0.9);
-                color: var(--text-primary);
+                background: #252018;
+                color: var(--cream);
+            }
+            
+            .service-details strong {
+                color: var(--cream);
             }
             
             input, textarea, select {
