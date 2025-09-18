@@ -19,6 +19,13 @@
 
     <style>
 
+/* Modern CSS enhancements */
+@supports (container-type: inline-size) {
+    .cards-wrapper {
+        container-type: inline-size;
+    }
+}
+
 /* Reset and base styles */
 * {
     margin: 0;
@@ -227,6 +234,7 @@ header h2 {
     border-radius: 1rem;
     margin: 1.5rem 0 2rem 0;
     overflow: hidden;
+    isolation: isolate; /* Create stacking context for better performance */
 }
 
 /* Image background */
@@ -239,7 +247,7 @@ header h2 {
     z-index: 0;
 }
 
-/* Golden overlay */
+/* Golden overlay with backdrop-filter support */
 .hero-image::after {
     content: "";
     position: absolute;
@@ -248,6 +256,16 @@ header h2 {
             rgba(212, 165, 116, 0.55),
             rgba(212, 165, 116, 0.35));
     z-index: 1;
+}
+
+/* Use backdrop-filter for modern browsers */
+@supports (backdrop-filter: blur(1px)) {
+    .hero-image::after {
+        background: linear-gradient(to bottom right,
+            rgba(212, 165, 116, 0.45),
+            rgba(212, 165, 116, 0.25));
+        backdrop-filter: blur(1px) brightness(1.1);
+    }
 }
 
 /* Center overlay content */
@@ -320,13 +338,37 @@ blockquote p:last-child {
     margin-bottom: 1rem;
 }
 
-/* Article cards */
+/* Article cards with modern enhancements */
 article {
     background: var(--card-bg);
     padding: 1.5rem;
     border-radius: 1.2rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
+    will-change: transform; /* Optimize hover animations */
+    content-visibility: auto; /* Faster initial paint */
+}
+
+/* Scroll-driven animations for cards */
+@supports (animation-timeline: view()) {
+    @media (min-width: 769px) {
+        article {
+            animation: fade-up linear;
+            animation-timeline: view();
+            animation-range: entry 0% cover 40%;
+        }
+        
+        @keyframes fade-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    }
 }
 
 article:hover {
@@ -410,7 +452,7 @@ article:hover {
     }
 }
 
-/* Tablet and desktop grid */
+/* Tablet and desktop grid with subgrid support */
 @media (min-width: 769px) {
     .cards-container {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -419,6 +461,24 @@ article:hover {
     /* Force 2x2 grid for How we work section */
     #howWeWorkCards {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Use subgrid for perfect alignment when supported */
+    @supports (grid-template-rows: subgrid) {
+        .cards-container {
+            grid-template-rows: auto auto auto;
+        }
+        
+        .cards-container article {
+            display: grid;
+            grid-template-rows: subgrid;
+            grid-row: span 3;
+        }
+        
+        #whatWeDoCards article {
+            grid-template-rows: subgrid;
+            grid-row: span 4; /* Extra row for subtitle */
+        }
     }
 
     .carousel-dots {
@@ -633,76 +693,86 @@ footer small {
     font-weight: 600;
 }
 
-/* Dark mode */
-
-/*@media (prefers-color-scheme: dark) {
-            html {
-                background: #3a3530;
-            }
-            
-            :root {
-                --camas: #B5A8D4;
-                --golden: #F0D4A8;
-                --oak-green: #C5B874;
-                --bark: #B89B82;
-                --meadow: #E4C8A6;
-                --sunset: #F5BCB0;
-                --cream: #4a453f;
-                --lichen: #3a3530;
-                --text-primary: #F5F0E8;
-                --text-secondary: #D5D0C8;
-                --card-bg: #4a453f;
-            }
-            
-            
-            .hero-image::after {
-              background: linear-gradient(
+/* Dark mode with color-scheme for better OS integration */
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        --camas: #B5A8D4;
+        --golden: #F0D4A8;
+        --oak-green: #C5B874;
+        --bark: #B89B82;
+        --meadow: #E4C8A6;
+        --sunset: #F5BCB0;
+        --cream: #4a453f;
+        --lichen: #3a3530;
+        --text-primary: #F5F0E8;
+        --text-secondary: #D5D0C8;
+        --card-bg: #4a453f;
+    }
+    
+    html {
+        background: #3a3530;
+    }
+    
+    .hero-image::after {
+        background: linear-gradient(
+            to bottom right,
+            rgba(80, 97, 122, 0.294),
+            rgba(79, 56, 32, 0.35)
+        );
+    }
+    
+    @supports (backdrop-filter: blur(1px)) {
+        .hero-image::after {
+            background: linear-gradient(
                 to bottom right,
-                rgba(80, 97, 122, 0.294),
-                rgba(79, 56, 32, 0.35)
-              );
-            }
-            
-            aside {
-                background: linear-gradient(135deg, 
-                    rgba(181, 168, 100, 0.9), 
-                    rgba(155, 142, 199, 0.85));
-                box-shadow: 0 6px 20px rgba(155, 142, 199, 0.4);
-            }
-            
-            aside::before {
-                background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-            }
-            
-            aside h3 {
-                color: #F5F0E8; 
-                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            }
-            
-            aside p {
-                color: #F5F0E8;
-            }
-            
-            .service-details {
-                background: #252018;
-                color: var(--cream);
-            }
-            
-            .service-details strong {
-                color: var(--cream);
-            }
-            
-            input, textarea, select {
-                background: #3a3530;
-                border-color: rgba(229, 194, 155, 0.2);
-                color: var(--text-primary);
-            }
-            
-            mark {
-                background: rgba(229, 194, 155, 0.25);
-                color: var(--text-primary);
-            }
-        } */
+                rgba(80, 97, 122, 0.25),
+                rgba(79, 56, 32, 0.25)
+            );
+            backdrop-filter: blur(1px) brightness(0.9);
+        }
+    }
+    
+    aside {
+        background: linear-gradient(135deg, 
+            rgba(181, 168, 100, 0.9), 
+            rgba(155, 142, 199, 0.85));
+        box-shadow: 0 6px 20px rgba(155, 142, 199, 0.4);
+    }
+    
+    aside::before {
+        background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+    }
+    
+    aside h3 {
+        color: #F5F0E8; 
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    aside p {
+        color: #F5F0E8;
+    }
+    
+    .service-details {
+        background: #252018;
+        color: var(--cream);
+    }
+    
+    .service-details strong {
+        color: var(--cream);
+    }
+    
+    input, textarea, select {
+        background: #3a3530;
+        border-color: rgba(229, 194, 155, 0.2);
+        color: var(--text-primary);
+    }
+    
+    mark {
+        background: rgba(229, 194, 155, 0.25);
+        color: var(--text-primary);
+    }
+}
 
 /* Mobile responsive */
 @media (max-width: 600px) {
@@ -731,6 +801,35 @@ footer small {
     }
 }
 
+/* Container queries for responsive card content */
+@container (min-width: 400px) {
+    article p {
+        font-size: 1.05rem;
+    }
+}
+
+/* View Transitions API for smooth navigation */
+@supports (view-transition-name: hero) {
+    .hero-image {
+        view-transition-name: hero;
+    }
+    
+    header h1 {
+        view-transition-name: title;
+    }
+}
+
+/* Modern focus styles */
+:focus-visible {
+    outline: 2px solid var(--oak-green);
+    outline-offset: 2px;
+}
+
+/* Remove old focus styles for mouse users */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
 /* Print styles */
 @media print {
     body {
@@ -755,7 +854,7 @@ footer small {
         <h2>Natural Landcare</h2>
         <a href="tel:250-710-1010" class="btn btn-secondary header-phone">250&#8209;710&#8209;1010</a>
         <div class="hero-image">
-            <img src="/images/hero.jpg" alt="natural meadowscape">
+            <img src="/images/hero.jpg" alt="natural meadowscape" loading="lazy">
             <div class="hero-overlay">
                 <h2>Your lawn wants to be a garden.</h2>
                 <a href="#contact-form" class="btn btn-primary">Start a conversation</a>
