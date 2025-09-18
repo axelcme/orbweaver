@@ -105,7 +105,7 @@
         }
         
         a {
-            color: var(--golden);
+            color: #8B6A47; /* Darker golden/bark for better contrast */
             text-decoration: none;
             transition: opacity 0.2s ease;
         }
@@ -131,7 +131,7 @@
         }
         
         header h2 {
-            color: var(--oak-green);
+            color: #7A6F35; /* Darker oak green for better contrast */
             font-size: 1.1rem;
             font-weight: 600;
             text-transform: uppercase;
@@ -239,10 +239,18 @@
                 scrollbar-width: none;
                 -ms-overflow-style: none;
                 -webkit-overflow-scrolling: touch;
+                /* Make keyboard accessible */
+                tabindex: 0;
             }
             
             .cards-container::-webkit-scrollbar {
                 display: none;
+            }
+            
+            .cards-container:focus {
+                outline: 2px solid #7A6F35;
+                outline-offset: 2px;
+                border-radius: 0.5rem;
             }
             
             .cards-container article {
@@ -315,7 +323,7 @@
         
         /* Only style the subtitle in "What we do" section */
         #whatWeDoCards article h3 + p {
-            color: var(--oak-green);
+            color: #7A6F35; /* Darker green for WCAG AA compliance */
             font-style: italic;
             font-size: 0.95rem;
             margin-bottom: 1rem;
@@ -324,7 +332,7 @@
         
         /* Aside callout with better contrast */
         aside {
-            background: var(--oak-green);
+            background: #7A6F35; /* Darker oak green for WCAG compliance */
             border-radius: 2rem;
             padding: 2rem;
             margin: 2rem 0;
@@ -411,7 +419,7 @@
         }
         
         button {
-            background: var(--oak-green);
+            background: #7A6F35; /* Darker green for better contrast */
             color: white;
             border: none;
             border-radius: 2rem;
@@ -485,7 +493,7 @@
         }
         
         footer small {
-            color: var(--oak-green);
+            color: #7A6F35; /* Darker green for better contrast */
             font-weight: 600;
         }
         
@@ -606,7 +614,7 @@
             <h2>How we work</h2>
             
             <div class="cards-wrapper">
-                <div class="cards-container" id="howWeWorkCards">
+                <div class="cards-container" id="howWeWorkCards" tabindex="0" role="region" aria-label="How we work services carousel">
                     <article>
                         <h3>Build soil, not dependencies</h3>
                         <p>Healthy soil grows healthy plants. We focus on building living soil that gets better each year, not dependent on fertilizers.</p>
@@ -640,7 +648,7 @@
             <h2>What we do</h2>
 
             <div class="cards-wrapper">
-                <div class="cards-container" id="whatWeDoCards">
+                <div class="cards-container" id="whatWeDoCards" tabindex="0" role="region" aria-label="What we do services carousel">
                     <article>
                         <h3>Garden coaching</h3>
                         <p>For the curious</p>
@@ -753,6 +761,17 @@
                 if (!container || !dotsContainer) return;
                 
                 const cards = container.querySelectorAll('article');
+                
+                // Add keyboard navigation
+                container.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        container.scrollLeft += cards[0].offsetWidth + 16;
+                    } else if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        container.scrollLeft -= cards[0].offsetWidth + 16;
+                    }
+                });
                 
                 if (window.innerWidth <= 768 && cards.length > 0) {
                     // Create dot indicators
