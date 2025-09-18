@@ -711,14 +711,15 @@ footer small {
     }
     
     html {
-        background: #3a3530;
+        background: #2a2520; /* Slightly warmer dark background */
     }
     
+    /* Darker overlay but keep text light for contrast */
     .hero-image::after {
         background: linear-gradient(
             to bottom right,
-            rgba(80, 97, 122, 0.294),
-            rgba(79, 56, 32, 0.35)
+            rgba(42, 37, 32, 0.7),  /* Much darker overlay */
+            rgba(58, 53, 48, 0.5)
         );
     }
     
@@ -726,11 +727,26 @@ footer small {
         .hero-image::after {
             background: linear-gradient(
                 to bottom right,
-                rgba(80, 97, 122, 0.25),
-                rgba(79, 56, 32, 0.25)
+                rgba(42, 37, 32, 0.6),
+                rgba(58, 53, 48, 0.4)
             );
-            backdrop-filter: blur(1px) brightness(0.9);
+            backdrop-filter: blur(2px) brightness(0.7);
         }
+    }
+    
+    /* Keep hero text light/cream for contrast */
+    .hero-overlay h2,
+    .hero-overlay .btn-primary {
+        color: #FBF7F0 !important; /* Ensure cream text stays light */
+    }
+    
+    .hero-overlay .btn-primary {
+        background: var(--camas);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    
+    .hero-overlay .btn-primary:hover {
+        background: var(--oak-green);
     }
     
     aside {
@@ -754,23 +770,30 @@ footer small {
     }
     
     .service-details {
-        background: #252018;
-        color: var(--cream);
+        background: #1a1815; /* Darker for more contrast */
+        color: var(--text-primary);
     }
     
     .service-details strong {
-        color: var(--cream);
+        color: var(--golden); /* Use golden for headers */
     }
     
     input, textarea, select {
-        background: #3a3530;
-        border-color: rgba(229, 194, 155, 0.2);
+        background: #2a2520;
+        border-color: rgba(197, 184, 116, 0.3);
         color: var(--text-primary);
     }
     
     mark {
-        background: rgba(229, 194, 155, 0.25);
+        background: rgba(197, 184, 116, 0.2);
         color: var(--text-primary);
+    }
+    
+    .boundaries {
+        background: linear-gradient(135deg, 
+            rgba(197, 184, 116, 0.08), 
+            rgba(181, 168, 212, 0.05));
+        border-left-color: var(--oak-green);
     }
 }
 
