@@ -199,11 +199,19 @@
             margin-bottom: 0;
         }
         
+        /* Article cards container */
+        .cards-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        
         /* Article cards */
         article {
             background: var(--card-bg);
             padding: 1.5rem;
-            margin-bottom: 1.5rem;
             border-radius: 1.2rem;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
@@ -212,6 +220,87 @@
         article:hover {
             box-shadow: 0 6px 24px rgba(107, 91, 149, 0.08);
             transform: translateY(-2px);
+        }
+        
+        /* Mobile carousel styles */
+        @media (max-width: 768px) {
+            .cards-wrapper {
+                position: relative;
+                margin: 0 -1rem 2rem -1rem;
+                padding: 0 1rem;
+            }
+            
+            .cards-container {
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                display: flex;
+                gap: 1rem;
+                padding-bottom: 1.5rem;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .cards-container::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .cards-container article {
+                flex: 0 0 calc(100% - 4rem);
+                scroll-snap-align: start;
+                margin-left: 0;
+            }
+            
+            .cards-container article:first-child {
+                margin-left: 0.5rem;
+            }
+            
+            .cards-container article:last-child {
+                margin-right: 1rem;
+            }
+            
+            /* Simple dot indicators */
+            .carousel-dots {
+                display: flex;
+                justify-content: center;
+                gap: 0.5rem;
+                margin-top: -0.5rem;
+            }
+            
+            .carousel-dots span {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: rgba(107, 91, 149, 0.2);
+                transition: all 0.3s ease;
+            }
+            
+            .carousel-dots span.active {
+                background: var(--oak-green);
+                width: 20px;
+                border-radius: 3px;
+            }
+            
+            @media (prefers-color-scheme: dark) {
+                .carousel-dots span {
+                    background: rgba(229, 194, 155, 0.2);
+                }
+                
+                .carousel-dots span.active {
+                    background: var(--golden);
+                }
+            }
+        }
+        
+        /* Tablet and desktop grid */
+        @media (min-width: 769px) {
+            .cards-container {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .carousel-dots {
+                display: none;
+            }
         }
         
         article h3 {
@@ -494,25 +583,30 @@
         <section>
             <h2>How we work</h2>
             
-            <article>
-                <h3>Build soil, not dependencies</h3>
-                <p>Healthy soil grows healthy plants. We focus on building living soil that gets better each year, not dependent on fertilizers.</p>
-            </article>
-    
-            <article>
-                <h3>Plant for the long term</h3>
-                <p>Native and adapted plants that actually want to grow here. They'll need less water and care once established.</p>
-            </article>
-    
-            <article>
-                <h3>Welcome the good bugs</h3>
-                <p>A balanced garden has predators for every pest. We design habitats that attract beneficial insects and birds.</p>
-            </article>
-    
-            <article>
-                <h3>Capture rain where it falls</h3>
-                <p>Simple earthworks and plantings that slow and sink water, reducing irrigation needs and preventing erosion.</p>
-            </article>
+            <div class="cards-wrapper">
+                <div class="cards-container" id="howWeWorkCards">
+                    <article>
+                        <h3>Build soil, not dependencies</h3>
+                        <p>Healthy soil grows healthy plants. We focus on building living soil that gets better each year, not dependent on fertilizers.</p>
+                    </article>
+        
+                    <article>
+                        <h3>Plant for the long term</h3>
+                        <p>Native and adapted plants that actually want to grow here. They'll need less water and care once established.</p>
+                    </article>
+        
+                    <article>
+                        <h3>Welcome the good bugs</h3>
+                        <p>A balanced garden has predators for every pest. We design habitats that attract beneficial insects and birds.</p>
+                    </article>
+        
+                    <article>
+                        <h3>Capture rain where it falls</h3>
+                        <p>Simple earthworks and plantings that slow and sink water, reducing irrigation needs and preventing erosion.</p>
+                    </article>
+                </div>
+                <div class="carousel-dots" id="howWeWorkDots"></div>
+            </div>
     
             <aside>
                 <h3>Quiet work</h3>
@@ -523,26 +617,31 @@
         <section>
             <h2>What we do</h2>
 
-            <article>
-                <h3>Garden coaching</h3>
-                <p>For the curious</p>
-                <p>Think of us as your garden translator. We'll teach you to read what your plants are actually saying, build soil that's genuinely alive, and create abundance without the struggle.</p>
-                <p><mark>Perfect if you want to learn but don't know where to start.</mark></p>
-            </article>
+            <div class="cards-wrapper">
+                <div class="cards-container" id="whatWeDoCards">
+                    <article>
+                        <h3>Garden coaching</h3>
+                        <p>For the curious</p>
+                        <p>Think of us as your garden translator. We'll teach you to read what your plants are actually saying, build soil that's genuinely alive, and create abundance without the struggle.</p>
+                        <p><mark>Perfect if you want to learn but don't know where to start.</mark></p>
+                    </article>
 
-            <article>
-                <h3>Gentle maintenance</h3>
-                <p>For the busy</p>
-                <p>Regular care that makes your garden more independent over time, not less. We prune for health, not conformity. Build soil, not deplete it. Every visit moves you closer to a self-sustaining ecosystem.</p>
-                <p><mark>It's maintenance that has an exit strategy.</mark></p>
-            </article>
+                    <article>
+                        <h3>Gentle maintenance</h3>
+                        <p>For the busy</p>
+                        <p>Regular care that makes your garden more independent over time, not less. We prune for health, not conformity. Build soil, not deplete it. Every visit moves you closer to a self-sustaining ecosystem.</p>
+                        <p><mark>It's maintenance that has an exit strategy.</mark></p>
+                    </article>
 
-            <article>
-                <h3>Full garden design</h3>
-                <p>For the ready</p>
-                <p>Let's create something extraordinary. Native plants that actually want to be here. Food forests that look like art installations. Rain gardens that solve problems whilst creating beauty.</p>
-                <p><mark>This is landscape as possibility.</mark></p>
-            </article>
+                    <article>
+                        <h3>Full garden design</h3>
+                        <p>For the ready</p>
+                        <p>Let's create something extraordinary. Native plants that actually want to be here. Food forests that look like art installations. Rain gardens that solve problems whilst creating beauty.</p>
+                        <p><mark>This is landscape as possibility.</mark></p>
+                    </article>
+                </div>
+                <div class="carousel-dots" id="whatWeDoDots"></div>
+            </div>
         
             <div class="boundaries">
                 <strong>What we don't do:</strong> Mowing, blowing, conventional weeding, irrigation installation, hardscaping, or anything requiring heavy machinery. For those services, we know excellent people to recommend.
@@ -618,6 +717,52 @@
     </footer>
 
     <script>
+        // Simplified carousel functionality - swipe only with dot indicators
+        function initCarousels() {
+            const carousels = [
+                { containerId: 'howWeWorkCards', dotsId: 'howWeWorkDots' },
+                { containerId: 'whatWeDoCards', dotsId: 'whatWeDoDots' }
+            ];
+            
+            carousels.forEach(config => {
+                const container = document.getElementById(config.containerId);
+                const dotsContainer = document.getElementById(config.dotsId);
+                
+                if (!container || !dotsContainer) return;
+                
+                const cards = container.querySelectorAll('article');
+                
+                if (window.innerWidth <= 768 && cards.length > 0) {
+                    // Create dot indicators
+                    dotsContainer.innerHTML = '';
+                    cards.forEach((_, index) => {
+                        const dot = document.createElement('span');
+                        if (index === 0) dot.classList.add('active');
+                        dotsContainer.appendChild(dot);
+                    });
+                    
+                    // Update dots on scroll
+                    container.addEventListener('scroll', () => {
+                        const scrollPosition = container.scrollLeft;
+                        const cardWidth = cards[0].offsetWidth + 16; // width + gap
+                        const currentIndex = Math.round(scrollPosition / cardWidth);
+                        
+                        const dots = dotsContainer.querySelectorAll('span');
+                        dots.forEach((dot, index) => {
+                            dot.classList.toggle('active', index === currentIndex);
+                        });
+                    });
+                }
+            });
+        }
+        
+        // Initialize carousels on load and resize
+        window.addEventListener('load', initCarousels);
+        window.addEventListener('resize', () => {
+            // Re-initialize on resize to handle orientation changes
+            initCarousels();
+        });
+        
         // Form submission handler
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
