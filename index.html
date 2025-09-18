@@ -210,13 +210,6 @@ header h2 {
     right: 0;
 }
 
-.header-phone:hover {
-    background: var(--camas);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(107, 91, 149, 0.2);
-    text-decoration: none;
-}
-
 /* Show phone button on all devices */
 @media (max-width: 600px) {
     .header-phone {
@@ -282,22 +275,18 @@ header h2 {
 }
 
 .hero-overlay h2 {
-    color: var(--cream) !important;
+    color: var(--cream);
     /* force cream like cards */
     font-size: 2.5rem;
     font-weight: 700;
     margin: 0 0 1.5rem 0;
     font-family: 'Fredoka', sans-serif;
     line-height: 1.2;
-    text-transform: none !important;
+    text-transform: none;
     /* cancel uppercase */
-    letter-spacing: normal !important;
+    letter-spacing: normal;
     /* cancel extra spacing */
 }
-
-.hero-cta {}
-
-.hero-cta:hover {}
 
 /* Main content */
 main>p:first-of-type {
@@ -345,6 +334,8 @@ article {
     transition: all 0.3s ease;
     will-change: transform; /* Optimize hover animations */
     content-visibility: auto; /* Faster initial paint */
+    transform: translateZ(0);
+    -webkit-font-smoothing: antialiased;
 }
 
 /* Scroll-driven animations for cards */
@@ -406,6 +397,7 @@ article:hover {
     .cards-container article {
         flex: 0 0 calc(100% - 4rem);
         scroll-snap-align: start;
+        scroll-snap-stop: always;
         margin-left: 0;
     }
 
@@ -623,12 +615,6 @@ textarea {
     resize: vertical;
     min-height: 120px;
 }
-
-button {}
-
-button:hover:not(:disabled) {}
-
-button:disabled {}
 
 /* Form message */
 .form-message {
@@ -873,7 +859,7 @@ footer small {
     <header>
         <h1>Orbweaver</h1>
         <h2>Natural Landcare</h2>
-        <a href="sms:250-710-1010" class="btn btn-secondary header-phone">250&#8209;710&#8209;1010</a>
+        <a href="tel:250-710-1010" class="btn btn-secondary header-phone">250&#8209;710&#8209;1010</a>
         <div class="hero-image">
             <img src="/images/hero.jpg" alt="natural meadowscape" loading="lazy">
             <div class="hero-overlay">
