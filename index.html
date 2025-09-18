@@ -36,21 +36,19 @@
 /* Gary Oak ecosystem palette - Light mode (default) */
 :root {
     /* Camas purple-blue */
-    --camas: #6B5B95;
-    /* Golden hour amber */
-    --golden: #D4A574;
+    --camas: #7A78B0;
     /* Oak leaf green touched by sunset */
     --oak-green: #9A8C42;
     /* Warm bark brown */
-    --bark: #8B6A47;
+    --bark: #6B4C37;
     /* Meadow grass gold */
-    --meadow: #E8C07D;
+    --meadow: #F4C431;
     /* Soft sunset pink */
-    --sunset: #F4B6A3;
+    --sunset: #D98DAD;
     /* Warm yarrow */
-    --yarrow: #FBF7F0;
+    --yarrow: #faf8f7;
     /* Lichen pale */
-    --lichen: rgb(238, 232, 227);
+    --lichen: #F8F2EF;
 
     /* Text colors */
     --text-primary: #4A3A28;
@@ -338,6 +336,10 @@ article {
     -webkit-font-smoothing: antialiased;
 }
 
+ article h3 {
+   font-weight: 700;
+ }
+
 /* Scroll-driven animations for cards */
 @supports (animation-timeline: view()) {
     @media (min-width: 769px) {
@@ -437,7 +439,7 @@ article:hover {
         }
 
         .carousel-dots span.active {
-            background: var(--golden);
+            background: var(--meadow);
         }
     }
 }
@@ -641,7 +643,7 @@ textarea {
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
     padding: 3rem 2rem 2rem 2rem;
-    background: var(--bark);
+    background: var(--oak-green);
     color: var(--yarrow);
     border-radius: 0 0 1.5rem 1.5rem;
     font-size: 0.95rem;
@@ -682,7 +684,7 @@ footer small {
     :root {
         color-scheme: dark;
         --camas: #B5A8D4;
-        --golden: #F0D4A8;
+        --meadow: #F0D4A8;
         --oak-green: #C5B874;
         --bark: #B89B82;
         --meadow: #E4C8A6;
@@ -759,7 +761,7 @@ footer small {
     }
     
     .service-details strong {
-        color: var(--golden); /* Use golden for headers */
+        color: var(--meadow);
     }
     
     input, textarea, select {
