@@ -118,7 +118,8 @@
         /* Header styles */
         header {
             text-align: left;
-            padding: 0rem 0 0rem 0;
+            padding: 1rem 0 0 0;
+            position: relative;
         }
         
         header h1 {
@@ -140,29 +141,90 @@
             margin-bottom: 0.5rem;
         }
         
-        header p {
-            color: var(--camas);
-            font-size: 1.2rem;
-            font-weight: 500;
-            font-style: italic;
-            margin-top: 0;
+        /* Remove old header p styles that are no longer needed */
+        
+        /* Phone button in top right */
+        .header-phone {
+            position: absolute;
+            top: 1rem;
+            right: 0;
+            background: #7A6F35;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        /* Hero image */
+        .header-phone:hover {
+            background: var(--camas);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(107, 91, 149, 0.2);
+            text-decoration: none;
+        }
+        
+        /* Hide phone button on mobile */
+        @media (max-width: 600px) {
+            .header-phone {
+                display: none;
+            }
+        }
+        
+        /* Hero image with overlay text */
         .hero-image {
             width: 100%;
-            height: 300px;
+            height: 400px;
             background: linear-gradient(135deg, var(--golden), var(--meadow));
             border-radius: 1rem;
             margin: 1.5rem 0 2rem 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.2rem;
-            font-style: italic;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
             overflow: hidden;
+            position: relative;
+        }
+        
+        .hero-overlay {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .hero-overlay h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: white;
+            margin: 0 0 1.5rem 0;
+            font-family: 'Fredoka', sans-serif;
+            line-height: 1.2;
+        }
+        
+        .hero-cta {
+            background: rgba(255, 255, 255, 0.95);
+            color: #7A6F35;
+            padding: 0.8rem 2rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .hero-cta:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            color: var(--camas);
         }
         
         .hero-image img {
@@ -330,46 +392,77 @@
             font-weight: 500;
         }
         
-        /* Aside callout with better contrast */
+        /* Aside callout with sunset gradient and strong contrast */
         aside {
-            background: #7A6F35; /* Darker oak green for WCAG compliance */
+            background: linear-gradient(135deg, var(--meadow), var(--sunset));
             border-radius: 2rem;
-            padding: 2rem;
+            padding: 2.5rem;
             margin: 2rem 0;
             text-align: center;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 20px rgba(244, 182, 163, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Add subtle texture/depth */
+        aside::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
         }
         
         aside h3 {
-            color: white;
-            margin-bottom: 1rem;
+            color: #5A4A3A; /* Dark brown for strong contrast on light gradient */
+            margin-bottom: 0.5rem;
             font-weight: 700;
+            font-size: 1.4rem;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+            position: relative;
         }
         
         aside p {
             font-weight: 600;
             font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+            color: #4A3A28; /* Very dark brown for excellent contrast */
+            position: relative;
+        }
+        
+        aside p:last-child {
             margin-bottom: 0;
-            color: white;
         }
         
         /* Mark highlight */
         mark {
             background: rgba(212, 165, 116, 0.2);
             color: inherit;
-            padding: 0.3rem 0.6rem;
-            border-radius: 0.5rem;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.3rem;
             font-weight: 600;
+            display: inline-block;
+            line-height: 1.4;
         }
         
-        /* Boundaries box */
+        /* Boundaries box - more prominent */
         .boundaries {
-            padding: 1rem;
-            background: rgba(107, 91, 149, 0.05);
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(139, 106, 71, 0.08), rgba(107, 91, 149, 0.05));
+            border-left: 3px solid var(--bark);
             border-radius: 0.5rem;
             margin: 2rem 0;
             font-size: 0.95rem;
+        }
+        
+        .boundaries strong {
+            display: block;
+            color: var(--bark);
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
         }
         
         /* Form styles */
@@ -481,6 +574,11 @@
             color: var(--cream);
         }
         
+        /* Contact form anchor for smooth scrolling */
+        #contact-form {
+            scroll-margin-top: 2rem;
+        }
+        
         /* Footer */
         footer {
             text-align: center;
@@ -518,17 +616,23 @@
             }
             
             aside {
-                background: var(--golden);
-                color: var(--cream);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                background: linear-gradient(135deg, 
+                    rgba(181, 168, 100, 0.9), 
+                    rgba(155, 142, 199, 0.85));
+                box-shadow: 0 6px 20px rgba(155, 142, 199, 0.4);
+            }
+            
+            aside::before {
+                background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
             }
             
             aside h3 {
-                color: var(--cream);
+                color: #F5F0E8; /* Light cream for dark mode */
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
             }
             
             aside p {
-                color: var(--cream);
+                color: #F5F0E8;
             }
             
             .service-details {
@@ -555,10 +659,10 @@
         /* Mobile responsive */
         @media (max-width: 600px) {
             h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
             
-            header p {
+            header h2 {
                 font-size: 1.1rem;
             }
             
@@ -567,7 +671,11 @@
             }
             
             .hero-image {
-                height: 200px;
+                height: 300px;
+            }
+            
+            .hero-overlay h2 {
+                font-size: 2rem;
             }
             
             .service-details {
@@ -595,10 +703,13 @@
     <header>
         <h1>Orbweaver</h1>
         <h2>Natural Landcare</h2>
+        <a href="tel:250-710-1010" class="header-phone">Call 250-710-1010</a>
         <div class="hero-image">
-            <img src="images/hero.jpg" alt="Meadowscape showing natural garden">
+            <div class="hero-overlay">
+                <h2>Your lawn wants to be a garden</h2>
+                <a href="#contact-form" class="hero-cta">Start a conversation</a>
+            </div>
         </div>
-        <p>Your lawn wants to be a garden.</p>
     </header>
     
     <main>
@@ -640,6 +751,7 @@
     
             <aside>
                 <h3>Quiet work</h3>
+                <p>We work with the land, not against it.</p>
                 <p>We use scythes, not mowers. Hand tools, not blowers. Your neighbours will thank you.</p>
             </aside>
         </section>
@@ -678,7 +790,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="contact-form">
             <h2>Start something</h2>
 
             <form id="contactForm" action="https://formspree.io/f/xyzdqbaw" method="POST">
@@ -764,12 +876,26 @@
                 
                 // Add keyboard navigation
                 container.addEventListener('keydown', (e) => {
+                    if (!cards.length) return;
+                    
+                    const cardWidth = cards[0].offsetWidth + 16; // width + gap
+                    const currentScroll = container.scrollLeft;
+                    const currentIndex = Math.round(currentScroll / cardWidth);
+                    
                     if (e.key === 'ArrowRight') {
                         e.preventDefault();
-                        container.scrollLeft += cards[0].offsetWidth + 16;
+                        const nextIndex = Math.min(currentIndex + 1, cards.length - 1);
+                        container.scrollTo({
+                            left: nextIndex * cardWidth,
+                            behavior: 'smooth'
+                        });
                     } else if (e.key === 'ArrowLeft') {
                         e.preventDefault();
-                        container.scrollLeft -= cards[0].offsetWidth + 16;
+                        const prevIndex = Math.max(currentIndex - 1, 0);
+                        container.scrollTo({
+                            left: prevIndex * cardWidth,
+                            behavior: 'smooth'
+                        });
                     }
                 });
                 
