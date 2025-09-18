@@ -298,6 +298,11 @@
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
             
+            /* Force 2x2 grid for How we work section */
+            #howWeWorkCards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
             .carousel-dots {
                 display: none;
             }
@@ -308,7 +313,8 @@
             margin-bottom: 0.8rem;
         }
         
-        article h3 + p {
+        /* Only style the subtitle in "What we do" section */
+        #whatWeDoCards article h3 + p {
             color: var(--oak-green);
             font-style: italic;
             font-size: 0.95rem;
@@ -316,14 +322,15 @@
             font-weight: 500;
         }
         
-        /* Aside callout */
+        /* Aside callout with better contrast */
         aside {
-            background: linear-gradient(135deg, var(--meadow), var(--sunset));
+            background: var(--oak-green);
             border-radius: 2rem;
             padding: 2rem;
             margin: 2rem 0;
             text-align: center;
             color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
         aside h3 {
@@ -336,6 +343,7 @@
             font-weight: 600;
             font-size: 1.05rem;
             margin-bottom: 0;
+            color: white;
         }
         
         /* Mark highlight */
@@ -491,18 +499,17 @@
             }
             
             aside {
-                background: linear-gradient(135deg, 
-                    rgba(229, 194, 155, 0.25), 
-                    rgba(212, 184, 150, 0.2));
-                color: #2a2625;
+                background: var(--golden);
+                color: var(--cream);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             }
             
             aside h3 {
-                color: #3a3530;
+                color: var(--cream);
             }
             
             aside p {
-                color: #2a2625;
+                color: var(--cream);
             }
             
             .service-details {
