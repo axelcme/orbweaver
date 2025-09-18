@@ -214,7 +214,9 @@ header h2 {
 /* Hide phone button on mobile */
 @media (max-width: 600px) {
     .header-phone {
-        display: none;
+        display: inline-block; /* or flex if you prefer */
+        top: 2rem;  /* adjust vertical spacing for mobile */
+        right: 0rem; /* adjust horizontal spacing */
     }
 }
 
@@ -751,7 +753,7 @@ footer small {
     <header>
         <h1>Orbweaver</h1>
         <h2>Natural Landcare</h2>
-        <a href="tel:250-710-1010" class="btn btn-secondary header-phone">Call 250-710-1010</a>
+        <a href="tel:250-710-1010" class="btn btn-secondary header-phone">250-710-1010</a>
         <div class="hero-image">
             <img src="/images/hero.jpg" alt="natural meadowscape">
             <div class="hero-overlay">
