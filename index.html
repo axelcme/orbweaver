@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Gardens that change you. A Cowichan Valley mindful alternative to lawn warfare. Natural landcare services including garden coaching, gentle maintenance, and permaculture design.">
-    <meta name="keywords" content="natural landcare, permaculture, garden coaching, Cowichan Valley, organic gardening, native plants, sustainable landscaping">
+    <meta name="description" content="Gardens that change you. Cowichan Bay's mindful alternative to lawn warfare. Natural landcare services including garden coaching, gentle maintenance, and permaculture design.">
+    <meta name="keywords" content="natural landcare, permaculture, garden coaching, Cowichan Bay, organic gardening, native plants, sustainable landscaping">
     <meta property="og:title" content="Orbweaver Natural Landcare">
-    <meta property="og:description" content="Your lawn wants to be a garden. Natural landcare services in the Cowichan Valley.">
+    <meta property="og:description" content="Your lawn wants to be a garden. Natural landcare services in Cowichan Valley.">
     <meta property="og:type" content="website">
-    <title>Orbweaver Natural Landcare | Cowichan Valley </title>
+    <title>Orbweaver Natural Landcare | Natural Garden Care in Cowichan Bay</title>
 
     <!-- Favicon placeholder - add your own favicon.ico to root directory -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -19,484 +19,471 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-
-/* Reset and base styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Gary Oak ecosystem palette - Light mode (default) */
-:root {
-    /* Camas purple-blue */
-    --camas: #6B5B95;
-    /* Golden hour amber */
-    --golden: #D4A574;
-    /* Oak leaf green touched by sunset */
-    --oak-green: #9A8C42;
-    /* Warm bark brown */
-    --bark: #8B6A47;
-    /* Meadow grass gold */
-    --meadow: #E8C07D;
-    /* Soft sunset pink */
-    --sunset: #F4B6A3;
-    /* Warm cream */
-    --cream: #FBF7F0;
-    /* Lichen pale */
-    --lichen: rgb(238, 232, 227);
-
-    /* Text colors */
-    --text-primary: #4A3A28;
-    --text-secondary: #6B5A48;
-
-    /* Card background */
-    --card-bg: var(--cream);
-
-    /* Border radius */
-    --radius: 1.5rem;
-    --radius-small: 0.75rem;
-}
-
-/* Base styles */
-html {
-    background: var(--lichen);
-    font-family: 'Quicksand', system-ui, sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--text-primary);
-    scroll-behavior: smooth;
-}
-
-body {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 1rem;
-    font-weight: 500;
-}
-
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-weight: 600;
-    line-height: 1.3;
-    margin-bottom: 1rem;
-}
-
-h1 {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 3rem;
-    font-weight: 600;
-    letter-spacing: -1px;
-    color: var(--camas);
-}
-
-h2 {
-    font-size: 1.6rem;
-    color: var(--bark);
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-}
-
-h3 {
-    font-size: 1.15rem;
-    color: var(--bark);
-}
-
-p {
-    margin-bottom: 1rem;
-}
-
-a {
-    color: var(--golden);
-    text-decoration: none;
-    transition: opacity 0.2s ease;
-}
-
-a:hover {
-    text-decoration: underline;
-    opacity: 0.8;
-}
-
-/* Header styles */
-header {
-    text-align: left;
-
-}
-
-header h1 {
-    margin-bottom: 0rem;
-    transition: transform 0.3s ease;
-}
-
-header h1:hover {
-    transform: scale(1.02);
-}
-
-header h2 {
-    color: var(--oak-green);
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-}
-
-header p {
-    color: var(--camas);
-    font-size: 1.2rem;
-    font-weight: 500;
-    font-style: italic;
-    margin-top: 0;
-}
-
-/* Hero image */
-.hero-image {
-    width: 100%;
-    height: 300px;
-    background: linear-gradient(135deg, var(--golden), var(--meadow));
-    border-radius: 1rem;
-    margin: 1.5rem 0 2rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.2rem;
-    font-style: italic;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.hero-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Main content */
-main>p:first-of-type {
-    font-size: 1.25rem;
-    line-height: 1.7;
-    font-weight: 500;
-}
-
-/* Blockquote */
-blockquote {
-    background: linear-gradient(135deg,
-            rgba(212, 165, 116, 0.08),
-            rgba(107, 91, 149, 0.04));
-    border-left: 3px solid var(--oak-green);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    margin: 2rem 0;
-}
-
-blockquote p {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin-bottom: 0.8rem;
-}
-
-blockquote p:last-child {
-    margin-bottom: 0;
-}
-
-/* Article cards */
-article {
-    background: var(--card-bg);
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    border-radius: 1.2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-}
-
-article:hover {
-    box-shadow: 0 6px 24px rgba(107, 91, 149, 0.08);
-    transform: translateY(-2px);
-}
-
-article h3 {
-    color: var(--camas);
-    margin-bottom: 0.8rem;
-}
-
-article h3+p {
-    color: var(--oak-green);
-    font-style: italic;
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-    font-weight: 500;
-}
-
-/* Aside callout */
-aside {
-    background: linear-gradient(135deg, var(--meadow), var(--sunset));
-    border-radius: 2rem;
-    padding: 2rem;
-    margin: 2rem 0;
-    text-align: center;
-    color: white;
-}
-
-aside h3 {
-    color: white;
-    margin-bottom: 1rem;
-    font-weight: 700;
-}
-
-aside p {
-    font-weight: 600;
-    font-size: 1.05rem;
-    margin-bottom: 0;
-}
-
-/* Mark highlight */
-mark {
-    background: rgba(212, 165, 116, 0.2);
-    color: inherit;
-    padding: 0.3rem 0.6rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-}
-
-/* Boundaries box */
-.boundaries {
-    padding: 1rem;
-    background: rgba(107, 91, 149, 0.05);
-    border-radius: 0.5rem;
-    margin: 2rem 0;
-    font-size: 0.95rem;
-}
-
-/* Form styles */
-form {
-    background: var(--card-bg);
-    padding: 2rem;
-    border-radius: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-form p {
-    margin-bottom: 1.5rem;
-}
-
-label {
-    display: block;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-input,
-textarea,
-select {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    margin-top: 0.5rem;
-    border: 1px solid rgba(212, 165, 116, 0.3);
-    border-radius: 0.75rem;
-    background: var(--lichen);
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-    outline: none;
-    border-color: var(--oak-green);
-    box-shadow: 0 0 0 4px rgba(154, 140, 66, 0.1);
-}
-
-textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
-button {
-    background: var(--oak-green);
-    color: white;
-    border: none;
-    border-radius: 2rem;
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-button:hover:not(:disabled) {
-    background: var(--camas);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(107, 91, 149, 0.2);
-}
-
-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-/* Form message */
-.form-message {
-    margin-top: 1rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    text-align: center;
-    font-weight: 600;
-}
-
-.form-message.success {
-    background: rgba(154, 140, 66, 0.1);
-    color: var(--oak-green);
-}
-
-.form-message.error {
-    background: rgba(244, 182, 163, 0.2);
-    color: var(--bark);
-}
-
-/* Service details grid */
-.service-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 0.75rem;
-    font-size: 0.95rem;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    margin-top: 2rem;
-    padding: 2rem 0;
-}
-
-footer strong {
-    color: var(--camas);
-}
-
-footer small {
-    color: var(--oak-green);
-    font-weight: 600;
-}
-
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-    html {
-        background: #3a3530;
-    }
-
-    :root {
-        --camas: #B5A8D4;
-        --golden: #F0D4A8;
-        --oak-green: #C5B874;
-        --bark: #B89B82;
-        --meadow: #E4C8A6;
-        --sunset: #F5BCB0;
-        --cream: #4a453f;
-        --lichen: #3a3530;
-        --text-primary: #F5F0E8;
-        --text-secondary: #D5D0C8;
-        --card-bg: #4a453f;
-    }
-
-    aside {
-        background: linear-gradient(135deg,
-                rgba(229, 194, 155, 0.25),
-                rgba(212, 184, 150, 0.2));
-        color: #2a2625;
-    }
-
-    aside h3 {
-        color: #3a3530;
-    }
-
-    aside p {
-        color: #2a2625;
-    }
-
-    .service-details {
-        background: rgba(74, 69, 63, 0.8);
-        color: var(--text-primary);
-    }
-
-    input,
-    textarea,
-    select {
-        background: #3a3530;
-        border-color: rgba(229, 194, 155, 0.2);
-        color: var(--text-primary);
-    }
-
-    mark {
-        background: rgba(229, 194, 155, 0.25);
-        color: var(--text-primary);
-    }
-}
-
-/* Mobile responsive */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 2.5rem;
-    }
-
-    header p {
-        font-size: 1.1rem;
-    }
-
-    main>p:first-of-type {
-        font-size: 1.15rem;
-    }
-
-    .hero-image {
-        height: 200px;
-    }
-
-    .service-details {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Print styles */
-@media print {
-    body {
-        font-size: 11pt;
-    }
-
-    article {
-        page-break-inside: avoid;
-    }
-
-    form,
-    aside {
-        display: none;
-    }
-}
-
-</style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Gary Oak ecosystem palette - Light mode (default) */
+        :root {
+            /* Camas purple-blue */
+            --camas: #6B5B95;
+            /* Golden hour amber */
+            --golden: #D4A574;
+            /* Oak leaf green touched by sunset */
+            --oak-green: #9A8C42;
+            /* Warm bark brown */
+            --bark: #8B6A47;
+            /* Meadow grass gold */
+            --meadow: #E8C07D;
+            /* Soft sunset pink */
+            --sunset: #F4B6A3;
+            /* Warm cream */
+            --cream: #FBF7F0;
+            /* Lichen pale */
+            --lichen: rgb(238, 232, 227);
+            
+            /* Text colors */
+            --text-primary: #4A3A28;
+            --text-secondary: #6B5A48;
+            
+            /* Card background */
+            --card-bg: var(--cream);
+            
+            /* Border radius */
+            --radius: 1.5rem;
+            --radius-small: 0.75rem;
+        }
+        
+        /* Base styles */
+        html {
+            background: var(--lichen);
+            font-family: 'Quicksand', system-ui, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem;
+            font-weight: 500;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 3rem;
+            font-weight: 600;
+            letter-spacing: -1px;
+            color: var(--camas);
+        }
+        
+        h2 {
+            font-size: 1.6rem;
+            color: var(--bark);
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h3 {
+            font-size: 1.15rem;
+            color: var(--bark);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: var(--golden);
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+            opacity: 0.8;
+        }
+        
+        /* Header styles */
+        header {
+            text-align: left;
+            padding: 3rem 0 2rem 0;
+        }
+        
+        header h1 {
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        header h1:hover {
+            transform: scale(1.02);
+        }
+        
+        header h2 {
+            color: var(--oak-green);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            color: var(--camas);
+            font-size: 1.2rem;
+            font-weight: 500;
+            font-style: italic;
+            margin-top: 0;
+        }
+        
+        /* Hero image */
+        .hero-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--golden), var(--meadow));
+            border-radius: 1rem;
+            margin: 1.5rem 0 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-style: italic;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Main content */
+        main > p:first-of-type {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+        
+        /* Blockquote */
+        blockquote {
+            background: linear-gradient(135deg, 
+                rgba(212, 165, 116, 0.08), 
+                rgba(107, 91, 149, 0.04));
+            border-left: 3px solid var(--oak-green);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        blockquote p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 0.8rem;
+        }
+        
+        blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Article cards */
+        article {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        article:hover {
+            box-shadow: 0 6px 24px rgba(107, 91, 149, 0.08);
+            transform: translateY(-2px);
+        }
+        
+        article h3 {
+            color: var(--camas);
+            margin-bottom: 0.8rem;
+        }
+        
+        article h3 + p {
+            color: var(--oak-green);
+            font-style: italic;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        /* Aside callout */
+        aside {
+            background: linear-gradient(135deg, var(--meadow), var(--sunset));
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            color: white;
+        }
+        
+        aside h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        aside p {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0;
+        }
+        
+        /* Mark highlight */
+        mark {
+            background: rgba(212, 165, 116, 0.2);
+            color: inherit;
+            padding: 0.3rem 0.6rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+        }
+        
+        /* Boundaries box */
+        .boundaries {
+            padding: 1rem;
+            background: rgba(107, 91, 149, 0.05);
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+        }
+        
+        /* Form styles */
+        form {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        form p {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-top: 0.5rem;
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 0.75rem;
+            background: var(--lichen);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--oak-green);
+            box-shadow: 0 0 0 4px rgba(154, 140, 66, 0.1);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        button {
+            background: var(--oak-green);
+            color: white;
+            border: none;
+            border-radius: 2rem;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover:not(:disabled) {
+            background: var(--camas);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(107, 91, 149, 0.2);
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        /* Form message */
+        .form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .form-message.success {
+            background: rgba(154, 140, 66, 0.1);
+            color: var(--oak-green);
+        }
+        
+        .form-message.error {
+            background: rgba(244, 182, 163, 0.2);
+            color: var(--bark);
+        }
+        
+        /* Service details grid */
+        .service-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 0.75rem;
+            font-size: 0.95rem;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+        }
+        
+        footer strong {
+            color: var(--camas);
+        }
+        
+        footer small {
+            color: var(--oak-green);
+            font-weight: 600;
+        }
+        
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+            html {
+                background: #3a3530;
+            }
+            
+            :root {
+                --camas: #B5A8D4;
+                --golden: #F0D4A8;
+                --oak-green: #C5B874;
+                --bark: #B89B82;
+                --meadow: #E4C8A6;
+                --sunset: #F5BCB0;
+                --cream: #4a453f;
+                --lichen: #3a3530;
+                --text-primary: #F5F0E8;
+                --text-secondary: #D5D0C8;
+                --card-bg: #4a453f;
+            }
+            
+            aside {
+                background: linear-gradient(135deg, 
+                    rgba(229, 194, 155, 0.25), 
+                    rgba(212, 184, 150, 0.2));
+                color: #2a2625;
+            }
+            
+            aside h3 {
+                color: #3a3530;
+            }
+            
+            aside p {
+                color: #2a2625;
+            }
+            
+            .service-details {
+                background: rgba(74, 69, 63, 0.8);
+                color: var(--text-primary);
+            }
+            
+            input, textarea, select {
+                background: #3a3530;
+                border-color: rgba(229, 194, 155, 0.2);
+                color: var(--text-primary);
+            }
+            
+            mark {
+                background: rgba(229, 194, 155, 0.25);
+                color: var(--text-primary);
+            }
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            header p {
+                font-size: 1.1rem;
+            }
+            
+            main > p:first-of-type {
+                font-size: 1.15rem;
+            }
+            
+            .hero-image {
+                height: 200px;
+            }
+            
+            .service-details {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                font-size: 11pt;
+            }
+            
+            article {
+                page-break-inside: avoid;
+            }
+            
+            form, aside {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Orbweaver</h1>
         <h2>Natural Landcare</h2>
         <div class="hero-image">
-            <img src="images/hero.jpg" alt="Garry Oak meadow at golden hour">
+            <!-- Replace with your actual hero image -->
+            <span>Garry Oak meadow at golden hour</span>
         </div>
         <p>Your lawn wants to be a garden.</p>
     </header>
-
+    
     <main>
         <p>There's a different way to think about your outdoor space. One where you work with nature instead of declaring war on it every Sunday.</p>
 
@@ -508,27 +495,27 @@ footer small {
 
         <section>
             <h2>How we work</h2>
-
+            
             <article>
                 <h3>Build soil, not dependencies</h3>
                 <p>Healthy soil grows healthy plants. We focus on building living soil that gets better each year, not dependent on fertilizers.</p>
             </article>
-
+    
             <article>
                 <h3>Plant for the long term</h3>
                 <p>Native and adapted plants that actually want to grow here. They'll need less water and care once established.</p>
             </article>
-
+    
             <article>
                 <h3>Welcome the good bugs</h3>
                 <p>A balanced garden has predators for every pest. We design habitats that attract beneficial insects and birds.</p>
             </article>
-
+    
             <article>
                 <h3>Capture rain where it falls</h3>
                 <p>Simple earthworks and plantings that slow and sink water, reducing irrigation needs and preventing erosion.</p>
             </article>
-
+    
             <aside>
                 <h3>Quiet work</h3>
                 <p>We use scythes, not mowers. Hand tools, not blowers. Your neighbours will thank you.</p>
@@ -558,7 +545,7 @@ footer small {
                 <p>Let's create something extraordinary. Native plants that actually want to be here. Food forests that look like art installations. Rain gardens that solve problems whilst creating beauty.</p>
                 <p><mark>This is landscape as possibility.</mark></p>
             </article>
-
+        
             <div class="boundaries">
                 <strong>What we don't do:</strong> Mowing, blowing, conventional weeding, irrigation installation, hardscaping, or anything requiring heavy machinery. For those services, we know excellent people to recommend.
             </div>
@@ -567,7 +554,7 @@ footer small {
         <section>
             <h2>Start something</h2>
 
-            <form id="contactForm">
+            <form id="contactForm" action="https://formspree.io/f/xyzdqbaw" method="POST">
                 <p>Tell us about your space and we'll start a conversation. No pressure, no sales pitch. Just two people talking about plants.</p>
 
                 <label>
@@ -584,6 +571,9 @@ footer small {
                     Phone (optional)
                     <input type="tel" name="phone" placeholder="250-xxx-xxxx">
                 </label>
+                
+                <!-- Hidden field for Formspree -->
+                <input type="hidden" name="_subject" value="New inquiry from Orbweaver website">
 
                 <label>
                     What's happening with your outdoor space?
@@ -612,7 +602,7 @@ footer small {
 
             <div class="service-details">
                 <div><strong>Service area:</strong> Cowichan Valley</div>
-                <div><strong>Consultation:</strong> $200</div>
+                <div><strong>Consultation:</strong> $200 (credited to projects)</div>
                 <div><strong>Response time:</strong> Within one week</div>
                 <div><strong>Availability:</strong> Year-round</div>
             </div>
@@ -622,7 +612,7 @@ footer small {
     <footer>
         <p>
             <strong>Orbweaver Natural Landcare</strong><br>
-            Cowichan Valley, BC<br>
+            Cowichan Bay, BC<br>
             <a href="tel:250-710-1010">250-710-1010</a><br>
             <a href="mailto:hello@orbweaver.ca">hello@orbweaver.ca</a><br>
         </p>
@@ -633,22 +623,22 @@ footer small {
         // Form submission handler
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-
+            
             const form = e.target;
             const formData = new FormData(form);
             const btn = form.querySelector('button[type="submit"]');
             const messageDiv = document.getElementById('formMessage');
-
+            
             // Check honeypot
             if (formData.get('website')) {
                 return; // Bot detected, silently fail
             }
-
+            
             // Disable button and show loading state
             btn.textContent = 'Sending...';
             btn.disabled = true;
             messageDiv.style.display = 'none';
-
+            
             try {
                 // Send to Formspree
                 const response = await fetch('https://formspree.io/f/xyzdqbaw', {
@@ -656,20 +646,20 @@ footer small {
                     headers: {
                         'Accept': 'application/json'
                     },
-                    body: formData // Send FormData directly
+                    body: formData  // Send FormData directly
                 });
-
+                
                 const result = await response.json();
-
+                
                 if (response.ok) {
                     // Show success message
                     messageDiv.textContent = 'Message received! We\'ll be in touch within a week.';
                     messageDiv.className = 'form-message success';
                     messageDiv.style.display = 'block';
-
+                    
                     // Reset form
                     form.reset();
-
+                    
                     // Reset button after delay
                     setTimeout(() => {
                         btn.textContent = 'Let\'s talk';
@@ -687,21 +677,19 @@ footer small {
                 messageDiv.textContent = error.message || 'Something went wrong. Please try again or email us directly.';
                 messageDiv.className = 'form-message error';
                 messageDiv.style.display = 'block';
-
+                
                 btn.textContent = 'Let\'s talk';
                 btn.disabled = false;
             }
         });
 
-        // Add smooth scroll behaviour for any internal links
+        // Add smooth scroll behavior for any internal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth' });
                 }
             });
         });
