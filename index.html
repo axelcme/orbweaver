@@ -43,24 +43,24 @@
 
 			/* Gary Oak ecosystem palette - Light mode (default) */
 			:root {
-				/* Camas purple-blue */
+				/* Core palette - preserved */
 				--camas: #7a78b0;
-				/* Oak leaf green */
 				--oak-green: #9a8c42;
-				/* Warm bark brown */
 				--bark: #6b4c37;
-				/* Meadow grass gold */
 				--meadow: #f4c431;
-				/* Soft sunset pink */
 				--sunset: #d98dad;
-				/* Warm yarrow */
 				--yarrow: #faf8f7;
-				/* Lichen pale */
 				--lichen: #f8f2ef;
 
+				/* Enhanced contrast variants for text */
+				--camas-text: #6563a0; /* Darker camas for better contrast */
+				--oak-green-text: #6b6030; /* Darker oak for WCAG AA */
+				--bark-text: #5a3d2b; /* Darker bark for text */
+				
 				/* Text colors */
-				--text-primary: #4a3a28;
-				--text-secondary: #6b5a48;
+				--text-primary: #3a2a18; /* Darker for better contrast */
+				--text-secondary: #5a4a38; /* Darker secondary text */
+				--text-link: #6b5030; /* Darker link color for AA compliance */
 
 				/* Card background */
 				--card-bg: var(--yarrow);
@@ -151,7 +151,7 @@
 				font-size: 3rem;
 				font-weight: 600;
 				letter-spacing: -1px;
-				color: var(--camas);
+				color: var(--camas-text);
 			}
 
 			h2 {
@@ -171,13 +171,15 @@
 			}
 
 			a {
-				color: #8b6a47;
-				/* Darker golden/bark for better contrast */
+				color: var(--text-link);
 				text-decoration: none;
-				transition: opacity 0.2s ease;
+				transition: all 0.2s ease;
+				font-weight: 600;
 			}
 
 			a:hover {
+				color: var(--bark-text);
+				text-decoration: underline;
 			}
 
 			/* Header styles */
@@ -198,8 +200,7 @@
 			}
 
 			header h2 {
-				color: #7a6f35;
-				/* Darker oak green for better contrast */
+				color: var(--oak-green-text);
 				font-size: 1.25rem;
 				font-weight: 600;
 				text-transform: uppercase;
@@ -496,18 +497,17 @@
 			}
 
 			article h3 {
-				color: var(--camas);
+				color: var(--camas-text);
 				margin-bottom: 0.8rem;
 			}
 
 			/* Only style the subtitle in "What we do" section */
 			#whatWeDoCards article h3 + p {
-				color: #7a6f35;
-				/* Darker green for WCAG AA compliance */
+				color: var(--oak-green-text);
 				font-style: italic;
 				font-size: 0.95rem;
 				margin-bottom: 1rem;
-				font-weight: 500;
+				font-weight: 600; /* Increased weight for better contrast with italic */
 			}
 
 			/* Aside callout with sunset gradient and strong contrast */
@@ -543,8 +543,7 @@
 			}
 
 			aside h3 {
-				color: #5a4a3a;
-				/* Dark brown for strong contrast on light gradient */
+				color: #3a2a1a; /* Even darker for better gradient contrast */
 				margin-bottom: 0.5rem;
 				font-weight: 700;
 				font-size: 1.4rem;
@@ -556,8 +555,7 @@
 				font-weight: 600;
 				font-size: 1.05rem;
 				margin-bottom: 0.5rem;
-				color: #4a3a28;
-				/* Very dark brown for excellent contrast */
+				color: #2a1a0a; /* Maximum contrast for accessibility */
 				position: relative;
 			}
 
@@ -699,12 +697,11 @@
 			}
 
 			footer strong {
-				color: var(--camas);
+				color: var(--camas-text);
 			}
 
 			footer small {
-				color: #7a6f35;
-				/* Darker green for better contrast */
+				color: var(--oak-green-text);
 				font-weight: 600;
 			}
 
@@ -716,12 +713,18 @@
 					--meadow: #f0d4a8;
 					--oak-green: #c5b874;
 					--bark: #b89b82;
-					--meadow: #e4c8a6;
 					--sunset: #f5bcb0;
 					--yarrow: #4a453f;
 					--lichen: #3a3530;
+					
+					/* Enhanced contrast variants for dark mode */
+					--camas-text: #c5b8e4; /* Lighter for dark backgrounds */
+					--oak-green-text: #d5c884; /* Lighter oak for dark mode */
+					--bark-text: #c8ab92; /* Lighter bark for dark mode */
+					
 					--text-primary: #f5f0e8;
 					--text-secondary: #d5d0c8;
+					--text-link: #d5c884; /* Light enough for dark backgrounds */
 					--card-bg: #4a453f;
 				}
 
@@ -1386,4 +1389,343 @@
 			});
 		</script>
 	</body>
+	
+	<!-- Living Presence Animation for Orbweaver.ca -->
+	<!-- Add this code just before the closing </body> tag of your site -->
+	
+	<canvas id="orb-presence-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></canvas>
+	
+	<style>
+		/* Butterfly elements */
+		.orb-butterfly {
+			position: fixed;
+			width: 30px;
+			height: 20px;
+			pointer-events: none;
+			z-index: 10000;
+			opacity: 0;
+			transition: opacity 2s ease;
+		}
+	
+		.orb-butterfly-wing {
+			position: absolute;
+			width: 15px;
+			height: 20px;
+			background: radial-gradient(ellipse at center, 
+				rgba(255, 179, 71, 0.3) 0%, 
+				rgba(255, 206, 84, 0.2) 40%, 
+				rgba(255, 255, 255, 0.1) 100%);
+			border-radius: 50% 10% 50% 10%;
+		}
+	
+		.orb-butterfly-wing.left {
+			left: 0;
+			transform-origin: right center;
+			animation: orb-flutter-left 0.2s infinite alternate ease-in-out;
+		}
+	
+		.orb-butterfly-wing.right {
+			right: 0;
+			transform-origin: left center;
+			animation: orb-flutter-right 0.2s infinite alternate ease-in-out;
+			transform: scaleX(-1);
+		}
+	
+		@keyframes orb-flutter-left {
+			0% { transform: rotateY(0deg); }
+			100% { transform: rotateY(50deg); }
+		}
+	
+		@keyframes orb-flutter-right {
+			0% { transform: scaleX(-1) rotateY(0deg); }
+			100% { transform: scaleX(-1) rotateY(50deg); }
+		}
+	
+		/* Glimmer effect */
+		.orb-glimmer {
+			position: fixed;
+			width: 4px;
+			height: 4px;
+			background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, transparent 70%);
+			border-radius: 50%;
+			pointer-events: none;
+			animation: orb-glimmer-fade 3s ease-out forwards;
+			z-index: 10001;
+		}
+	
+		@keyframes orb-glimmer-fade {
+			0% {
+				opacity: 0;
+				transform: scale(0);
+			}
+			50% {
+				opacity: 1;
+				transform: scale(1);
+			}
+			100% {
+				opacity: 0;
+				transform: scale(1.5);
+			}
+		}
+	</style>
+	
+	<script>
+	(function() {
+		// Encapsulate everything to avoid conflicts
+		const canvas = document.getElementById('orb-presence-canvas');
+		const ctx = canvas.getContext('2d');
+		
+		// Set canvas size
+		function resizeCanvas() {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		}
+		resizeCanvas();
+		window.addEventListener('resize', resizeCanvas);
+	
+		// Mouse position tracking
+		let mouseX = window.innerWidth / 2;
+		let mouseY = window.innerHeight / 2;
+		let mouseStillTimer = 0;
+		let lastMouseX = mouseX;
+		let lastMouseY = mouseY;
+	
+		window.addEventListener('mousemove', (e) => {
+			mouseX = e.clientX;
+			mouseY = e.clientY;
+			mouseStillTimer = 0;
+		});
+	
+		// Touch support for mobile
+		window.addEventListener('touchstart', (e) => {
+			if (e.touches.length > 0) {
+				mouseX = e.touches[0].clientX;
+				mouseY = e.touches[0].clientY;
+				mouseStillTimer = 100; // Treat touch as "stillness"
+			}
+		});
+	
+		// Orb class
+		class Orb {
+			constructor() {
+				this.reset();
+				this.x = Math.random() * canvas.width;
+				this.y = Math.random() * canvas.height;
+			}
+	
+			reset() {
+				this.targetX = Math.random() * canvas.width;
+				this.targetY = Math.random() * canvas.height;
+				this.size = Math.random() * 12 + 4;
+				this.baseOpacity = Math.random() * 0.25 + 0.05; // Even more subtle
+				this.opacity = 0;
+				this.pulsePhase = Math.random() * Math.PI * 2;
+				this.speed = Math.random() * 0.4 + 0.2;
+				this.touchDistance = Math.random() * 80 + 40;
+				this.hasApproached = false;
+				this.approachCooldown = 0;
+				this.glowIntensity = 0;
+			}
+	
+			update() {
+				// Fade in slowly
+				if (this.opacity < this.baseOpacity) {
+					this.opacity += 0.0005;
+				}
+	
+				// Organic movement
+				const dx = this.targetX - this.x;
+				const dy = this.targetY - this.y;
+				const distance = Math.sqrt(dx * dx + dy * dy);
+	
+				if (distance > 5) {
+					this.x += (dx / distance) * this.speed;
+					this.y += (dy / distance) * this.speed;
+				} else {
+					this.targetX = Math.random() * canvas.width;
+					this.targetY = Math.random() * canvas.height;
+				}
+	
+				// Floating motion
+				this.x += Math.sin(Date.now() * 0.0001 + this.pulsePhase) * 0.3;
+				this.y += Math.cos(Date.now() * 0.0001 + this.pulsePhase) * 0.2;
+	
+				this.pulsePhase += 0.01;
+	
+				// Approach still mouse
+				if (mouseStillTimer > 120 && !this.hasApproached && this.approachCooldown <= 0) {
+					const mouseDistance = Math.sqrt(
+						Math.pow(this.x - mouseX, 2) + 
+						Math.pow(this.y - mouseY, 2)
+					);
+					
+					if (mouseDistance < 200) {
+						this.targetX = mouseX + (Math.random() - 0.5) * 50;
+						this.targetY = mouseY + (Math.random() - 0.5) * 50;
+						this.speed = 0.6;
+						this.glowIntensity = Math.min(1, this.glowIntensity + 0.02);
+						
+						if (mouseDistance < this.touchDistance) {
+							this.hasApproached = true;
+							this.approachCooldown = 300;
+							createGlimmer(this.x, this.y);
+						}
+					}
+				} else {
+					this.speed = Math.random() * 0.4 + 0.2;
+					this.glowIntensity = Math.max(0, this.glowIntensity - 0.01);
+				}
+	
+				if (this.approachCooldown > 0) {
+					this.approachCooldown--;
+					if (this.approachCooldown === 0) {
+						this.hasApproached = false;
+					}
+				}
+	
+				// Boundary wrapping
+				if (this.x < -50) this.x = canvas.width + 50;
+				if (this.x > canvas.width + 50) this.x = -50;
+				if (this.y < -50) this.y = canvas.height + 50;
+				if (this.y > canvas.height + 50) this.y = -50;
+			}
+	
+			draw() {
+				const pulse = Math.sin(this.pulsePhase) * 0.15 + 1;
+				const currentSize = this.size * pulse;
+				
+				// Soft glow
+				const gradient = ctx.createRadialGradient(
+					this.x, this.y, 0,
+					this.x, this.y, currentSize * 2.5
+				);
+				
+				gradient.addColorStop(0, `rgba(255, 248, 230, ${this.opacity * 0.6 + this.glowIntensity * 0.2})`);
+				gradient.addColorStop(0.4, `rgba(255, 236, 200, ${this.opacity * 0.3})`);
+				gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
+				
+				ctx.fillStyle = gradient;
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, currentSize * 2.5, 0, Math.PI * 2);
+				ctx.fill();
+				
+				// Inner core
+				ctx.fillStyle = `rgba(255, 255, 245, ${this.opacity * 0.4 + this.glowIntensity * 0.3})`;
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, currentSize * 0.4, 0, Math.PI * 2);
+				ctx.fill();
+			}
+		}
+	
+		// Create orbs
+		const orbs = [];
+		const orbCount = 6;
+		for (let i = 0; i < orbCount; i++) {
+			setTimeout(() => {
+				orbs.push(new Orb());
+			}, i * 3000 + Math.random() * 2000);
+		}
+	
+		// Butterfly creation
+		function createButterfly() {
+			const butterfly = document.createElement('div');
+			butterfly.className = 'orb-butterfly';
+			butterfly.innerHTML = `
+				<div class="orb-butterfly-wing left"></div>
+				<div class="orb-butterfly-wing right"></div>
+			`;
+			document.body.appendChild(butterfly);
+	
+			const startX = Math.random() < 0.5 ? -50 : window.innerWidth + 50;
+			let x = startX;
+			let y = Math.random() * window.innerHeight;
+			let vx = startX < 0 ? 1 : -1;
+			let vy = (Math.random() - 0.5) * 0.5;
+			let wavePhase = Math.random() * Math.PI * 2;
+	
+			butterfly.style.left = x + 'px';
+			butterfly.style.top = y + 'px';
+			
+			setTimeout(() => {
+				butterfly.style.opacity = '0.6';
+			}, 100);
+	
+			const moveButterfly = () => {
+				x += vx * 1.5;
+				y += vy * 1.5 + Math.sin(wavePhase) * 1.2;
+				wavePhase += 0.05;
+	
+				if (Math.random() < 0.015) {
+					vy = (Math.random() - 0.5) * 0.5;
+				}
+	
+				butterfly.style.left = x + 'px';
+				butterfly.style.top = y + 'px';
+	
+				if (x < -60 || x > window.innerWidth + 60) {
+					butterfly.style.opacity = '0';
+					setTimeout(() => {
+						if (butterfly.parentNode) {
+							document.body.removeChild(butterfly);
+						}
+					}, 2000);
+				} else {
+					requestAnimationFrame(moveButterfly);
+				}
+			};
+	
+			requestAnimationFrame(moveButterfly);
+		}
+	
+		// Create glimmer
+		function createGlimmer(x, y) {
+			const glimmer = document.createElement('div');
+			glimmer.className = 'orb-glimmer';
+			glimmer.style.left = x + 'px';
+			glimmer.style.top = y + 'px';
+			document.body.appendChild(glimmer);
+			
+			setTimeout(() => {
+				if (glimmer.parentNode) {
+					document.body.removeChild(glimmer);
+				}
+			}, 3000);
+		}
+	
+		// Butterfly spawning
+		setInterval(() => {
+			if (Math.random() < 0.25) { // 25% chance
+				createButterfly();
+			}
+		}, 20000); // Check every 20 seconds
+	
+		// Animation loop
+		function animate() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			
+			// Update mouse stillness
+			if (Math.abs(mouseX - lastMouseX) < 2 && Math.abs(mouseY - lastMouseY) < 2) {
+				mouseStillTimer++;
+			} else {
+				mouseStillTimer = 0;
+			}
+			lastMouseX = mouseX;
+			lastMouseY = mouseY;
+			
+			// Update and draw orbs
+			orbs.forEach(orb => {
+				orb.update();
+				orb.draw();
+			});
+			
+			requestAnimationFrame(animate);
+		}
+	
+		animate();
+	
+		// First butterfly after 8 seconds
+		setTimeout(createButterfly, 8000);
+	})();
+	</script>
+	
 </html>
