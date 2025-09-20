@@ -88,30 +88,30 @@
 
 			/* Primary button (camas purple) */
 			.btn-primary {
-				background: var(--camas);
+				background: #5a5890; /* Darker purple for WCAG AA with white text */
 				color: #fff;
 				border: none;
 			}
 
 			.btn-primary:hover {
-				background: var(--camas);
+				background: #5a5890;
 				color: #fff;
-				box-shadow: 0 0 12px rgba(107, 91, 149, 0.6);
+				box-shadow: 0 0 12px rgba(90, 88, 144, 0.6);
 				transform: translateY(-2px);
 				text-decoration: none;
 			}
 
 			/* Secondary button (oak green) */
 			.btn-secondary {
-				background: var(--oak-green);
+				background: #6b6030; /* Darker green for WCAG AA with white text */
 				color: #fff;
 				border: none;
 			}
 
 			.btn-secondary:hover {
-				background: var(--oak-green);
+				background: #6b6030;
 				color: #fff;
-				box-shadow: 0 0 12px rgba(154, 140, 66, 0.6);
+				box-shadow: 0 0 12px rgba(107, 96, 48, 0.6);
 				transform: translateY(-2px);
 				text-decoration: none;
 			}
@@ -736,8 +736,8 @@
 				grid-template-columns: 1fr 1fr;
 				gap: 1rem;
 				padding: 3rem 2rem 2rem 2rem;
-				background: var(--oak-green);
-				color: var(--yarrow);
+				background: #5a5025; /* Much darker for contrast with white text */
+				color: #fff; /* Pure white for maximum contrast */
 				border-radius: 0 0 1.5rem 1.5rem;
 				font-size: 0.95rem;
 				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -747,7 +747,7 @@
 			}
 
 			.service-details strong {
-				color: var(--yarrow);
+				color: #fff;
 			}
 
 			/* Contact form anchor for smooth scrolling */
@@ -824,15 +824,34 @@
 					color: #fbf7f0 !important; /* Ensure yarrow text stays light */
 				}
 
+				/* Keep buttons dark enough for contrast in dark mode */
+				.btn-primary {
+					background: #8a88c0; /* Lighter but still has contrast with white text */
+				}
+				
+				.btn-primary:hover {
+					background: #8a88c0;
+					box-shadow: 0 0 12px rgba(138, 136, 192, 0.6);
+				}
+				
+				.btn-secondary {
+					background: #8b8050; /* Lighter but still has contrast */
+				}
+				
+				.btn-secondary:hover {
+					background: #8b8050;
+					box-shadow: 0 0 12px rgba(139, 128, 80, 0.6);
+				}
+
 				.hero-overlay .btn-primary {
-					background: var(--camas);
+					background: #8a88c0;
 					box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 				}
 
 				.hero-overlay .btn-primary:hover {
-					background: var(--camas);
-					color: #fbf7f0 !important;
-					box-shadow: 0 0 12px rgba(181, 168, 212, 0.6);
+					background: #8a88c0;
+					color: #fff !important;
+					box-shadow: 0 0 12px rgba(138, 136, 192, 0.6);
 					transform: translateY(-2px);
 					text-decoration: none;
 				}
