@@ -15,8 +15,10 @@
 		<meta property="og:type" content="website" />
 		<title>Orbweaver Natural Landcare</title>
 
-		<!-- Favicon placeholder - add your own favicon.ico to root directory -->
+		<!-- Favicon and Web App Manifest -->
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="manifest" href="/manifest.json" />
+		<meta name="theme-color" content="#7a78b0" />
 		
 		<!-- Preload LCP image for faster loading -->
 		<link rel="preload" as="image" href="/images/hero-800.avif" type="image/avif" />
@@ -68,6 +70,95 @@
 			.header-phone{position:absolute;top:3rem;right:0}
 			@media (max-width:600px){h1{font-size:2.2rem}h2{font-size:.9rem}.hero-image{height:300px}.hero-overlay h2{font-size:2rem}.header-phone{top:2rem;right:0}}
 		</style>
+		
+		<!-- Structured Data for Local Business SEO -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "LocalBusiness",
+			"@id": "https://orbweaver.ca/#business",
+			"name": "Orbweaver Natural Landcare",
+			"description": "Natural landcare services including garden coaching, gentle maintenance, and permaculture design in Cowichan Valley",
+			"url": "https://orbweaver.ca",
+			"telephone": "+1-250-710-1010",
+			"priceRange": "$",
+			"address": {
+				"@type": "PostalAddress",
+				"addressLocality": "Cowichan Valley",
+				"addressRegion": "BC",
+				"addressCountry": "CA"
+			},
+			"geo": {
+				"@type": "GeoCoordinates",
+				"latitude": 48.8167,
+				"longitude": -123.7167
+			},
+			"areaServed": {
+				"@type": "GeoCircle",
+				"geoMidpoint": {
+					"@type": "GeoCoordinates",
+					"latitude": 48.8167,
+					"longitude": -123.7167
+				},
+				"geoRadius": "30000"
+			},
+			"openingHoursSpecification": {
+				"@type": "OpeningHoursSpecification",
+				"dayOfWeek": [
+					"Monday",
+					"Tuesday",
+					"Wednesday",
+					"Thursday",
+					"Friday",
+					"Saturday"
+				],
+				"opens": "08:00",
+				"closes": "18:00"
+			},
+			"hasOfferCatalog": {
+				"@type": "OfferCatalog",
+				"name": "Natural Landcare Services",
+				"itemListElement": [
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "Service",
+							"name": "Garden Coaching",
+							"description": "Learn to read what your plants are saying and create abundance without struggle"
+						}
+					},
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "Service",
+							"name": "Gentle Maintenance",
+							"description": "Regular care that makes your garden more independent over time"
+						}
+					},
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "Service",
+							"name": "Full Garden Design",
+							"description": "Native plants, food forests, and rain gardens that solve problems while creating beauty"
+						}
+					},
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "Service",
+							"name": "Consultation",
+							"description": "Initial consultation to assess your outdoor space"
+						},
+						"price": "150",
+						"priceCurrency": "CAD"
+					}
+				]
+			},
+			"sameAs": [],
+			"image": "https://orbweaver.ca/images/hero-1200.jpg"
+		}
+		</script>
 	</head>
 	<body>
 		<header>
@@ -385,7 +476,7 @@
 					</div>
 					<div><strong>Consultation:</strong> $150 (incl. taxes)</div>
 					<div><strong>Response time:</strong> Within one week.</div>
-					<div><strong>Availability:</strong> Year-round. Booking fall '25 starts.</div>
+					<div><strong>Availability:</strong> Now booking for fall '25</div>
 				</div>
 			</section>
 		</main>
@@ -398,9 +489,11 @@
 			<small>Beautiful outdoor spaces, without the warfare.</small>
 		</footer>
 
-		<script src="smartquotes.js"></script>
+		<script src="smartquotes.js" defer></script>
 		<script>
-			smartquotes();
+			document.addEventListener('DOMContentLoaded', function() {
+				smartquotes();
+			});
 		</script>
 
 		<script>
@@ -629,4 +722,267 @@
 			});
 		</script>
 	</body>
+	
+	<!-- Living Presence Animation for Orbweaver.ca -->
+	<canvas id="orb-presence-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></canvas>
+	
+	<script>
+	(function() {
+		// Encapsulate everything to avoid conflicts
+		const canvas = document.getElementById('orb-presence-canvas');
+		const ctx = canvas.getContext('2d');
+		
+		// Set canvas size
+		function resizeCanvas() {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		}
+		resizeCanvas();
+		window.addEventListener('resize', resizeCanvas);
+	
+		// Mouse position tracking
+		let mouseX = window.innerWidth / 2;
+		let mouseY = window.innerHeight / 2;
+		let mouseStillTimer = 0;
+		let lastMouseX = mouseX;
+		let lastMouseY = mouseY;
+	
+		window.addEventListener('mousemove', (e) => {
+			mouseX = e.clientX;
+			mouseY = e.clientY;
+			mouseStillTimer = 0;
+		});
+	
+		// Touch support for mobile
+		window.addEventListener('touchstart', (e) => {
+			if (e.touches.length > 0) {
+				mouseX = e.touches[0].clientX;
+				mouseY = e.touches[0].clientY;
+				mouseStillTimer = 100; // Treat touch as "stillness"
+			}
+		});
+	
+		// Orb class
+		class Orb {
+			constructor() {
+				this.reset();
+				this.x = Math.random() * canvas.width;
+				this.y = Math.random() * canvas.height;
+			}
+	
+			reset() {
+				this.targetX = Math.random() * canvas.width;
+				this.targetY = Math.random() * canvas.height;
+				this.size = Math.random() * 12 + 4;
+				this.baseOpacity = Math.random() * 0.25 + 0.05; // Even more subtle
+				this.opacity = 0;
+				this.pulsePhase = Math.random() * Math.PI * 2;
+				this.speed = Math.random() * 0.4 + 0.2;
+				this.touchDistance = Math.random() * 80 + 40;
+				this.hasApproached = false;
+				this.approachCooldown = 0;
+				this.glowIntensity = 0;
+			}
+	
+			update() {
+				// Fade in slowly
+				if (this.opacity < this.baseOpacity) {
+					this.opacity += 0.0005;
+				}
+	
+				// Organic movement
+				const dx = this.targetX - this.x;
+				const dy = this.targetY - this.y;
+				const distance = Math.sqrt(dx * dx + dy * dy);
+	
+				if (distance > 5) {
+					this.x += (dx / distance) * this.speed;
+					this.y += (dy / distance) * this.speed;
+				} else {
+					this.targetX = Math.random() * canvas.width;
+					this.targetY = Math.random() * canvas.height;
+				}
+	
+				// Floating motion
+				this.x += Math.sin(Date.now() * 0.0001 + this.pulsePhase) * 0.3;
+				this.y += Math.cos(Date.now() * 0.0001 + this.pulsePhase) * 0.2;
+	
+				this.pulsePhase += 0.01;
+	
+				// Approach still mouse
+				if (mouseStillTimer > 120 && !this.hasApproached && this.approachCooldown <= 0) {
+					const mouseDistance = Math.sqrt(
+						Math.pow(this.x - mouseX, 2) + 
+						Math.pow(this.y - mouseY, 2)
+					);
+					
+					if (mouseDistance < 200) {
+						this.targetX = mouseX + (Math.random() - 0.5) * 50;
+						this.targetY = mouseY + (Math.random() - 0.5) * 50;
+						this.speed = 0.6;
+						this.glowIntensity = Math.min(1, this.glowIntensity + 0.02);
+						
+						if (mouseDistance < this.touchDistance) {
+							this.hasApproached = true;
+							this.approachCooldown = 300;
+							createGlimmer(this.x, this.y);
+						}
+					}
+				} else {
+					this.speed = Math.random() * 0.4 + 0.2;
+					this.glowIntensity = Math.max(0, this.glowIntensity - 0.01);
+				}
+	
+				if (this.approachCooldown > 0) {
+					this.approachCooldown--;
+					if (this.approachCooldown === 0) {
+						this.hasApproached = false;
+					}
+				}
+	
+				// Boundary wrapping
+				if (this.x < -50) this.x = canvas.width + 50;
+				if (this.x > canvas.width + 50) this.x = -50;
+				if (this.y < -50) this.y = canvas.height + 50;
+				if (this.y > canvas.height + 50) this.y = -50;
+			}
+	
+			draw() {
+				const pulse = Math.sin(this.pulsePhase) * 0.15 + 1;
+				const currentSize = this.size * pulse;
+				
+				// Soft glow
+				const gradient = ctx.createRadialGradient(
+					this.x, this.y, 0,
+					this.x, this.y, currentSize * 2.5
+				);
+				
+				gradient.addColorStop(0, `rgba(255, 248, 230, ${this.opacity * 0.6 + this.glowIntensity * 0.2})`);
+				gradient.addColorStop(0.4, `rgba(255, 236, 200, ${this.opacity * 0.3})`);
+				gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
+				
+				ctx.fillStyle = gradient;
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, currentSize * 2.5, 0, Math.PI * 2);
+				ctx.fill();
+				
+				// Inner core
+				ctx.fillStyle = `rgba(255, 255, 245, ${this.opacity * 0.4 + this.glowIntensity * 0.3})`;
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, currentSize * 0.4, 0, Math.PI * 2);
+				ctx.fill();
+			}
+		}
+	
+		// Create orbs
+		const orbs = [];
+		const orbCount = 6;
+		for (let i = 0; i < orbCount; i++) {
+			setTimeout(() => {
+				orbs.push(new Orb());
+			}, i * 3000 + Math.random() * 2000);
+		}
+	
+		// Butterfly creation
+		function createButterfly() {
+			const butterfly = document.createElement('div');
+			butterfly.className = 'orb-butterfly';
+			butterfly.innerHTML = `
+				<div class="orb-butterfly-wing left"></div>
+				<div class="orb-butterfly-wing right"></div>
+			`;
+			document.body.appendChild(butterfly);
+	
+			const startX = Math.random() < 0.5 ? -50 : window.innerWidth + 50;
+			let x = startX;
+			let y = Math.random() * window.innerHeight;
+			let vx = startX < 0 ? 1 : -1;
+			let vy = (Math.random() - 0.5) * 0.5;
+			let wavePhase = Math.random() * Math.PI * 2;
+	
+			butterfly.style.left = x + 'px';
+			butterfly.style.top = y + 'px';
+			
+			setTimeout(() => {
+				butterfly.style.opacity = '0.6';
+			}, 100);
+	
+			const moveButterfly = () => {
+				x += vx * 1.5;
+				y += vy * 1.5 + Math.sin(wavePhase) * 1.2;
+				wavePhase += 0.05;
+	
+				if (Math.random() < 0.015) {
+					vy = (Math.random() - 0.5) * 0.5;
+				}
+	
+				butterfly.style.left = x + 'px';
+				butterfly.style.top = y + 'px';
+	
+				if (x < -60 || x > window.innerWidth + 60) {
+					butterfly.style.opacity = '0';
+					setTimeout(() => {
+						if (butterfly.parentNode) {
+							document.body.removeChild(butterfly);
+						}
+					}, 2000);
+				} else {
+					requestAnimationFrame(moveButterfly);
+				}
+			};
+	
+			requestAnimationFrame(moveButterfly);
+		}
+	
+		// Create glimmer
+		function createGlimmer(x, y) {
+			const glimmer = document.createElement('div');
+			glimmer.className = 'orb-glimmer';
+			glimmer.style.left = x + 'px';
+			glimmer.style.top = y + 'px';
+			document.body.appendChild(glimmer);
+			
+			setTimeout(() => {
+				if (glimmer.parentNode) {
+					document.body.removeChild(glimmer);
+				}
+			}, 3000);
+		}
+	
+		// Butterfly spawning
+		setInterval(() => {
+			if (Math.random() < 0.25) { // 25% chance
+				createButterfly();
+			}
+		}, 20000); // Check every 20 seconds
+	
+		// Animation loop
+		function animate() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			
+			// Update mouse stillness
+			if (Math.abs(mouseX - lastMouseX) < 2 && Math.abs(mouseY - lastMouseY) < 2) {
+				mouseStillTimer++;
+			} else {
+				mouseStillTimer = 0;
+			}
+			lastMouseX = mouseX;
+			lastMouseY = mouseY;
+			
+			// Update and draw orbs
+			orbs.forEach(orb => {
+				orb.update();
+				orb.draw();
+			});
+			
+			requestAnimationFrame(animate);
+		}
+	
+		animate();
+	
+		// First butterfly after 8 seconds
+		setTimeout(createButterfly, 8000);
+	})();
+	</script>
+	
 </html>

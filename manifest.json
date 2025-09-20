@@ -1,0 +1,27 @@
+{
+  "name": "Orbweaver Natural Landcare",
+  "short_name": "Orbweaver",
+  "description": "Gardens that change you. Natural landcare services in Cowichan Valley.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f2ef",
+  "theme_color": "#7a78b0",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "gardening", "business"],
+  "lang": "en-CA",
+  "dir": "ltr"
+}
