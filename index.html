@@ -231,8 +231,7 @@
 				margin-bottom: 0.5rem;
 			}
 
-			/* Remove old header p styles that are no longer needed */
-
+			
 			/* Phone button in top right */
 			.header-phone {
 				position: absolute;
@@ -367,34 +366,36 @@
 				padding: 1.5rem;
 				border-radius: 1.2rem;
 				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-				transition: all 0.3s ease;
-				will-change: transform;
-				backface-visibility: hidden;
-				/* Optimize hover animations */
-				content-visibility: auto; /* Faster initial paint */
-				transform: translateZ(0);
-				-webkit-font-smoothing: antialiased;
+			}
+
+			@media (min-width: 769px) {
+				article {
+					transition: all 0.3s ease;
+					will-change: transform;
+					backface-visibility: hidden;
+					transform: translateZ(0);
+					-webkit-font-smoothing: antialiased;
+					content-visibility: auto; /* Faster initial paint on desktop */
+				}
 			}
 
 			/* Mobile-specific optimizations to prevent flickering */
 			@media (max-width: 768px) {
 				article {
-					/* Disable hover effects on mobile */
-					transition: none;
-					will-change: auto;
-					/* Force GPU acceleration but prevent repaints */
-					transform: translate3d(0, 0, 0);
-					-webkit-transform: translate3d(0, 0, 0);
-					/* Prevent text rendering issues */
-					-webkit-backface-visibility: hidden;
-					-moz-backface-visibility: hidden;
-					backface-visibility: hidden;
-					/* Optimize text rendering */
-					-webkit-font-smoothing: subpixel-antialiased;
-					-moz-osx-font-smoothing: auto;
-					/* Prevent transform inheritance issues */
-					transform-style: preserve-3d;
-					-webkit-transform-style: preserve-3d;
+					/* Disable all animations and transitions on mobile */
+					transition: none !important;
+					will-change: auto !important;
+					/* Remove all transforms */
+					transform: none !important;
+					-webkit-transform: none !important;
+					/* Use standard text rendering */
+					-webkit-font-smoothing: antialiased;
+					-webkit-text-size-adjust: 100%;
+					/* Ensure no 3D layers are created */
+					-webkit-backface-visibility: visible;
+					backface-visibility: visible;
+					transform-style: flat;
+					-webkit-transform-style: flat;
 				}
 			}
 
@@ -432,30 +433,59 @@
 				}
 			}
 
+			/* iOS Safari momentum scrolling fix */
+			@supports (-webkit-touch-callout: none) {
+				.cards-container {
+					/* Disable momentum scrolling which causes flickering */
+					-webkit-overflow-scrolling: auto !important;
+				}
+				
+				/* Re-enable smooth scrolling with a different approach */
+				.cards-container {
+					scroll-behavior: smooth;
+				}
+			}
+			
 			/* Mobile carousel styles */
 			@media (max-width: 768px) {
 				.cards-wrapper {
 					position: relative;
 					margin: 0 -1rem 2rem -1rem;
 					padding: 0 1rem;
-					/* Isolate stacking context to prevent repaints */
-					isolation: isolate;
-					z-index: 1;
+					/* Remove all GPU acceleration from wrapper */
 				}
 
 				.cards-container {
 					overflow-x: auto;
+					overflow-y: hidden; /* Explicitly set */
 					scroll-snap-type: x mandatory;
 					display: flex;
 					gap: 1rem;
 					padding-bottom: 1.5rem;
 					scrollbar-width: none;
 					-ms-overflow-style: none;
-					-webkit-overflow-scrolling: touch;
-					/* Prevent flickering with will-change on scroll container */
-					will-change: scroll-position;
-					/* Create new stacking context */
-					contain: layout style paint;
+					/* Disable iOS momentum scrolling to prevent interference */
+					-webkit-overflow-scrolling: auto;
+					/* Remove all transforms and GPU acceleration */
+					transform: none;
+					-webkit-transform: none;
+					/* Disable backface visibility */
+					-webkit-backface-visibility: visible;
+					backface-visibility: visible;
+					/* Remove perspective */
+					perspective: none;
+					-webkit-perspective: none;
+					/* Prevent layer creation */
+					will-change: auto;
+				}
+
+				/* Remove all acceleration from carousel children */
+				.cards-container * {
+					-webkit-font-smoothing: antialiased;
+					-webkit-text-size-adjust: 100%;
+					transform: none !important;
+					-webkit-transform: none !important;
+					will-change: auto !important;
 				}
 
 				.cards-container::-webkit-scrollbar {
@@ -473,12 +503,12 @@
 					scroll-snap-align: start;
 					scroll-snap-stop: always;
 					margin-left: 0;
-					/* Additional mobile optimizations for cards in carousel */
+					/* Remove all transforms from articles */
 					position: relative;
-					z-index: 1;
-					/* Prevent text flickering on iOS */
-					-webkit-transform: translateZ(0);
-					transform: translateZ(0);
+					transform: none !important;
+					-webkit-transform: none !important;
+					-webkit-backface-visibility: visible;
+					backface-visibility: visible;
 				}
 
 				.cards-container article:first-child {
@@ -1287,7 +1317,7 @@
 					</div>
 					<div><strong>Consultation:</strong> $150 (incl. taxes)</div>
 					<div><strong>Response time:</strong> Within one week.</div>
-					<div><strong>Availability:</strong> Year-round. Booking fall starts.</div>
+					<div><strong>Availability:</strong> Year-round. Booking fall '25 starts.</div>
 				</div>
 			</section>
 		</main>
