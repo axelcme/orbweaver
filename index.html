@@ -81,6 +81,9 @@
 				font-family: inherit;
 				transition: all 0.25s ease;
 				cursor: pointer;
+				border: none;
+				transform: translateZ(0); /* Prevent flickering */
+				backface-visibility: hidden;
 			}
 
 			/* Primary button (camas purple) */
@@ -91,8 +94,9 @@
 			}
 
 			.btn-primary:hover {
+				background: var(--camas);
+				color: #fff;
 				box-shadow: 0 0 12px rgba(107, 91, 149, 0.6);
-				/* purple glow */
 				transform: translateY(-2px);
 				text-decoration: none;
 			}
@@ -105,8 +109,9 @@
 			}
 
 			.btn-secondary:hover {
+				background: var(--oak-green);
+				color: #fff;
 				box-shadow: 0 0 12px rgba(154, 140, 66, 0.6);
-				/* green glow */
 				transform: translateY(-2px);
 				text-decoration: none;
 			}
@@ -115,8 +120,23 @@
 			.btn:disabled {
 				opacity: 0.6;
 				cursor: not-allowed;
-				transform: none;
-				box-shadow: none;
+				transform: none !important;
+				box-shadow: none !important;
+			}
+
+			/* Mobile-specific button adjustments */
+			@media (max-width: 768px) {
+				.btn:hover {
+					transform: none !important;
+				}
+			}
+
+			/* Desktop-only hover animations */
+			@media (hover: hover) and (pointer: fine) {
+				.btn-primary:hover,
+				.btn-secondary:hover {
+					transform: translateY(-2px);
+				}
 			}
 
 			/* Base styles */
@@ -810,7 +830,11 @@
 				}
 
 				.hero-overlay .btn-primary:hover {
-					background: var(--oak-green);
+					background: var(--camas);
+					color: #fbf7f0 !important;
+					box-shadow: 0 0 12px rgba(181, 168, 212, 0.6);
+					transform: translateY(-2px);
+					text-decoration: none;
 				}
 
 				aside {
