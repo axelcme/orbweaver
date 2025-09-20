@@ -350,10 +350,32 @@
 				transition: all 0.3s ease;
 				will-change: transform;
 				backface-visibility: hidden;
-				 /* Optimize hover animations */
+				/* Optimize hover animations */
 				content-visibility: auto; /* Faster initial paint */
 				transform: translateZ(0);
 				-webkit-font-smoothing: antialiased;
+			}
+
+			/* Mobile-specific optimizations to prevent flickering */
+			@media (max-width: 768px) {
+				article {
+					/* Disable hover effects on mobile */
+					transition: none;
+					will-change: auto;
+					/* Force GPU acceleration but prevent repaints */
+					transform: translate3d(0, 0, 0);
+					-webkit-transform: translate3d(0, 0, 0);
+					/* Prevent text rendering issues */
+					-webkit-backface-visibility: hidden;
+					-moz-backface-visibility: hidden;
+					backface-visibility: hidden;
+					/* Optimize text rendering */
+					-webkit-font-smoothing: subpixel-antialiased;
+					-moz-osx-font-smoothing: auto;
+					/* Prevent transform inheritance issues */
+					transform-style: preserve-3d;
+					-webkit-transform-style: preserve-3d;
+				}
 			}
 
 			article h3 {
@@ -382,9 +404,12 @@
 				}
 			}
 
-			article:hover {
-				box-shadow: 0 6px 24px rgba(107, 91, 149, 0.08);
-				transform: translateY(-2px);
+			/* Desktop hover effects - only on non-touch devices */
+			@media (hover: hover) and (pointer: fine) {
+				article:hover {
+					box-shadow: 0 6px 24px rgba(107, 91, 149, 0.08);
+					transform: translateY(-2px);
+				}
 			}
 
 			/* Mobile carousel styles */
@@ -393,6 +418,9 @@
 					position: relative;
 					margin: 0 -1rem 2rem -1rem;
 					padding: 0 1rem;
+					/* Isolate stacking context to prevent repaints */
+					isolation: isolate;
+					z-index: 1;
 				}
 
 				.cards-container {
@@ -404,6 +432,10 @@
 					scrollbar-width: none;
 					-ms-overflow-style: none;
 					-webkit-overflow-scrolling: touch;
+					/* Prevent flickering with will-change on scroll container */
+					will-change: scroll-position;
+					/* Create new stacking context */
+					contain: layout style paint;
 				}
 
 				.cards-container::-webkit-scrollbar {
@@ -421,6 +453,12 @@
 					scroll-snap-align: start;
 					scroll-snap-stop: always;
 					margin-left: 0;
+					/* Additional mobile optimizations for cards in carousel */
+					position: relative;
+					z-index: 1;
+					/* Prevent text flickering on iOS */
+					-webkit-transform: translateZ(0);
+					transform: translateZ(0);
 				}
 
 				.cards-container article:first-child {
@@ -429,6 +467,12 @@
 
 				.cards-container article:last-child {
 					margin-right: 1rem;
+				}
+
+				/* Disable hover effects on mobile to prevent flickering */
+				article:hover {
+					transform: none !important;
+					box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
 				}
 
 				/* Simple dot indicators */
