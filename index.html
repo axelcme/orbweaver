@@ -69,6 +69,15 @@
 			.btn-secondary{background:#6b6030;color:#fff}
 			.header-phone{position:absolute;top:3rem;right:0}
 			@media (max-width:600px){h1{font-size:2.2rem}h2{font-size:.9rem}.hero-image{height:300px}.hero-overlay h2{font-size:2rem}.header-phone{top:2rem;right:0}}
+			/* Dark mode critical styles */
+			@media (prefers-color-scheme: dark) {
+				:root{color-scheme:dark;--camas:#b5a8d4;--meadow:#f0d4a8;--oak-green:#c5b874;--bark:#b89b82;--sunset:#f5bcb0;--yarrow:#4a453f;--lichen:#3a3530;--camas-text:#c5b8e4;--oak-green-text:#d5c884;--bark-text:#c8ab92;--text-primary:#f5f0e8;--text-secondary:#d5d0c8;--text-link:#d5c884;--card-bg:#4a453f}
+				html{background:#2a2520}
+				.btn-primary{background:#8a88c0}
+				.btn-secondary{background:#8b8050}
+				.hero-overlay h2,.hero-overlay .btn-primary{color:#fbf7f0!important}
+				.hero-image::after{background:linear-gradient(to bottom right,rgba(42,37,32,.7),rgba(58,53,48,.5))}
+			}
 		</style>
 		
 		<!-- Structured Data for Local Business SEO -->
