@@ -801,13 +801,29 @@
 			desynchronized: true // Hint to browser for better performance
 		});
 		
-		// Set canvas size
+		// Utility: Throttle function
+		function throttle(func, limit) {
+			let inThrottle;
+			return function() {
+				const args = arguments;
+				const context = this;
+				if (!inThrottle) {
+					func.apply(context, args);
+					inThrottle = true;
+					setTimeout(() => inThrottle = false, limit);
+				}
+			}
+		}
+		
+		// Set canvas size with RAF to avoid forced reflow
 		function resizeCanvas() {
-			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight;
+			requestAnimationFrame(() => {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+			});
 		}
 		resizeCanvas();
-		window.addEventListener('resize', resizeCanvas);
+		window.addEventListener('resize', throttle(resizeCanvas, 250));
 	
 		// Mouse position tracking
 		let mouseX = window.innerWidth / 2;
