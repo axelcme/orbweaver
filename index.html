@@ -729,9 +729,77 @@
 	
 	<script>
 	(function() {
+		// Check if user has previously disabled animations
+		if (localStorage.getItem('orbweaver-animations') === 'disabled') {
+			return;
+		}
+		
+		// Performance check - only run animation on capable devices
+		const shouldRunAnimation = () => {
+			// Check for reduced motion preference
+			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				return false;
+			}
+			
+			// Check device memory (if available)
+			if ('deviceMemory' in navigator && navigator.deviceMemory < 4) {
+				return false;
+			}
+			
+			// Check hardware concurrency (CPU cores)
+			if ('hardwareConcurrency' in navigator && navigator.hardwareConcurrency < 4) {
+				return false;
+			}
+			
+			// Check connection speed
+			if ('connection' in navigator) {
+				const connection = navigator.connection;
+				if (connection.saveData || connection.effectiveType === 'slow-2g' || 
+				    connection.effectiveType === '2g') {
+					return false;
+				}
+			}
+			
+			// Detect older iOS devices (iPhone 6s and older)
+			const isOldIOS = () => {
+				const ua = navigator.userAgent;
+				if (/iPhone/.test(ua)) {
+					// iPhone 6s and older have less than 375px viewport width at default zoom
+					if (window.screen.width <= 375 && window.devicePixelRatio < 3) {
+						return true;
+					}
+				}
+				return false;
+			};
+			
+			if (isOldIOS()) return false;
+			
+			// Check if device is mobile with limited performance
+			const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+			if (isMobile) {
+				// Only run on newer mobile devices (check for modern features)
+				if (!('requestIdleCallback' in window) || !('IntersectionObserver' in window)) {
+					return false;
+				}
+			}
+			
+			return true;
+		};
+		
+		// Exit early if animation shouldn't run
+		if (!shouldRunAnimation()) {
+			// Hide the canvas element
+			const canvas = document.getElementById('orb-presence-canvas');
+			if (canvas) canvas.style.display = 'none';
+			return;
+		}
+		
 		// Encapsulate everything to avoid conflicts
 		const canvas = document.getElementById('orb-presence-canvas');
-		const ctx = canvas.getContext('2d');
+		const ctx = canvas.getContext('2d', { 
+			alpha: true,
+			desynchronized: true // Hint to browser for better performance
+		});
 		
 		// Set canvas size
 		function resizeCanvas() {
@@ -957,24 +1025,54 @@
 			}
 		}, 20000); // Check every 20 seconds
 	
-		// Animation loop
+		// Animation loop with performance monitoring
+		let lastFrameTime = performance.now();
+		let frameCount = 0;
+		let fps = 60;
+		let animationActive = true;
+		
 		function animate() {
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			if (!animationActive) return;
 			
-			// Update mouse stillness
-			if (Math.abs(mouseX - lastMouseX) < 2 && Math.abs(mouseY - lastMouseY) < 2) {
-				mouseStillTimer++;
-			} else {
-				mouseStillTimer = 0;
+			const currentTime = performance.now();
+			const deltaTime = currentTime - lastFrameTime;
+			
+			// Monitor FPS
+			frameCount++;
+			if (frameCount % 60 === 0) {
+				fps = Math.round(1000 / deltaTime);
+				// If FPS drops below 30, disable animation
+				if (fps < 30) {
+					animationActive = false;
+					canvas.style.display = 'none';
+					return;
+				}
 			}
-			lastMouseX = mouseX;
-			lastMouseY = mouseY;
 			
-			// Update and draw orbs
-			orbs.forEach(orb => {
-				orb.update();
-				orb.draw();
-			});
+			// Only update at 30fps on mobile to save battery
+			const targetFPS = /Mobile/i.test(navigator.userAgent) ? 30 : 60;
+			const targetFrameTime = 1000 / targetFPS;
+			
+			if (deltaTime >= targetFrameTime) {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				
+				// Update mouse stillness
+				if (Math.abs(mouseX - lastMouseX) < 2 && Math.abs(mouseY - lastMouseY) < 2) {
+					mouseStillTimer++;
+				} else {
+					mouseStillTimer = 0;
+				}
+				lastMouseX = mouseX;
+				lastMouseY = mouseY;
+				
+				// Update and draw orbs
+				orbs.forEach(orb => {
+					orb.update();
+					orb.draw();
+				});
+				
+				lastFrameTime = currentTime;
+			}
 			
 			requestAnimationFrame(animate);
 		}
