@@ -51,6 +51,9 @@
 		
 		<!-- Critical CSS inline to prevent render blocking -->
 		<style>
+			/* Smooth page load */
+			@keyframes fadeIn {from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+			body{animation:fadeIn 0.4s ease-out}
 			/* Critical above-the-fold styles */
 			*{margin:0;padding:0;box-sizing:border-box}
 			:root{--camas:#7a78b0;--oak-green:#9a8c42;--bark:#6b4c37;--meadow:#f4c431;--sunset:#d98dad;--yarrow:#faf8f7;--lichen:#f8f2ef;--camas-text:#6563a0;--oak-green-text:#6b6030;--bark-text:#5a3d2b;--text-primary:#3a2a18;--text-secondary:#5a4a38;--text-link:#6b5030;--card-bg:var(--yarrow)}
@@ -64,14 +67,17 @@
 			.hero-image::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom right,rgba(212,165,116,.55),rgba(212,165,116,.35));z-index:1}
 			.hero-overlay{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%;text-align:center;color:var(--yarrow);padding:2rem}
 			.hero-overlay h2{color:var(--yarrow);font-size:2.5rem;font-weight:700;margin:0 0 1.5rem 0;font-family:"Fredoka",sans-serif;line-height:1.2;text-transform:none;letter-spacing:normal}
-			.btn{font-size:1rem;display:inline-block;padding:.75rem 1.5rem;border-radius:2rem;font-weight:600;text-decoration:none;font-family:inherit;cursor:pointer;border:none}
+			.btn{font-size:1rem;display:inline-block;padding:.75rem 1.5rem;border-radius:2rem;font-weight:600;text-decoration:none;font-family:inherit;cursor:pointer;border:none;transition:all 0.2s ease;position:relative;overflow:hidden}
+			.btn::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(255,255,255,0.3);transform:translate(-50%,-50%);transition:width 0.6s,height 0.6s}
+			.btn:active::after{width:300px;height:300px}
 			.btn-primary{background:#5a5890;color:#fff}
 			.btn-secondary{background:#6b6030;color:#fff}
 			.header-phone{position:absolute;top:3rem;right:0}
 			/* Custom select dropdown styles */
 			select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b4c37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right 1rem center;background-size:1.2em;padding-right:3rem;cursor:pointer}
 			select:focus{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236563a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")}
-			@media (max-width:600px){h1{font-size:2.2rem}h2{font-size:.9rem}.hero-image{height:300px}.hero-overlay h2{font-size:2rem}.header-phone{top:2rem;right:0}}
+			/* Improved mobile hero */
+			@media (max-width:600px){h1{font-size:2.2rem}h2{font-size:.9rem}.hero-image{height:70vh;min-height:400px;max-height:500px}.hero-overlay h2{font-size:2rem}.header-phone{top:2rem;right:0}}
 			/* Dark mode critical styles */
 			@media (prefers-color-scheme: dark) {
 				:root{color-scheme:dark;--camas:#b5a8d4;--meadow:#f0d4a8;--oak-green:#c5b874;--bark:#b89b82;--sunset:#f5bcb0;--yarrow:#4a453f;--lichen:#3a3530;--camas-text:#c5b8e4;--oak-green-text:#d5c884;--bark-text:#c8ab92;--text-primary:#f5f0e8;--text-secondary:#d5d0c8;--text-link:#d5c884;--card-bg:#4a453f}
@@ -505,11 +511,12 @@
 		</footer>
 
 		<script src="smartquotes.js" defer></script>
+		<script src="js/main.js" defer></script>
 		<script>
-			document.addEventListener('DOMContentLoaded', function() {
-				smartquotes();
-			});
-		</script>
+		document.addEventListener('DOMContentLoaded', function() {
+		 smartquotes();
+		 });
+	</script>
 
 		<script>
 			// Carousel state management to prevent flickering
@@ -738,380 +745,6 @@
 		</script>
 	</body>
 	
-	<!-- Living Presence Animation for Orbweaver.ca -->
-	<canvas id="orb-presence-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></canvas>
-	
-	<script>
-	(function() {
-		// Check if user has previously disabled animations
-		if (localStorage.getItem('orbweaver-animations') === 'disabled') {
-			return;
-		}
-		
-		// Performance check - only run animation on capable devices
-		const shouldRunAnimation = () => {
-			// Check for reduced motion preference
-			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-				return false;
-			}
-			
-			// Check device memory (if available)
-			if ('deviceMemory' in navigator && navigator.deviceMemory < 4) {
-				return false;
-			}
-			
-			// Check hardware concurrency (CPU cores)
-			if ('hardwareConcurrency' in navigator && navigator.hardwareConcurrency < 4) {
-				return false;
-			}
-			
-			// Check connection speed
-			if ('connection' in navigator) {
-				const connection = navigator.connection;
-				if (connection.saveData || connection.effectiveType === 'slow-2g' || 
-				    connection.effectiveType === '2g') {
-					return false;
-				}
-			}
-			
-			// Detect older iOS devices (iPhone 6s and older)
-			const isOldIOS = () => {
-				const ua = navigator.userAgent;
-				if (/iPhone/.test(ua)) {
-					// iPhone 6s and older have less than 375px viewport width at default zoom
-					if (window.screen.width <= 375 && window.devicePixelRatio < 3) {
-						return true;
-					}
-				}
-				return false;
-			};
-			
-			if (isOldIOS()) return false;
-			
-			// Check if device is mobile with limited performance
-			const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-			if (isMobile) {
-				// Only run on newer mobile devices (check for modern features)
-				if (!('requestIdleCallback' in window) || !('IntersectionObserver' in window)) {
-					return false;
-				}
-			}
-			
-			return true;
-		};
-		
-		// Exit early if animation shouldn't run
-		if (!shouldRunAnimation()) {
-			// Hide the canvas element
-			const canvas = document.getElementById('orb-presence-canvas');
-			if (canvas) canvas.style.display = 'none';
-			return;
-		}
-		
-		// Encapsulate everything to avoid conflicts
-		const canvas = document.getElementById('orb-presence-canvas');
-		const ctx = canvas.getContext('2d', { 
-			alpha: true,
-			desynchronized: true // Hint to browser for better performance
-		});
-		
-		// Utility: Throttle function
-		function throttle(func, limit) {
-			let inThrottle;
-			return function() {
-				const args = arguments;
-				const context = this;
-				if (!inThrottle) {
-					func.apply(context, args);
-					inThrottle = true;
-					setTimeout(() => inThrottle = false, limit);
-				}
-			}
-		}
-		
-		// Set canvas size with RAF to avoid forced reflow
-		function resizeCanvas() {
-			requestAnimationFrame(() => {
-				canvas.width = window.innerWidth;
-				canvas.height = window.innerHeight;
-			});
-		}
-		resizeCanvas();
-		window.addEventListener('resize', throttle(resizeCanvas, 250));
-	
-		// Mouse position tracking
-		let mouseX = window.innerWidth / 2;
-		let mouseY = window.innerHeight / 2;
-		let mouseStillTimer = 0;
-		let lastMouseX = mouseX;
-		let lastMouseY = mouseY;
-	
-		window.addEventListener('mousemove', (e) => {
-			mouseX = e.clientX;
-			mouseY = e.clientY;
-			mouseStillTimer = 0;
-		});
-	
-		// Touch support for mobile
-		window.addEventListener('touchstart', (e) => {
-			if (e.touches.length > 0) {
-				mouseX = e.touches[0].clientX;
-				mouseY = e.touches[0].clientY;
-				mouseStillTimer = 100; // Treat touch as "stillness"
-			}
-		});
-	
-		// Orb class
-		class Orb {
-			constructor() {
-				this.reset();
-				this.x = Math.random() * canvas.width;
-				this.y = Math.random() * canvas.height;
-			}
-	
-			reset() {
-				this.targetX = Math.random() * canvas.width;
-				this.targetY = Math.random() * canvas.height;
-				this.size = Math.random() * 12 + 4;
-				this.baseOpacity = Math.random() * 0.25 + 0.05; // Even more subtle
-				this.opacity = 0;
-				this.pulsePhase = Math.random() * Math.PI * 2;
-				this.speed = Math.random() * 0.4 + 0.2;
-				this.touchDistance = Math.random() * 80 + 40;
-				this.hasApproached = false;
-				this.approachCooldown = 0;
-				this.glowIntensity = 0;
-			}
-	
-			update() {
-				// Fade in slowly
-				if (this.opacity < this.baseOpacity) {
-					this.opacity += 0.0005;
-				}
-	
-				// Organic movement
-				const dx = this.targetX - this.x;
-				const dy = this.targetY - this.y;
-				const distance = Math.sqrt(dx * dx + dy * dy);
-	
-				if (distance > 5) {
-					this.x += (dx / distance) * this.speed;
-					this.y += (dy / distance) * this.speed;
-				} else {
-					this.targetX = Math.random() * canvas.width;
-					this.targetY = Math.random() * canvas.height;
-				}
-	
-				// Floating motion
-				this.x += Math.sin(Date.now() * 0.0001 + this.pulsePhase) * 0.3;
-				this.y += Math.cos(Date.now() * 0.0001 + this.pulsePhase) * 0.2;
-	
-				this.pulsePhase += 0.01;
-	
-				// Approach still mouse
-				if (mouseStillTimer > 120 && !this.hasApproached && this.approachCooldown <= 0) {
-					const mouseDistance = Math.sqrt(
-						Math.pow(this.x - mouseX, 2) + 
-						Math.pow(this.y - mouseY, 2)
-					);
-					
-					if (mouseDistance < 200) {
-						this.targetX = mouseX + (Math.random() - 0.5) * 50;
-						this.targetY = mouseY + (Math.random() - 0.5) * 50;
-						this.speed = 0.6;
-						this.glowIntensity = Math.min(1, this.glowIntensity + 0.02);
-						
-						if (mouseDistance < this.touchDistance) {
-							this.hasApproached = true;
-							this.approachCooldown = 300;
-							createGlimmer(this.x, this.y);
-						}
-					}
-				} else {
-					this.speed = Math.random() * 0.4 + 0.2;
-					this.glowIntensity = Math.max(0, this.glowIntensity - 0.01);
-				}
-	
-				if (this.approachCooldown > 0) {
-					this.approachCooldown--;
-					if (this.approachCooldown === 0) {
-						this.hasApproached = false;
-					}
-				}
-	
-				// Boundary wrapping
-				if (this.x < -50) this.x = canvas.width + 50;
-				if (this.x > canvas.width + 50) this.x = -50;
-				if (this.y < -50) this.y = canvas.height + 50;
-				if (this.y > canvas.height + 50) this.y = -50;
-			}
-	
-			draw() {
-				const pulse = Math.sin(this.pulsePhase) * 0.15 + 1;
-				const currentSize = this.size * pulse;
-				
-				// Soft glow
-				const gradient = ctx.createRadialGradient(
-					this.x, this.y, 0,
-					this.x, this.y, currentSize * 2.5
-				);
-				
-				gradient.addColorStop(0, `rgba(255, 248, 230, ${this.opacity * 0.6 + this.glowIntensity * 0.2})`);
-				gradient.addColorStop(0.4, `rgba(255, 236, 200, ${this.opacity * 0.3})`);
-				gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
-				
-				ctx.fillStyle = gradient;
-				ctx.beginPath();
-				ctx.arc(this.x, this.y, currentSize * 2.5, 0, Math.PI * 2);
-				ctx.fill();
-				
-				// Inner core
-				ctx.fillStyle = `rgba(255, 255, 245, ${this.opacity * 0.4 + this.glowIntensity * 0.3})`;
-				ctx.beginPath();
-				ctx.arc(this.x, this.y, currentSize * 0.4, 0, Math.PI * 2);
-				ctx.fill();
-			}
-		}
-	
-		// Create orbs
-		const orbs = [];
-		const orbCount = 6;
-		for (let i = 0; i < orbCount; i++) {
-			setTimeout(() => {
-				orbs.push(new Orb());
-			}, i * 3000 + Math.random() * 2000);
-		}
-	
-		// Butterfly creation
-		function createButterfly() {
-			const butterfly = document.createElement('div');
-			butterfly.className = 'orb-butterfly';
-			butterfly.innerHTML = `
-				<div class="orb-butterfly-wing left"></div>
-				<div class="orb-butterfly-wing right"></div>
-			`;
-			document.body.appendChild(butterfly);
-	
-			const startX = Math.random() < 0.5 ? -50 : window.innerWidth + 50;
-			let x = startX;
-			let y = Math.random() * window.innerHeight;
-			let vx = startX < 0 ? 1 : -1;
-			let vy = (Math.random() - 0.5) * 0.5;
-			let wavePhase = Math.random() * Math.PI * 2;
-	
-			butterfly.style.left = x + 'px';
-			butterfly.style.top = y + 'px';
-			
-			setTimeout(() => {
-				butterfly.style.opacity = '0.6';
-			}, 100);
-	
-			const moveButterfly = () => {
-				x += vx * 1.5;
-				y += vy * 1.5 + Math.sin(wavePhase) * 1.2;
-				wavePhase += 0.05;
-	
-				if (Math.random() < 0.015) {
-					vy = (Math.random() - 0.5) * 0.5;
-				}
-	
-				butterfly.style.left = x + 'px';
-				butterfly.style.top = y + 'px';
-	
-				if (x < -60 || x > window.innerWidth + 60) {
-					butterfly.style.opacity = '0';
-					setTimeout(() => {
-						if (butterfly.parentNode) {
-							document.body.removeChild(butterfly);
-						}
-					}, 2000);
-				} else {
-					requestAnimationFrame(moveButterfly);
-				}
-			};
-	
-			requestAnimationFrame(moveButterfly);
-		}
-	
-		// Create glimmer
-		function createGlimmer(x, y) {
-			const glimmer = document.createElement('div');
-			glimmer.className = 'orb-glimmer';
-			glimmer.style.left = x + 'px';
-			glimmer.style.top = y + 'px';
-			document.body.appendChild(glimmer);
-			
-			setTimeout(() => {
-				if (glimmer.parentNode) {
-					document.body.removeChild(glimmer);
-				}
-			}, 3000);
-		}
-	
-		// Butterfly spawning
-		setInterval(() => {
-			if (Math.random() < 0.25) { // 25% chance
-				createButterfly();
-			}
-		}, 20000); // Check every 20 seconds
-	
-		// Animation loop with performance monitoring
-		let lastFrameTime = performance.now();
-		let frameCount = 0;
-		let fps = 60;
-		let animationActive = true;
-		
-		function animate() {
-			if (!animationActive) return;
-			
-			const currentTime = performance.now();
-			const deltaTime = currentTime - lastFrameTime;
-			
-			// Monitor FPS
-			frameCount++;
-			if (frameCount % 60 === 0) {
-				fps = Math.round(1000 / deltaTime);
-				// If FPS drops below 30, disable animation
-				if (fps < 30) {
-					animationActive = false;
-					canvas.style.display = 'none';
-					return;
-				}
-			}
-			
-			// Only update at 30fps on mobile to save battery
-			const targetFPS = /Mobile/i.test(navigator.userAgent) ? 30 : 60;
-			const targetFrameTime = 1000 / targetFPS;
-			
-			if (deltaTime >= targetFrameTime) {
-				ctx.clearRect(0, 0, canvas.width, canvas.height);
-				
-				// Update mouse stillness
-				if (Math.abs(mouseX - lastMouseX) < 2 && Math.abs(mouseY - lastMouseY) < 2) {
-					mouseStillTimer++;
-				} else {
-					mouseStillTimer = 0;
-				}
-				lastMouseX = mouseX;
-				lastMouseY = mouseY;
-				
-				// Update and draw orbs
-				orbs.forEach(orb => {
-					orb.update();
-					orb.draw();
-				});
-				
-				lastFrameTime = currentTime;
-			}
-			
-			requestAnimationFrame(animate);
-		}
-	
-		animate();
-	
-		// First butterfly after 8 seconds
-		setTimeout(createButterfly, 8000);
-	})();
-	</script>
+
 	
 </html>
