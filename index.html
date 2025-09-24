@@ -1,490 +1,616 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta
-			name="description"
-			content="Gardens that change you. Cowichan Valley's mindful alternative to lawn warfare. Natural landcare services including garden coaching, gentle maintenance, and permaculture design."
-		/>
-		<meta property="og:title" content="Orbweaver Natural Landcare" />
-		<meta
-			property="og:description"
-			content="Your lawn wants to be a garden. Natural landcare services in Cowichan Valley."
-		/>
-		<meta property="og:type" content="website" />
-		<title>Orbweaver Natural Landcare</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Gardens that change you. Cowichan Valley's mindful alternative to lawn warfare. Natural landcare services including garden coaching, gentle maintenance, and permaculture design."
+    />
+    <meta property="og:title" content="Orbweaver Natural Landcare" />
+    <meta
+      property="og:description"
+      content="Your lawn wants to be a garden. Natural landcare services in Cowichan Valley."
+    />
+    <meta property="og:type" content="website" />
+    <title>Orbweaver Natural Landcare</title>
 
-		<!-- Favicon and Web App Manifest -->
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<link rel="manifest" href="/manifest.json" />
-		<meta name="theme-color" content="#7a78b0" />
-		
-		<!-- Preload LCP image for faster loading -->
-		<link rel="preload" as="image" href="/images/hero-800.avif" type="image/avif" />
-		<link rel="preload" as="image" href="/images/hero-800.webp" type="image/webp" />
-		<link rel="preload" as="image" href="/images/hero-800.jpg" type="image/jpeg" />
+    <!-- Favicon and Web App Manifest -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#7a78b0" />
 
-		<!-- Google Fonts for rounded, friendly typography -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Quicksand:wght@400;500;600;700&display=swap"
-			rel="stylesheet"
-			media="print"
-			onload="this.media='all'"
-		/>
-		<noscript>
-			<link
-				href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Quicksand:wght@400;500;600;700&display=swap"
-				rel="stylesheet"
-			/>
-		</noscript>
-		
-		<!-- Load stylesheet normally for better reliability -->
-		<link rel="stylesheet" href="styles.min.css" />
-		
-		<!-- Critical CSS inline - only above-the-fold essentials -->
-		<style>
-			*{margin:0;padding:0;box-sizing:border-box}
-			:root{--camas:#7a78b0;--oak-green:#9a8c42;--yarrow:#faf8f7;--lichen:#f8f2ef;--camas-text:#6563a0;--oak-green-text:#6b6030;--text-primary:#3a2a18}
-			html{background:var(--lichen);font-family:"Quicksand",system-ui,sans-serif;color:var(--text-primary)}
-			body{max-width:900px;margin:0 auto;padding:1rem}
-			header{position:relative;padding:1rem 0 0 0}
-			header h1{font-family:"Fredoka",sans-serif;font-size:3rem;color:var(--camas-text);margin-bottom:0}
-			header h2{font-size:1.25rem;color:var(--oak-green-text);text-transform:uppercase;letter-spacing:.1em;margin:0 0 .5rem 0}
-			.hero-image{position:relative;width:100%;height:400px;border-radius:1rem;margin:1.5rem 0 2rem 0;overflow:hidden}
-			.hero-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-			.hero-overlay{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
-			.hero-overlay h2{color:var(--yarrow);font-size:2.5rem;font-weight:700;margin:0 0 2rem 0;font-family:"Fredoka",sans-serif;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}
-			/* Button system with consistent design */
-			.btn{display:inline-block;padding:.875rem 2rem;border-radius:2rem;font-weight:600;font-size:1rem;text-decoration:none;transition:all 0.2s ease;cursor:pointer;border:none;font-family:inherit;line-height:1.2;position:relative;text-align:center}
-			.btn-primary{background:#f4c431;color:#2a1a08}
-			.btn-primary:hover{background:#f4c431;color:#2a1a08;transform:translateY(-1px);box-shadow:0 0 20px rgba(244,196,49,0.5)}
-			.btn-secondary{background:#7a78b0;color:#fff}
-			.btn-secondary:hover{background:#7a78b0;color:#fff;transform:translateY(-1px);box-shadow:0 0 20px rgba(122,120,176,0.5)}
-			.header-phone{position:absolute;top:2.8rem;right:0;padding:.625rem 1.25rem;font-size:.95rem}
-			@media (max-width:600px){header h1{font-size:2.2rem}header h2{font-size:.9rem}.hero-image{height:70vh;min-height:400px}.hero-overlay h2{font-size:2rem}.header-phone{top:1.5rem}}
-			@media (prefers-color-scheme:dark){:root{--lichen:#2a2520;--camas-text:#c5b8e4;--oak-green-text:#d5c884;--text-primary:#f5f0e8;--yarrow:#fbf7f0}html{background:#2a2520}.btn-primary{background:#f4c431;color:#2a1a08}.btn-primary:hover{background:#f4c431;color:#2a1a08;box-shadow:0 0 20px rgba(244,196,49,0.6)}.btn-secondary{background:#9a8ed4;color:#fff}.btn-secondary:hover{background:#9a8ed4;color:#fff;box-shadow:0 0 20px rgba(154,142,212,0.6)}}
-		</style>
-		
-		<!-- Structured Data for Local Business SEO -->
-		<script type="application/ld+json">
-		{
-			"@context": "https://schema.org",
-			"@type": "LocalBusiness",
-			"@id": "https://orbweaver.ca/#business",
-			"name": "Orbweaver Natural Landcare",
-			"description": "Natural landcare services including garden coaching, gentle maintenance, and permaculture design in Cowichan Valley",
-			"url": "https://orbweaver.ca",
-			"telephone": "+1-250-710-1010",
-			"priceRange": "$",
-			"address": {
-				"@type": "PostalAddress",
-				"addressLocality": "Cowichan Valley",
-				"addressRegion": "BC",
-				"addressCountry": "CA"
-			},
-			"geo": {
-				"@type": "GeoCoordinates",
-				"latitude": 48.8167,
-				"longitude": -123.7167
-			},
-			"areaServed": {
-				"@type": "GeoCircle",
-				"geoMidpoint": {
-					"@type": "GeoCoordinates",
-					"latitude": 48.8167,
-					"longitude": -123.7167
-				},
-				"geoRadius": "30000"
-			},
-			"openingHoursSpecification": {
-				"@type": "OpeningHoursSpecification",
-				"dayOfWeek": [
-					"Monday",
-					"Tuesday",
-					"Wednesday",
-					"Thursday",
-					"Friday",
-					"Saturday"
-				],
-				"opens": "08:00",
-				"closes": "18:00"
-			},
-			"hasOfferCatalog": {
-				"@type": "OfferCatalog",
-				"name": "Natural Landcare Services",
-				"itemListElement": [
-					{
-						"@type": "Offer",
-						"itemOffered": {
-							"@type": "Service",
-							"name": "Garden Coaching",
-							"description": "Learn to read what your plants are saying and create abundance without struggle"
-						}
-					},
-					{
-						"@type": "Offer",
-						"itemOffered": {
-							"@type": "Service",
-							"name": "Gentle Maintenance",
-							"description": "Regular care that makes your garden more independent over time"
-						}
-					},
-					{
-						"@type": "Offer",
-						"itemOffered": {
-							"@type": "Service",
-							"name": "Full Garden Design",
-							"description": "Native plants, food forests, and rain gardens that solve problems while creating beauty"
-						}
-					},
-					{
-						"@type": "Offer",
-						"itemOffered": {
-							"@type": "Service",
-							"name": "Consultation",
-							"description": "Initial consultation to assess your outdoor space"
-						},
-						"price": "150",
-						"priceCurrency": "CAD"
-					}
-				]
-			},
-			"sameAs": [],
-			"image": "https://orbweaver.ca/images/hero-1200.jpg"
-		}
-		</script>
-	</head>
-	<body>
-		<header>
-			<h1>Orbweaver</h1>
-			<h2>Natural Landcare</h2>
-			<a href="tel:250-710-1010" class="btn btn-secondary header-phone"
-				>250&#8209;710&#8209;1010</a
-			>
-			<div class="hero-image">
-				<picture>
-					<source 
-						srcset="/images/hero-800.avif 800w, /images/hero-1200.avif 1200w" 
-						type="image/avif"
-						sizes="(max-width: 600px) 100vw, 800px"
-					/>
-					<source 
-						srcset="/images/hero-800.webp 800w, /images/hero-1200.webp 1200w" 
-						type="image/webp"
-						sizes="(max-width: 600px) 100vw, 800px"
-					/>
-					<img
-						src="/images/hero-800.jpg"
-						srcset="/images/hero-800.jpg 800w, /images/hero-1200.jpg 1200w"
-						sizes="(max-width: 600px) 100vw, 800px"
-						alt="natural meadowscape"
-						fetchpriority="high"
-						decoding="async"
-						width="800"
-						height="533"
-					/>
-				</picture>
-				<div class="hero-overlay">
-					<h2>Your lawn wants to be a garden.</h2>
-					<a href="#contact-form" class="btn btn-primary">Let's Talk</a>
-				</div>
-			</div>
-		</header>
+    <!-- Preload LCP image for faster loading -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero-800.avif"
+      type="image/avif"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero-800.webp"
+      type="image/webp"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero-800.jpg"
+      type="image/jpeg"
+    />
 
-		<main>
-			<p>
-				There's a different way to think about your outdoor space. One
-				where you work with nature instead of declaring war on it every
-				Sunday.
-			</p>
+    <!-- Google Fonts for rounded, friendly typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Quicksand:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
-			<blockquote>
-				<p>
-					We've been told land needs constant control. Trim this.
-					Spray that. Fight back the chaos.
-				</p>
-				<p>
-					But what if your garden already knows what it wants to
-					become? What if the secret is just learning how to listen?
-				</p>
-				<p>
-					That's what we'll do. We'll observe, we'll understand, then
-					we'll guide. The result? Alive and abundant spaces that
-					basically take care of themselves.
-				</p>
-			</blockquote>
+    <!-- Load stylesheet normally for better reliability -->
+    <link rel="stylesheet" href="styles.min.css" />
 
-			<section>
-				<h2>How we work</h2>
+    <!-- Critical CSS inline - only above-the-fold essentials -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --camas: #7a78b0;
+        --oak-green: #9a8c42;
+        --yarrow: #faf8f7;
+        --lichen: #f8f2ef;
+        --camas-text: #6563a0;
+        --oak-green-text: #6b6030;
+        --text-primary: #3a2a18;
+      }
+      html {
+        background: var(--lichen);
+        font-family: "Quicksand", system-ui, sans-serif;
+        color: var(--text-primary);
+      }
+      body {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+      header {
+        position: relative;
+        padding: 1rem 0 0 0;
+      }
+      header h1 {
+        font-family: "Fredoka", sans-serif;
+        font-size: 3rem;
+        color: var(--camas-text);
+        margin-bottom: 0;
+      }
+      header h2 {
+        font-size: 1.25rem;
+        color: var(--oak-green-text);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin: 0 0 0.5rem 0;
+      }
+      .hero-image {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        border-radius: 1rem;
+        margin: 1.5rem 0 2rem 0;
+        overflow: hidden;
+      }
+      .hero-image img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+      }
+      .hero-overlay h2 {
+        color: var(--yarrow);
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0 0 2rem 0;
+        font-family: "Fredoka", sans-serif;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      /* Button system with consistent design */
+      .btn {
+        display: inline-block;
+        padding: 0.875rem 2rem;
+        border-radius: 2rem;
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        line-height: 1.2;
+        position: relative;
+        text-align: center;
+      }
+      .btn-primary {
+        background: #f4c431;
+        color: #2a1a08;
+      }
+      .btn-primary:hover {
+        background: #f4c431;
+        color: #2a1a08;
+        transform: translateY(-1px);
+        box-shadow: 0 0 20px rgba(244, 196, 49, 0.5);
+      }
+      .btn-secondary {
+        background: #7a78b0;
+        color: #fff;
+      }
+      .btn-secondary:hover {
+        background: #7a78b0;
+        color: #fff;
+        transform: translateY(-1px);
+        box-shadow: 0 0 20px rgba(122, 120, 176, 0.5);
+      }
+      .header-phone {
+        position: absolute;
+        top: 2.8rem;
+        right: 0;
+        padding: 0.625rem 1.25rem;
+        font-size: 0.95rem;
+      }
+      @media (max-width: 600px) {
+        header h1 {
+          font-size: 2.2rem;
+        }
+        header h2 {
+          font-size: 0.9rem;
+        }
+        .hero-image {
+          height: 70vh;
+          min-height: 400px;
+        }
+        .hero-overlay h2 {
+          font-size: 2rem;
+        }
+        .header-phone {
+          top: 1.5rem;
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --lichen: #2a2520;
+          --camas-text: #c5b8e4;
+          --oak-green-text: #d5c884;
+          --text-primary: #f5f0e8;
+          --yarrow: #fbf7f0;
+        }
+        html {
+          background: #2a2520;
+        }
+        .btn-primary {
+          background: #f4c431;
+          color: #2a1a08;
+        }
+        .btn-primary:hover {
+          background: #f4c431;
+          color: #2a1a08;
+          box-shadow: 0 0 20px rgba(244, 196, 49, 0.6);
+        }
+        .btn-secondary {
+          background: #9a8ed4;
+          color: #fff;
+        }
+        .btn-secondary:hover {
+          background: #9a8ed4;
+          color: #fff;
+          box-shadow: 0 0 20px rgba(154, 142, 212, 0.6);
+        }
+      }
+    </style>
 
-				<div class="cards-wrapper">
-					<div
-						class="cards-container"
-						id="howWeWorkCards"
-						tabindex="0"
-						role="region"
-						aria-label="How we work services carousel"
-					>
-						<article>
-							<h3>Build soil, not dependencies</h3>
-							<p>
-								Healthy soil grows healthy plants. We focus on
-								building living soil that gets better each year,
-								not dependent on fertilizers or other
-								amendments.
-							</p>
-						</article>
+    <!-- Structured Data for Local Business SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "@id": "https://orbweaver.ca/#business",
+        "name": "Orbweaver Natural Landcare",
+        "description": "Natural landcare services including garden coaching, gentle maintenance, and permaculture design in Cowichan Valley",
+        "url": "https://orbweaver.ca",
+        "telephone": "+1-250-710-1010",
+        "priceRange": "$",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Cowichan Valley",
+          "addressRegion": "BC",
+          "addressCountry": "CA"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 48.8167,
+          "longitude": -123.7167
+        },
+        "areaServed": {
+          "@type": "GeoCircle",
+          "geoMidpoint": {
+            "@type": "GeoCoordinates",
+            "latitude": 48.8167,
+            "longitude": -123.7167
+          },
+          "geoRadius": "30000"
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "08:00",
+          "closes": "18:00"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Natural Landcare Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Garden Coaching",
+                "description": "Learn to read what your plants are saying and create abundance without struggle"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Gentle Maintenance",
+                "description": "Regular care that makes your garden more independent over time"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Full Garden Design",
+                "description": "Native plants, food forests, and rain gardens that solve problems while creating beauty"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Consultation",
+                "description": "Initial consultation to assess your outdoor space"
+              },
+              "price": "150",
+              "priceCurrency": "CAD"
+            }
+          ]
+        },
+        "sameAs": [],
+        "image": "https://orbweaver.ca/images/hero-1200.jpg"
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>Orbweaver</h1>
+      <h2>Natural Landcare</h2>
+      <a href="tel:250-710-1010" class="btn btn-secondary header-phone"
+        >250&#8209;710&#8209;1010</a
+      >
+      <div class="hero-image">
+        <picture>
+          <source
+            srcset="/images/hero-800.avif 800w, /images/hero-1200.avif 1200w"
+            type="image/avif"
+            sizes="(max-width: 600px) 100vw, 800px"
+          />
+          <source
+            srcset="/images/hero-800.webp 800w, /images/hero-1200.webp 1200w"
+            type="image/webp"
+            sizes="(max-width: 600px) 100vw, 800px"
+          />
+          <img
+            src="/images/hero-800.jpg"
+            srcset="/images/hero-800.jpg 800w, /images/hero-1200.jpg 1200w"
+            sizes="(max-width: 600px) 100vw, 800px"
+            alt="natural meadowscape"
+            fetchpriority="high"
+            decoding="async"
+            width="800"
+            height="533"
+          />
+        </picture>
+        <div class="hero-overlay">
+          <h2>Your lawn wants to be a garden.</h2>
+          <a href="#contact-form" class="btn btn-primary">Get Help</a>
+        </div>
+      </div>
+    </header>
 
-						<article>
-							<h3>Plant for the long term</h3>
-							<p>
-								We choose plants that actually want to grow
-								here, from seeds that were born here. They'll
-								need less water and care once established.
-							</p>
-						</article>
+    <main>
+      <p>
+        What if we worked with nature, rather than declaring war on it every
+        Sunday?
+      </p>
 
-						<article>
-							<h3>Welcome wildlife</h3>
-							<p>
-								A balanced garden has predators for every pest.
-								We design habitats that attract and shelter
-								beneficial insects, reptiles, and birds.
-							</p>
-						</article>
+      <blockquote>
+        <p>
+          We've been told land needs constant control. Trim this. Spray that.
+          Fight back the chaos.
+        </p>
+        <p>
+          But what if your garden already knows what it wants to become? What if
+          the secret is just learning how to listen?
+        </p>
+        <p>
+          That's what we'll do. We'll observe, we'll understand, then we'll
+          guide. The result? Alive and abundant spaces that basically take care
+          of themselves.
+        </p>
+      </blockquote>
 
-						<article>
-							<h3>Capture rain where it falls</h3>
-							<p>
-								Using simple earthworks and plantings that slow
-								and sink water, we reduce or eliminate
-								irrigation needs and prevent erosion.
-							</p>
-						</article>
-					</div>
-					<div class="carousel-dots" id="howWeWorkDots"></div>
-				</div>
+      <section>
+        <h2>How we work</h2>
 
-				<aside>
-					<h3>Quiet work</h3>
-					<p>
-						We work with the land, not against.<br />
-						We use scythes, not mowers. Hand tools, not blowers.
-						<br />
-						Your neighbours will thank you.
-					</p>
-				</aside>
-			</section>
+        <div class="cards-wrapper">
+          <div
+            class="cards-container"
+            id="howWeWorkCards"
+            tabindex="0"
+            role="region"
+            aria-label="How we work services carousel"
+          >
+            <article>
+              <h3>Build soil, not dependencies</h3>
+              <p>
+                Healthy soil grows healthy plants. We focus on building living
+                soil that gets better each year, without fertilizers.
+              </p>
+            </article>
 
-			<section>
-				<h2>What we do</h2>
+            <article>
+              <h3>Plant for the long term</h3>
+              <p>
+                We choose plants that want to grow here, from seeds that were
+                born here. They'll need less water and care once established.
+              </p>
+            </article>
 
-				<div class="cards-wrapper">
-					<div
-						class="cards-container"
-						id="whatWeDoCards"
-						tabindex="0"
-						role="region"
-						aria-label="What we do services carousel"
-					>
-						<article>
-							<h3>Garden coaching</h3>
-							<p>For the curious</p>
-							<p>
-								Think of us as your garden translator.
-								We&rsquo;ll teach you to read what your plants
-								are actually saying, build soil that's genuinely
-								alive, and create abundance without the
-								struggle.
-							</p>
-							<p>
-								<mark
-									>Perfect if you want to learn but don't know
-									where to start.</mark
-								>
-							</p>
-						</article>
+            <article>
+              <h3>Welcome wildlife</h3>
+              <p>
+                A balanced garden has predators for every pest. We design
+                habitats that attract and shelter beneficial insects, reptiles,
+                and birds.
+              </p>
+            </article>
 
-						<article>
-							<h3>Gentle maintenance</h3>
-							<p>For the busy</p>
-							<p>
-								Regular care that makes your garden more
-								independent over time, not less. We prune for
-								health, not conformity. Build soil, not deplete
-								it. Every visit moves you closer to a
-								self-sustaining ecosystem.
-							</p>
-							<p>
-								<mark
-									>It's maintenance that has an exit
-									strategy.</mark
-								>
-							</p>
-						</article>
+            <article>
+              <h3>Capture rain where it falls</h3>
+              <p>
+                Using simple earthworks and smart plantings that slow and sink
+                water, we reduce or eliminate irrigation needs and prevent
+                erosion.
+              </p>
+            </article>
+          </div>
+          <div class="carousel-dots" id="howWeWorkDots"></div>
+        </div>
 
-						<article>
-							<h3>Full garden design</h3>
-							<p>For the ready</p>
-							<p>
-								Let's create something extraordinary. Native
-								plants that actually want to be here. Food
-								forests that look like art installations. Rain
-								gardens that solve problems whilst creating
-								beauty.
-							</p>
-							<p>
-								<mark>This is landscape as possibility.</mark>
-							</p>
-						</article>
-					</div>
-					<div class="carousel-dots" id="whatWeDoDots"></div>
-				</div>
+        <aside>
+          <h3>Quiet work</h3>
+          <p>
+            We work with land, not against.<br />
+            We use scythes, not mowers. Hand tools, not blowers.
+            <br />
+            Your neighbours will thank you.
+          </p>
+        </aside>
+      </section>
 
-				<div class="boundaries">
-					<strong>What we don&rsquo;t do:</strong>
-					<p>No plastic, no poison, no petroleum.</p>
-					<p>
-						No mowing, blowing, irrigation installation,
-						hardscaping, or anything requiring heavy machinery. For
-						those services, we know excellent people to recommend.
-					</p>
-					<p>
-						No lawns. We'll do <i>area rugs</i> of bee turf, but we
-						think it's time to move on from <i>wall-to-wall</i>.
-					</p>
-					<p>
-						As for 'weedeating', we won't run a string trimmer but
-						we might make them into a salad.
-					</p>
-				</div>
-			</section>
+      <section>
+        <h2>What we do</h2>
 
-			<section id="contact-form">
-				<h2>Start something</h2>
+        <div class="cards-wrapper">
+          <div
+            class="cards-container"
+            id="whatWeDoCards"
+            tabindex="0"
+            role="region"
+            aria-label="What we do services carousel"
+          >
+            <article>
+              <h3>Garden coaching</h3>
+              <p>For the curious</p>
+              <p>
+                Think of us as your garden translator. We&rsquo;ll teach you to
+                read what your plants are actually saying, build soil that's
+                genuinely alive, and create abundance without the struggle.
+              </p>
+              <p>
+                <mark
+                  >Perfect if you want to learn but don't know where to
+                  start.</mark
+                >
+              </p>
+            </article>
 
-				<form
-					id="contactForm"
-					action="https://formspree.io/f/xyzdqbaw"
-					method="POST"
-				>
-					<p>
-						Tell us about your space and we'll start a conversation.
-						No pressure, no sales pitch. Just two people talking
-						about plants.
-					</p>
+            <article>
+              <h3>Gentle maintenance</h3>
+              <p>For the busy</p>
+              <p>
+                Regular care that makes your garden more independent over time,
+                not less. We prune for health, not conformity. Build soil, not
+                deplete it. Every visit moves you closer to a self-sustaining
+                ecosystem.
+              </p>
+              <p>
+                <mark>It's maintenance that has an exit strategy.</mark>
+              </p>
+            </article>
 
-					<label>
-						Name
-						<input
-							type="text"
-							name="name"
-							placeholder="What should we call you?"
-							required
-						/>
-					</label>
+            <article>
+              <h3>Full garden design</h3>
+              <p>For the ready</p>
+              <p>
+                Let's create something extraordinary. Plants that actually want
+                to be here. Food forests that look like they belong. Rain
+                gardens that solve problems whilst creating beauty.
+              </p>
+              <p>
+                <mark>This is landscape as possibility.</mark>
+              </p>
+            </article>
+          </div>
+          <div class="carousel-dots" id="whatWeDoDots"></div>
+        </div>
 
-					<label>
-						Email
-						<input
-							type="email"
-							name="email"
-							placeholder="your@email.com"
-							required
-						/>
-					</label>
+        <div class="boundaries">
+          <strong>What we don&rsquo;t do:</strong>
+          <p>No plastic, no poison, no petroleum.</p>
+          <p>
+            We don't mow, blow, install irrigation, hardscape, or do anything
+            requiring heavy machinery. For those services, we know excellent
+            people to recommend.
+          </p>
+        </div>
+      </section>
 
-					<label>
-						Phone (optional)
-						<input
-							type="tel"
-							name="phone"
-							placeholder="250-xxx-xxxx"
-						/>
-					</label>
+      <section id="contact-form">
+        <h2>Start something</h2>
 
-					<label>
-						City (optional)
-						<input
-							type="text"
-							name="city"
-							placeholder="Where do your plants live?"
-						/>
-					</label>
+        <form
+          id="contactForm"
+          action="https://formspree.io/f/xyzdqbaw"
+          method="POST"
+        >
+          <p>
+            Tell us about your space and we'll start a conversation. No
+            pressure, no sales pitch. Just two people talking about plants.
+          </p>
 
-					<!-- Hidden field for Formspree -->
-					<input
-						type="hidden"
-						name="_subject"
-						value="New inquiry from Orbweaver website"
-					/>
+          <label>
+            Name
+            <input
+              type="text"
+              name="name"
+              placeholder="What should we call you?"
+              required
+            />
+          </label>
 
-					<label>
-						What's happening with your outdoor space?
-						<textarea
-							name="message"
-							rows="4"
-							placeholder="Honest assessment welcome. 'Total disaster' is a perfectly valid starting point."
-							required
-						></textarea>
-					</label>
+          <label>
+            Email
+            <input
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+              required
+            />
+          </label>
 
-					<label>
-						What service interests you most?
-						<select name="service">
-							<option value="">Choose one (optional)</option>
-							<option value="coaching">Garden coaching</option>
-							<option value="maintenance">
-								Gentle maintenance
-							</option>
-							<option value="design">Full garden design</option>
-							<option value="consultation">
-								Just a consultation
-							</option>
-						</select>
-					</label>
+          <label>
+            Phone (optional)
+            <input type="tel" name="phone" placeholder="250-xxx-xxxx" />
+          </label>
 
-					<!-- Honeypot field for spam prevention -->
-					<div
-						style="position: absolute; left: -5000px"
-						aria-hidden="true"
-					>
-						<input type="text" name="website" tabindex="-1" />
-					</div>
+          <label>
+            City (optional)
+            <input
+              type="text"
+              name="city"
+              placeholder="Where do your plants live?"
+            />
+          </label>
 
-					<button type="submit" class="btn btn-primary">
-						Let's talk
-					</button>
-					<div
-						id="formMessage"
-						class="form-message"
-						style="display: none"
-					></div>
-				</form>
+          <!-- Hidden field for Formspree -->
+          <input
+            type="hidden"
+            name="_subject"
+            value="New inquiry from Orbweaver website"
+          />
 
-				<div class="service-details">
-					<div>
-						<strong>Service area:</strong> &#8216;Cowichan
-						Valley&#8217;
-					</div>
-					<div><strong>Consultation:</strong> $150 (incl. taxes)</div>
-					<div><strong>Response time:</strong> Within one week.</div>
-					<div><strong>Availability:</strong> Now booking for fall '25</div>
-				</div>
-			</section>
-		</main>
+          <label>
+            What's happening with your outdoor space?
+            <textarea
+              name="message"
+              rows="4"
+              placeholder="Honest assessment welcome. 'Total disaster' is a perfectly valid starting point."
+              required
+            ></textarea>
+          </label>
 
-		<footer>
-			<p>
-				<strong>Orbweaver Natural Landcare</strong><br />
-				Quw&rsquo;utsun Traditional Lands<br />
-			</p>
-			<small>Beautiful outdoor spaces, without the warfare.</small>
-		</footer>
+          <label>
+            What service interests you most?
+            <select name="service">
+              <option value="">Choose one (optional)</option>
+              <option value="coaching">Garden coaching</option>
+              <option value="maintenance">Gentle maintenance</option>
+              <option value="design">Full garden design</option>
+              <option value="consultation">Just a consultation</option>
+            </select>
+          </label>
 
-		<script src="js/main.js" defer></script>
-								</body>
+          <!-- Honeypot field for spam prevention -->
+          <div style="position: absolute; left: -5000px" aria-hidden="true">
+            <input type="text" name="website" tabindex="-1" />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Let's talk</button>
+          <div
+            id="formMessage"
+            class="form-message"
+            style="display: none"
+          ></div>
+        </form>
+
+        <div class="service-details">
+          <div>
+            <strong>Service area:</strong> &#8216;Cowichan Valley&#8217;
+          </div>
+          <div><strong>Consultation:</strong> $150 (incl. taxes)</div>
+          <div><strong>Response time:</strong> Within one week.</div>
+          <div><strong>Availability:</strong> Now booking for fall '25</div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        <strong>Orbweaver Natural Landcare</strong><br />
+        Quw&rsquo;utsun Traditional Lands<br />
+      </p>
+      <small>Beautiful outdoor spaces, without the warfare.</small>
+    </footer>
+
+    <script src="js/main.js" defer></script>
+  </body>
 </html>
