@@ -136,41 +136,43 @@
         font-family: "Fredoka", sans-serif;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       }
-      /* Button system with consistent design */
+      /* Essential button styles for critical path */
       .btn {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         padding: 0.875rem 2rem;
         border-radius: 2rem;
         font-weight: 600;
         font-size: 1rem;
         text-decoration: none;
-        transition: all 0.2s ease;
         cursor: pointer;
         border: none;
         font-family: inherit;
         line-height: 1.2;
-        position: relative;
-        text-align: center;
+        min-height: 2.75rem;
+        transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -webkit-tap-highlight-color: transparent;
       }
       .btn-primary {
-        background: #f4c431;
+        background: var(--meadow);
         color: #2a1a08;
+        box-shadow: 0 1px 2px rgba(244, 196, 49, 0.1);
       }
       .btn-primary:hover {
-        background: #f4c431;
-        color: #2a1a08;
+        background: #f0b82d;
         transform: translateY(-1px);
-        box-shadow: 0 0 20px rgba(244, 196, 49, 0.5);
+        box-shadow: 0 4px 12px rgba(244, 196, 49, 0.3);
       }
       .btn-secondary {
-        background: #7a78b0;
+        background: var(--camas);
         color: #fff;
+        box-shadow: 0 1px 2px rgba(122, 120, 176, 0.1);
       }
       .btn-secondary:hover {
-        background: #7a78b0;
-        color: #fff;
+        background: #6d6ba0;
         transform: translateY(-1px);
-        box-shadow: 0 0 20px rgba(122, 120, 176, 0.5);
+        box-shadow: 0 4px 12px rgba(122, 120, 176, 0.3);
       }
       .header-phone {
         position: absolute;
@@ -209,22 +211,22 @@
           background: #2a2520;
         }
         .btn-primary {
-          background: #f4c431;
+          background: var(--meadow);
           color: #2a1a08;
         }
         .btn-primary:hover {
-          background: #f4c431;
-          color: #2a1a08;
-          box-shadow: 0 0 20px rgba(244, 196, 49, 0.6);
+          background: #eab528;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(240, 212, 168, 0.4);
         }
         .btn-secondary {
           background: #9a8ed4;
           color: #fff;
         }
         .btn-secondary:hover {
-          background: #9a8ed4;
-          color: #fff;
-          box-shadow: 0 0 20px rgba(154, 142, 212, 0.6);
+          background: #8a7dc8;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(154, 142, 212, 0.4);
         }
       }
     </style>
