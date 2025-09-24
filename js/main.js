@@ -19,6 +19,7 @@
             this.handleMotionPreference();
             this.registerServiceWorker();
             this.initResizeHandler();
+            this.initHeroAnimation();
         },
 
         // Utility: Throttle function
@@ -305,13 +306,23 @@
             prefersReducedMotion.addEventListener('change', handleChange);
         },
 
-        // Service worker registration
+        // Service worker registration with improved error handling
         registerServiceWorker() {
             if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
                 window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/sw.js').catch(err => {
-                        console.log('Service worker registration failed:', err);
-                    });
+                    navigator.serviceWorker.register('/sw.js')
+                        .then(registration => {
+                            // Update service worker when new version is available
+                            if (registration.waiting) {
+                                registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+                            }
+                        })
+                        .catch(err => {
+                            // Silently fail in production, only log in development
+                            if (window.location.hostname === 'localhost') {
+                                console.log('Service worker registration failed:', err);
+                            }
+                        });
                 });
             }
         },
@@ -325,6 +336,289 @@
                     this.initCarousels();
                 }, 250);
             });
+        },
+
+        // Hero Animation System with error handling
+        initHeroAnimation() {
+            try {
+                const canvas = document.getElementById('hero-canvas');
+                if (!canvas) return;
+
+                // Respect motion preferences
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    return;
+                }
+
+                // Check for canvas support
+                const ctx = canvas.getContext('2d');
+                if (!ctx) return;
+
+                const heroSection = canvas.closest('.hero-image');
+                if (!heroSection) return;
+
+            let mouseX = 0;
+            let mouseY = 0;
+            let mouseStillTimer = 0;
+            let lastMouseX = 0;
+            let lastMouseY = 0;
+
+            // Set canvas size
+            const resizeCanvas = () => {
+                canvas.width = heroSection.offsetWidth;
+                canvas.height = heroSection.offsetHeight;
+            };
+            resizeCanvas();
+
+            // Mouse tracking within hero section
+            heroSection.addEventListener('mousemove', (e) => {
+                const rect = heroSection.getBoundingClientRect();
+                mouseX = e.clientX - rect.left;
+                mouseY = e.clientY - rect.top;
+                mouseStillTimer = 0;
+            });
+
+            // Orb class for floating lights
+            class Orb {
+                constructor(canvas) {
+                    this.canvas = canvas;
+                    this.reset();
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                }
+
+                reset() {
+                    this.targetX = Math.random() * this.canvas.width;
+                    this.targetY = Math.random() * this.canvas.height;
+                    this.size = Math.random() * 8 + 4;
+                    this.baseOpacity = Math.random() * 0.3 + 0.1;
+                    this.opacity = 0;
+                    this.pulsePhase = Math.random() * Math.PI * 2;
+                    this.speed = Math.random() * 0.3 + 0.2;
+                    this.hasApproached = false;
+                    this.approachCooldown = 0;
+                    this.glowIntensity = 0;
+                }
+
+                update() {
+                    // Fade in gradually
+                    if (this.opacity < this.baseOpacity) {
+                        this.opacity += 0.001;
+                    }
+
+                    // Gentle movement toward target
+                    const dx = this.targetX - this.x;
+                    const dy = this.targetY - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance > 5) {
+                        this.x += (dx / distance) * this.speed;
+                        this.y += (dy / distance) * this.speed;
+                    } else {
+                        this.targetX = Math.random() * this.canvas.width;
+                        this.targetY = Math.random() * this.canvas.height;
+                    }
+
+                    // Floating motion
+                    this.x += Math.sin(Date.now() * 0.0001 + this.pulsePhase) * 0.2;
+                    this.y += Math.cos(Date.now() * 0.0001 + this.pulsePhase) * 0.15;
+                    this.pulsePhase += 0.008;
+
+                    // Mouse interaction
+                    if (mouseStillTimer > 100 && !this.hasApproached && this.approachCooldown <= 0) {
+                        const mouseDistance = Math.sqrt(
+                            Math.pow(this.x - mouseX, 2) + Math.pow(this.y - mouseY, 2)
+                        );
+
+                        if (mouseDistance < 150) {
+                            this.targetX = mouseX + (Math.random() - 0.5) * 40;
+                            this.targetY = mouseY + (Math.random() - 0.5) * 40;
+                            this.speed = 0.6;
+                            this.glowIntensity = Math.min(0.8, this.glowIntensity + 0.015);
+
+                            if (mouseDistance < 30) {
+                                this.hasApproached = true;
+                                this.approachCooldown = 200;
+                                this.createGlimmer();
+                            }
+                        }
+                    } else {
+                        this.speed = Math.random() * 0.3 + 0.2;
+                        this.glowIntensity = Math.max(0, this.glowIntensity - 0.008);
+                    }
+
+                    if (this.approachCooldown > 0) {
+                        this.approachCooldown--;
+                        if (this.approachCooldown === 0) {
+                            this.hasApproached = false;
+                        }
+                    }
+
+                    // Keep in bounds
+                    if (this.x < 0) this.targetX = this.canvas.width;
+                    if (this.x > this.canvas.width) this.targetX = 0;
+                    if (this.y < 0) this.targetY = this.canvas.height;
+                    if (this.y > this.canvas.height) this.targetY = 0;
+                }
+
+                draw(ctx) {
+                    const pulse = Math.sin(this.pulsePhase) * 0.2 + 1;
+                    const currentSize = this.size * pulse;
+
+                    // Warm glow gradient
+                    const gradient = ctx.createRadialGradient(
+                        this.x, this.y, 0,
+                        this.x, this.y, currentSize * 2.5
+                    );
+
+                    gradient.addColorStop(0, `rgba(255, 248, 220, ${this.opacity * 0.6 + this.glowIntensity * 0.2})`);
+                    gradient.addColorStop(0.4, `rgba(255, 236, 179, ${this.opacity * 0.3})`);
+                    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, currentSize * 2.5, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Inner light
+                    ctx.fillStyle = `rgba(255, 255, 240, ${this.opacity * 0.4 + this.glowIntensity * 0.3})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, currentSize * 0.3, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                createGlimmer() {
+                    const glimmer = document.createElement('div');
+                    glimmer.className = 'glimmer';
+                    glimmer.style.left = this.x + 'px';
+                    glimmer.style.top = this.y + 'px';
+                    heroSection.appendChild(glimmer);
+
+                    setTimeout(() => {
+                        if (heroSection.contains(glimmer)) {
+                            heroSection.removeChild(glimmer);
+                        }
+                    }, 3000);
+                }
+            }
+
+            // Create orbs (fewer for subtlety)
+            const orbs = [];
+            const orbCount = 5;
+
+            for (let i = 0; i < orbCount; i++) {
+                setTimeout(() => {
+                    orbs.push(new Orb(canvas));
+                }, i * 1500);
+            }
+
+            // Butterfly creation (less frequent)
+            const createButterfly = () => {
+                const butterfly = document.createElement('div');
+                butterfly.className = 'butterfly';
+                butterfly.innerHTML = `
+                    <div class="butterfly-wing left"></div>
+                    <div class="butterfly-wing right"></div>
+                `;
+                heroSection.appendChild(butterfly);
+
+                const startX = Math.random() < 0.5 ? -40 : canvas.width + 40;
+                let x = startX;
+                let y = Math.random() * canvas.height;
+                let vx = startX < 0 ? 1.2 : -1.2;
+                let vy = (Math.random() - 0.5) * 0.4;
+                let wavePhase = Math.random() * Math.PI * 2;
+
+                butterfly.style.left = x + 'px';
+                butterfly.style.top = y + 'px';
+
+                setTimeout(() => {
+                    butterfly.style.opacity = '0.6';
+                }, 100);
+
+                const moveButterfly = () => {
+                    x += vx * 1.5;
+                    y += vy * 1.5 + Math.sin(wavePhase) * 1.2;
+                    wavePhase += 0.04;
+
+                    if (Math.random() < 0.015) {
+                        vy = (Math.random() - 0.5) * 0.4;
+                    }
+
+                    butterfly.style.left = x + 'px';
+                    butterfly.style.top = y + 'px';
+
+                    if (x < -50 || x > canvas.width + 50) {
+                        butterfly.style.opacity = '0';
+                        setTimeout(() => {
+                            if (heroSection.contains(butterfly)) {
+                                heroSection.removeChild(butterfly);
+                            }
+                        }, 2000);
+                    } else {
+                        requestAnimationFrame(moveButterfly);
+                    }
+                };
+
+                requestAnimationFrame(moveButterfly);
+            };
+
+            // Occasional butterflies
+            setInterval(() => {
+                if (Math.random() < 0.2 && !document.hidden) {
+                    createButterfly();
+                }
+            }, 20000);
+
+            // Optimized animation loop with performance monitoring
+            let lastTime = 0;
+            const animate = (currentTime) => {
+                if (document.hidden) {
+                    requestAnimationFrame(animate);
+                    return;
+                }
+
+                // Throttle to 30fps for better battery life on mobile
+                if (currentTime - lastTime < 33) {
+                    requestAnimationFrame(animate);
+                    return;
+                }
+                lastTime = currentTime;
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Update mouse stillness
+                if (Math.abs(mouseX - lastMouseX) < 2 && Math.abs(mouseY - lastMouseY) < 2) {
+                    mouseStillTimer++;
+                } else {
+                    mouseStillTimer = 0;
+                }
+                lastMouseX = mouseX;
+                lastMouseY = mouseY;
+
+                // Update and draw orbs with batched operations
+                orbs.forEach(orb => {
+                    orb.update();
+                    orb.draw(ctx);
+                });
+
+                requestAnimationFrame(animate);
+            };
+
+            // Start animation
+            animate();
+
+            // Handle resize
+            window.addEventListener('resize', this.throttle(resizeCanvas, 250));
+
+            // Initial butterfly after delay
+            setTimeout(createButterfly, 8000);
+
+            } catch (error) {
+                // Gracefully handle animation failures
+                if (window.location.hostname === 'localhost') {
+                    console.warn('Hero animation failed to initialize:', error);
+                }
+            }
         }
     };
 

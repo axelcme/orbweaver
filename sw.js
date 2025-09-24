@@ -3,7 +3,7 @@
  * Provides offline support with proper error handling
  */
 
-const CACHE_NAME = 'orbweaver-v1.0.1';
+const CACHE_NAME = 'orbweaver-v1.1.0';
 const OFFLINE_URL = '/offline.html';
 
 // Assets to cache on install - only files that actually exist
