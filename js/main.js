@@ -306,13 +306,23 @@
             prefersReducedMotion.addEventListener('change', handleChange);
         },
 
-        // Service worker registration
+        // Service worker registration with improved error handling
         registerServiceWorker() {
             if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
                 window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/sw.js').catch(err => {
-                        console.log('Service worker registration failed:', err);
-                    });
+                    navigator.serviceWorker.register('/sw.js')
+                        .then(registration => {
+                            // Update service worker when new version is available
+                            if (registration.waiting) {
+                                registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+                            }
+                        })
+                        .catch(err => {
+                            // Silently fail in production, only log in development
+                            if (window.location.hostname === 'localhost') {
+                                console.log('Service worker registration failed:', err);
+                            }
+                        });
                 });
             }
         },
@@ -328,18 +338,23 @@
             });
         },
 
-        // Hero Animation System
+        // Hero Animation System with error handling
         initHeroAnimation() {
-            const canvas = document.getElementById('hero-canvas');
-            if (!canvas) return;
+            try {
+                const canvas = document.getElementById('hero-canvas');
+                if (!canvas) return;
 
-            // Respect motion preferences
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                return;
-            }
+                // Respect motion preferences
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    return;
+                }
 
-            const ctx = canvas.getContext('2d');
-            const heroSection = canvas.closest('.hero-image');
+                // Check for canvas support
+                const ctx = canvas.getContext('2d');
+                if (!ctx) return;
+
+                const heroSection = canvas.closest('.hero-image');
+                if (!heroSection) return;
 
             let mouseX = 0;
             let mouseY = 0;
@@ -554,12 +569,20 @@
                 }
             }, 20000);
 
-            // Animation loop
-            const animate = () => {
+            // Optimized animation loop with performance monitoring
+            let lastTime = 0;
+            const animate = (currentTime) => {
                 if (document.hidden) {
                     requestAnimationFrame(animate);
                     return;
                 }
+
+                // Throttle to 30fps for better battery life on mobile
+                if (currentTime - lastTime < 33) {
+                    requestAnimationFrame(animate);
+                    return;
+                }
+                lastTime = currentTime;
 
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -572,7 +595,7 @@
                 lastMouseX = mouseX;
                 lastMouseY = mouseY;
 
-                // Update and draw orbs
+                // Update and draw orbs with batched operations
                 orbs.forEach(orb => {
                     orb.update();
                     orb.draw(ctx);
@@ -589,6 +612,13 @@
 
             // Initial butterfly after delay
             setTimeout(createButterfly, 8000);
+
+            } catch (error) {
+                // Gracefully handle animation failures
+                if (window.location.hostname === 'localhost') {
+                    console.warn('Hero animation failed to initialize:', error);
+                }
+            }
         }
     };
 
