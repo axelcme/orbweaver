@@ -1,27 +1,37 @@
 /**
  * Service Worker for Orbweaver Natural Landcare
- * Provides offline support and performance optimization
+ * Provides offline support with proper error handling
  */
 
-const CACHE_NAME = 'orbweaver-v1.0.0';
+const CACHE_NAME = 'orbweaver-v1.0.1';
 const OFFLINE_URL = '/offline.html';
 
-// Assets to cache on install
+// Assets to cache on install - only files that actually exist
 const STATIC_CACHE = [
     '/',
     '/index.html',
     '/styles.min.css',
     '/js/main.js',
-    '/smartquotes.js',
     '/manifest.json',
     OFFLINE_URL
 ];
 
-// Install event - cache static assets
+// Install event - cache static assets with error handling
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(STATIC_CACHE))
+            .then(cache => {
+                // Try to cache each file individually to handle failures
+                return Promise.all(
+                    STATIC_CACHE.map(url => {
+                        return cache.add(url).catch(err => {
+                            console.warn(`Failed to cache ${url}:`, err);
+                            // Continue even if individual files fail
+                            return Promise.resolve();
+                        });
+                    })
+                );
+            })
             .then(() => self.skipWaiting())
     );
 });
@@ -43,14 +53,14 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Fetch event - network first, fallback to cache
+// Fetch event - network first with proper fallbacks
 self.addEventListener('fetch', (event) => {
+    // Handle navigation requests
     if (event.request.mode === 'navigate') {
         event.respondWith(
             fetch(event.request)
                 .catch(() => {
-                    return caches.open(CACHE_NAME)
-                        .then(cache => cache.match(OFFLINE_URL));
+                    return caches.match(OFFLINE_URL);
                 })
         );
         return;
@@ -60,22 +70,31 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
         fetch(event.request)
             .then(response => {
-                // Don't cache non-successful responses
+                // Only cache successful responses
                 if (!response || response.status !== 200 || response.type !== 'basic') {
                     return response;
                 }
 
-                // Clone the response
-                const responseToCache = response.clone();
+                // Don't cache POST requests or external resources
+                if (event.request.method !== 'GET' || 
+                    !event.request.url.startsWith(self.location.origin)) {
+                    return response;
+                }
 
+                // Clone and cache the response
+                const responseToCache = response.clone();
                 caches.open(CACHE_NAME)
                     .then(cache => {
                         cache.put(event.request, responseToCache);
+                    })
+                    .catch(err => {
+                        console.warn('Cache put failed:', err);
                     });
 
                 return response;
             })
             .catch(() => {
+                // Try to return from cache
                 return caches.match(event.request);
             })
     );
