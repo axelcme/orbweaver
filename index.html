@@ -67,14 +67,14 @@
         box-sizing: border-box;
       }
       :root {
-        --camas: #7A79B5;
-        --oak-green: #A19C5D;
-        --yarrow: #F7F2EE;
-        --lichen: #E6DCD4;
+        --camas: #7a79b5;
+        --oak-green: #a19c5d;
+        --yarrow: #f7f2ee;
+        --lichen: #e6dcd4;
         --camas-text: #6563a0;
         --oak-green-text: #6b6030;
-        --text-primary: #6B4C37;
-        --meadow: #F3C23B;
+        --text-primary: #6b4c37;
+        --meadow: #f3c23b;
       }
       html {
         background: var(--lichen);
@@ -188,13 +188,21 @@
       }
 
       @keyframes flutter-left {
-        0% { transform: rotateY(0deg); }
-        100% { transform: rotateY(45deg); }
+        0% {
+          transform: rotateY(0deg);
+        }
+        100% {
+          transform: rotateY(45deg);
+        }
       }
 
       @keyframes flutter-right {
-        0% { transform: scaleX(-1) rotateY(0deg); }
-        100% { transform: scaleX(-1) rotateY(45deg); }
+        0% {
+          transform: scaleX(-1) rotateY(0deg);
+        }
+        100% {
+          transform: scaleX(-1) rotateY(45deg);
+        }
       }
 
       /* Glimmer Effect */
@@ -215,9 +223,18 @@
       }
 
       @keyframes glimmer-fade {
-        0% { opacity: 0; transform: scale(0); }
-        50% { opacity: 1; transform: scale(1); }
-        100% { opacity: 0; transform: scale(1.5); }
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.5);
+        }
       }
       /* Essential button styles for critical path */
       .btn {
@@ -259,10 +276,13 @@
       }
       .header-phone {
         position: absolute;
-        top: 2rem;
+        top: 1rem;
         right: 0;
         padding: 0.625rem 1.25rem;
         font-size: 0.95rem;
+      }
+      .header-top {
+        position: relative;
       }
       @media (max-width: 600px) {
         .hero-image {
@@ -279,11 +299,35 @@
           --yarrow: #fbf7f0;
           --meadow: #f0d4a8;
         }
-        html { background: #2a2520; }
-        header h1 { text-shadow: none; }
-        .btn-primary:hover { background: #eab528; }
-        .btn-secondary { background: #9a8ed4; }
-        .btn-secondary:hover { background: #8a7dc8; }
+        html {
+          background: #2a2520;
+        }
+        header h1 {
+          text-shadow: none;
+        }
+        .btn-primary:hover {
+          background: #eab528;
+        }
+        .btn-secondary {
+          background: #9a8ed4;
+        }
+        .btn-secondary:hover {
+          background: #8a7dc8;
+        }
+      }
+
+      @media (max-width: 320px) {
+        .header-top {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.25rem;
+        }
+        .header-phone {
+          position: static;
+          padding: 0.5rem 0;
+          font-size: 0.9rem;
+        }
       }
     </style>
 
@@ -378,11 +422,13 @@
   </head>
   <body>
     <header>
-      <h1>Orbweaver</h1>
-      <h2>Natural Landcare</h2>
-      <a href="tel:250-710-1010" class="btn btn-secondary header-phone"
-        >250&#8209;710&#8209;1010</a
-      >
+      <div class="header-top">
+        <h1>Orbweaver</h1>
+        <h2>Natural Landcare</h2>
+        <a href="tel:250-710-1010" class="btn btn-secondary header-phone"
+          >250&#8209;710&#8209;1010</a
+        >
+      </div>
       <div class="hero-image">
         <canvas id="hero-canvas"></canvas>
         <picture>
@@ -416,8 +462,7 @@
 
     <main>
       <p>
-        What if we worked with nature, rather than declaring war on it every
-        Sunday?
+        What if we worked with nature, rather than declaring war every Sunday?
       </p>
 
       <blockquote>
