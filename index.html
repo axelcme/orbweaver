@@ -136,7 +136,7 @@
         font-weight: 700;
         margin: 0 0 2rem 0;
         font-family: "Fredoka", sans-serif;
-        text-shadow: 2px 2px 0 var(--meadow);
+        text-shadow: none;
       }
 
       /* Hero Animation Canvas */
@@ -320,13 +320,37 @@
         .header-top {
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
+          align-items: center;
           gap: 0.25rem;
         }
         .header-phone {
           position: static;
-          padding: 0.5rem 0;
+          padding: 0.5rem 1rem;
           font-size: 0.9rem;
+        }
+        .hero-overlay {
+          padding: 0.75rem;
+          justify-content: center;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+        .hero-overlay h2 {
+          font-size: 2.4rem;
+          margin-bottom: 0;
+          order: 1;
+        }
+        .hero-overlay .btn {
+          order: 2;
+        }
+        header h1 {
+          white-space: nowrap;
+        }
+        header h2 {
+          white-space: nowrap;
+        }
+        .hero-image {
+          height: 65vh;
+          min-height: 380px;
         }
       }
     </style>
