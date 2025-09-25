@@ -61,268 +61,251 @@
 
     <!-- Critical CSS inline - only above-the-fold essentials -->
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      :root {
-        --camas: #7a78b0;
-        --oak-green: #9a8c42;
-        --yarrow: #faf8f7;
-        --lichen: #f8f2ef;
-        --camas-text: #6563a0;
-        --oak-green-text: #6b6030;
-        --text-primary: #3a2a18;
-      }
-      html {
-        background: var(--lichen);
-        font-family: "Quicksand", system-ui, sans-serif;
-        color: var(--text-primary);
-      }
-      body {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 1rem;
-      }
-      header {
-        position: relative;
-        padding: 1rem 0 0 0;
-      }
-      header h1 {
-        font-family: "Fredoka", sans-serif;
-        font-size: 3rem;
-        color: var(--camas-text);
-        margin-bottom: 0;
-        text-shadow: 2px 2px 0 #f4c431;
-      }
-      header h2 {
-        font-size: 1.25rem;
-        color: var(--oak-green-text);
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        margin: 0 0 0.5rem 0;
-      }
-      .hero-image {
-        position: relative;
-        width: 100%;
-        height: 400px;
-        border-radius: 1rem;
-        margin: 1.5rem 0 2rem 0;
-        overflow: hidden;
-      }
-      .hero-image img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .hero-overlay {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 2rem;
-      }
-      .hero-overlay h2 {
-        color: var(--yarrow);
-        font-size: 3rem;
-        font-weight: 700;
-        margin: 0 0 2rem 0;
-        font-family: "Fredoka", sans-serif;
-        text-shadow: 2px 2px 0 #f4c431;
-      }
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+            }
+            :root {
+              --camas: #7A79B5;
+              --oak-green: #A19C5D;
+              --yarrow: #F7F2EE;
+              --lichen: #E6DCD4;
+              --camas-text: #6563a0;
+              --oak-green-text: #6b6030;
+              --text-primary: #6B4C37;
+              --meadow: #F3C23B;
+            }
+            html {
+              background: var(--lichen);
+              font-family: "Quicksand", system-ui, sans-serif;
+              color: var(--text-primary);
+            }
+            body {
+              max-width: 900px;
+              margin: 0 auto;
+              padding: 1rem;
+            }
+            header {
+              position: relative;
+              padding: 1rem 0 0 0;
+            }
+            header h1 {
+              font-family: "Fredoka", sans-serif;
+              font-size: 2.2rem;
+              color: var(--camas-text);
+              margin-bottom: 0;
 
-      /* Hero Animation Canvas */
-      #hero-canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-      }
+              text-shadow: 1px 1px 0 var(--meadow);
+            }
+            header h2 {
+              font-size: 0.9rem;
+              color: var(--oak-green-text);
+              text-transform: uppercase;
+              letter-spacing: 0.1em;
+              margin: 0 0 0.5rem 0;
+            }
+            .hero-image {
+              position: relative;
+              width: 100%;
+              height: 400px;
+              border-radius: 1rem;
+              margin: 1.5rem 0 2rem 0;
+              overflow: hidden;
+            }
+            .hero-image img {
+              position: absolute;
+              inset: 0;
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+            .hero-overlay {
+              position: absolute;
+              inset: 0;
+              z-index: 2;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              text-align: center;
+              padding: 2rem;
+            }
+            .hero-overlay h2 {
+              color: var(--yarrow);
+              font-size: 3.2rem;
+              font-weight: 700;
+              margin: 0 0 2rem 0;
+              font-family: "Fredoka", sans-serif;
+              text-shadow: 2px 2px 0 var(--meadow);
+            }
 
-      /* Butterfly Elements */
-      .butterfly {
-        position: absolute;
-        width: 30px;
-        height: 20px;
-        pointer-events: none;
-        z-index: 2;
-        opacity: 0;
-        transition: opacity 2s ease;
-      }
+            /* Hero Animation Canvas */
+            #hero-canvas {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              pointer-events: none;
+              z-index: 1;
+            }
 
-      .butterfly-wing {
-        position: absolute;
-        width: 15px;
-        height: 20px;
-        background: radial-gradient(
-          ellipse at center,
-          rgba(255, 248, 220, 0.4) 0%,
-          rgba(255, 236, 179, 0.3) 40%,
-          rgba(255, 255, 255, 0.1) 100%
-        );
-        border-radius: 50% 10% 50% 10%;
-      }
+            /* Butterfly Elements */
+            .butterfly {
+              position: absolute;
+              width: 30px;
+              height: 20px;
+              pointer-events: none;
+              z-index: 2;
+              opacity: 0;
+              transition: opacity 2s ease;
+            }
 
-      .butterfly-wing.left {
-        left: 0;
-        transform-origin: right center;
-        animation: flutter-left 0.25s infinite alternate ease-in-out;
-      }
+            .butterfly-wing {
+              position: absolute;
+              width: 15px;
+              height: 20px;
+              background: radial-gradient(
+                ellipse at center,
+                rgba(255, 248, 220, 0.4) 0%,
+                rgba(255, 236, 179, 0.3) 40%,
+                rgba(255, 255, 255, 0.1) 100%
+              );
+              border-radius: 50% 10% 50% 10%;
+            }
 
-      .butterfly-wing.right {
-        right: 0;
-        transform-origin: left center;
-        animation: flutter-right 0.25s infinite alternate ease-in-out;
-        transform: scaleX(-1);
-      }
+            .butterfly-wing.left {
+              left: 0;
+              transform-origin: right center;
+              animation: flutter-left 0.25s infinite alternate ease-in-out;
+            }
 
-      @keyframes flutter-left {
-        0% {
-          transform: rotateY(0deg);
-        }
-        100% {
-          transform: rotateY(45deg);
-        }
-      }
+            .butterfly-wing.right {
+              right: 0;
+              transform-origin: left center;
+              animation: flutter-right 0.25s infinite alternate ease-in-out;
+              transform: scaleX(-1);
+            }
 
-      @keyframes flutter-right {
-        0% {
-          transform: scaleX(-1) rotateY(0deg);
-        }
-        100% {
-          transform: scaleX(-1) rotateY(45deg);
-        }
-      }
+            @keyframes flutter-left {
+              0% {
+                transform: rotateY(0deg);
+              }
+              100% {
+                transform: rotateY(45deg);
+              }
+            }
 
-      /* Glimmer Effect */
-      .glimmer {
-        position: absolute;
-        width: 6px;
-        height: 6px;
-        background: radial-gradient(
-          circle,
-          rgba(255, 248, 220, 0.9) 0%,
-          rgba(255, 236, 179, 0.5) 50%,
-          transparent 70%
-        );
-        border-radius: 50%;
-        pointer-events: none;
-        animation: glimmer-fade 3s ease-out forwards;
-        z-index: 3;
-      }
+            @keyframes flutter-right {
+              0% {
+                transform: scaleX(-1) rotateY(0deg);
+              }
+              100% {
+                transform: scaleX(-1) rotateY(45deg);
+              }
+            }
 
-      @keyframes glimmer-fade {
-        0% {
-          opacity: 0;
-          transform: scale(0);
-        }
-        50% {
-          opacity: 1;
-          transform: scale(1);
-        }
-        100% {
-          opacity: 0;
-          transform: scale(1.5);
-        }
-      }
-      /* Essential button styles for critical path */
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.875rem 2rem;
-        border-radius: 2rem;
-        font-weight: 600;
-        font-size: 1rem;
-        text-decoration: none;
-        cursor: pointer;
-        border: none;
-        font-family: inherit;
-        line-height: 1.2;
-        min-height: 2.75rem;
-        transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        -webkit-tap-highlight-color: transparent;
-      }
-      .btn-primary {
-        background: var(--meadow);
-        color: #2a1a08;
-        box-shadow: 0 1px 2px rgba(244, 196, 49, 0.1);
-      }
-      .btn-primary:hover {
-        background: #f0b82d;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(244, 196, 49, 0.3);
-      }
-      .btn-secondary {
-        background: #5e5c94;
-        color: #fff;
-        box-shadow: 0 1px 2px rgba(94, 92, 148, 0.15);
-      }
-      .btn-secondary:hover {
-        background: #524f84;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(82, 79, 132, 0.3);
-      }
-      .header-phone {
-        position: absolute;
-        top: 2.8rem;
-        right: 0;
-        padding: 0.625rem 1.25rem;
-        font-size: 0.95rem;
-      }
-      @media (max-width: 600px) {
-        header h1 {
-          font-size: 2.2rem;
-        }
-        header h2 {
-          font-size: 0.9rem;
-        }
-        .hero-image {
-          height: 70vh;
-          min-height: 400px;
-        }
-        .hero-overlay h2 {
-          font-size: 2.5rem;
-        }
-        .header-phone {
-          top: 1.5rem;
-        }
-      }
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --lichen: #2a2520;
-          --camas-text: #c5b8e4;
-          --oak-green-text: #d5c884;
-          --text-primary: #f5f0e8;
-          --yarrow: #fbf7f0;
-          --meadow: #f0d4a8;
-        }
-        html {
-          background: #2a2520;
-        }
-        header h1 {
-          text-shadow: none;
-        }
-        .btn-primary:hover {
-          background: #eab528;
-        }
-        .btn-secondary {
-          background: #7d72b8;
-        }
-        .btn-secondary:hover {
-          background: #6e64a5;
-        }
-      }
+            /* Glimmer Effect */
+            .glimmer {
+              position: absolute;
+              width: 6px;
+              height: 6px;
+              background: radial-gradient(
+                circle,
+                rgba(255, 248, 220, 0.9) 0%,
+                rgba(255, 236, 179, 0.5) 50%,
+                transparent 70%
+              );
+              border-radius: 50%;
+              pointer-events: none;
+              animation: glimmer-fade 3s ease-out forwards;
+              z-index: 3;
+            }
+
+            @keyframes glimmer-fade {
+              0% {
+                opacity: 0;
+                transform: scale(0);
+              }
+              50% {
+                opacity: 1;
+                transform: scale(1);
+              }
+              100% {
+                opacity: 0;
+                transform: scale(1.5);
+              }
+            }
+            /* Essential button styles for critical path */
+            .btn {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              padding: 0.875rem 2rem;
+              border-radius: 2rem;
+              font-weight: 600;
+              font-size: 1rem;
+              text-decoration: none;
+              cursor: pointer;
+              border: none;
+              font-family: inherit;
+              line-height: 1.2;
+              min-height: 2.75rem;
+              transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+              -webkit-tap-highlight-color: transparent;
+            }
+            .btn-primary {
+              background: var(--meadow);
+              color: #2a1a08;
+              box-shadow: 0 1px 2px rgba(244, 196, 49, 0.1);
+            }
+            .btn-primary:hover {
+              background: #f0b82d;
+              transform: translateY(-1px);
+              box-shadow: 0 4px 12px rgba(244, 196, 49, 0.3);
+            }
+            .btn-secondary {
+              background: #5e5c94;
+              color: #fff;
+              box-shadow: 0 1px 2px rgba(94, 92, 148, 0.15);
+            }
+            .btn-secondary:hover {
+              background: #524f84;
+              transform: translateY(-1px);
+              box-shadow: 0 4px 12px rgba(82, 79, 132, 0.3);
+            }
+            .header-phone {
+              position: absolute;
+              top: 2rem;
+              right: 0;
+              padding: 0.625rem 1.25rem;
+              font-size: 0.95rem;
+            }
+            @media (max-width: 600px) {
+              .hero-image {
+                height: 70vh;
+                min-height: 400px;
+              }
+
+            }
+            @media (prefers-color-scheme: dark) {
+              :root {
+                --lichen: #2a2520;
+                --camas-text: #c5b8e4;
+                --oak-green-text: #d5c884;
+                --text-primary: #f5f0e8;
+                --yarrow: #fbf7f0;
+                --meadow: #f0d4a8;
+              }
+
+              html { background: #2a2520; }
+              header h1 { text-shadow: none; }
+              .btn-primary:hover { background: #eab528; }
+              .btn-secondary { background: #9a8ed4; }
+              .btn-secondary:hover { background: #8a7dc8; }
+      >>>>>>> dev
+            }
     </style>
 
     <!-- Structured Data for Local Business SEO -->
