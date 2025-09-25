@@ -20,6 +20,7 @@
             this.registerServiceWorker();
             this.initResizeHandler();
             this.initHeroAnimation();
+            this.initScrollAnimations();
         },
 
         // Utility: Throttle function
@@ -89,13 +90,29 @@
 
                 // Mobile carousel setup
                 if (window.innerWidth <= 768 && cards.length > 0) {
+                    // Add proper carousel ARIA attributes
+                    container.setAttribute('aria-label', 'Carousel');
+                    container.setAttribute('role', 'region');
+
+                    // Set up focus management for cards
+                    cards.forEach((card, index) => {
+                        card.setAttribute('tabindex',
+                            index === this.carouselState[config.containerId].currentIndex ? '0' : '-1');
+                        card.setAttribute('aria-label', `Slide ${index + 1} of ${cards.length}`);
+                    });
+
                     // Create dot indicators
                     if (dotsContainer.children.length !== cards.length) {
                         dotsContainer.innerHTML = "";
                         cards.forEach((_, index) => {
-                            const dot = document.createElement("span");
-                            dot.classList.toggle('active', 
+                            const dot = document.createElement("button");
+                            dot.type = "button";
+                            dot.classList.toggle('active',
                                 index === this.carouselState[config.containerId].currentIndex);
+                            dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+                            dot.addEventListener('click', () => {
+                                this.goToSlide(config.containerId, index, cards, container);
+                            });
                             dotsContainer.appendChild(dot);
                         });
                     }
@@ -114,11 +131,16 @@
 
                         if (this.carouselState[config.containerId].currentIndex !== currentIndex) {
                             this.carouselState[config.containerId].currentIndex = currentIndex;
-                            
+
                             requestAnimationFrame(() => {
-                                const dots = dotsContainer.querySelectorAll("span");
+                                const dots = dotsContainer.querySelectorAll("button");
                                 dots.forEach((dot, index) => {
                                     dot.classList.toggle("active", index === currentIndex);
+                                });
+
+                                // Update focus management for cards
+                                cards.forEach((card, index) => {
+                                    card.setAttribute('tabindex', index === currentIndex ? '0' : '-1');
                                 });
                             });
                         }
@@ -143,6 +165,25 @@
                     }
                 }
             });
+        },
+
+        // Navigate to specific slide in carousel
+        goToSlide(containerId, targetIndex, cards, container) {
+            if (!cards || !cards[targetIndex]) return;
+
+            const cardWidth = cards[0].offsetWidth + 16;
+            container.scrollTo({
+                left: targetIndex * cardWidth,
+                behavior: 'smooth'
+            });
+
+            // Update state and focus
+            this.carouselState[containerId].currentIndex = targetIndex;
+
+            // Focus the target card for keyboard navigation
+            setTimeout(() => {
+                cards[targetIndex].focus();
+            }, 300);
         },
 
         // Form handler with validation
@@ -214,13 +255,27 @@
                         messageDiv.textContent = "Message received! We'll be in touch within a week.";
                         messageDiv.className = "form-message success";
                         messageDiv.style.display = "block";
+
+                        // Update ARIA status region for success
+                        this.updateFormStatus("Message sent successfully! We'll be in touch within a week.");
+
+                        // Clear all field errors
+                        inputs.forEach(input => input.classList.remove('error'));
+                        form.querySelectorAll('.field-error').forEach(errorEl => {
+                            errorEl.textContent = '';
+                        });
+
                         form.reset();
+                        btn.textContent = "Message sent ✓";
+                        btn.classList.add('success');
 
                         setTimeout(() => {
                             btn.textContent = "Let's talk";
+                            btn.classList.remove('success');
                             btn.disabled = false;
                             messageDiv.style.display = "none";
-                        }, 5000);
+                            this.updateFormStatus('');
+                        }, 6000);
                     } else {
                         throw new Error(result.error || "Form submission failed. Please try again.");
                     }
@@ -253,19 +308,37 @@
 
         // Show field error
         showError(field) {
-            let errorEl = field.parentElement.querySelector('.field-error');
-            if (!errorEl) {
-                errorEl = document.createElement('span');
-                errorEl.className = 'field-error';
-                field.parentElement.appendChild(errorEl);
-            }
-            
-            if (field.validity.valueMissing) {
-                errorEl.textContent = 'This field is required';
-            } else if (field.validity.typeMismatch) {
-                errorEl.textContent = `Please enter a valid ${field.type}`;
-            } else if (field.validity.tooShort) {
-                errorEl.textContent = `Please enter at least ${field.minLength} characters`;
+            const existingError = field.parentElement.querySelector('.field-error');
+            if (existingError && !existingError.textContent) {
+                // Use the existing error div with proper ARIA
+                const errorEl = existingError;
+
+                if (field.validity.valueMissing) {
+                    if (field.type === 'email') {
+                        errorEl.textContent = 'We need your email to get back to you';
+                    } else if (field.id === 'contact-name') {
+                        errorEl.textContent = 'Let us know what to call you';
+                    } else if (field.id === 'contact-message') {
+                        errorEl.textContent = 'Tell us about your outdoor space';
+                    } else {
+                        errorEl.textContent = 'This field is required';
+                    }
+                } else if (field.validity.typeMismatch) {
+                    if (field.type === 'email') {
+                        errorEl.textContent = 'Please enter a valid email address (like you@example.com)';
+                    } else if (field.type === 'tel') {
+                        errorEl.textContent = 'Please enter a valid phone number';
+                    } else {
+                        errorEl.textContent = `Please enter a valid ${field.type}`;
+                    }
+                } else if (field.validity.tooShort) {
+                    errorEl.textContent = `Please enter at least ${field.minLength} characters`;
+                } else if (field.validity.patternMismatch) {
+                    errorEl.textContent = 'Please check the format of this field';
+                }
+
+                // Update status region
+                this.updateFormStatus(`Error in ${field.labels[0]?.textContent || field.name}: ${errorEl.textContent}`);
             }
         },
 
@@ -273,7 +346,17 @@
         clearError(field) {
             const errorEl = field.parentElement.querySelector('.field-error');
             if (errorEl) {
-                errorEl.remove();
+                errorEl.textContent = '';
+                // Update status region to clear error
+                this.updateFormStatus('');
+            }
+        },
+
+        // Update form status region for screen readers
+        updateFormStatus(message) {
+            const statusEl = document.getElementById('form-status');
+            if (statusEl) {
+                statusEl.textContent = message;
             }
         },
 
@@ -324,7 +407,110 @@
                             }
                         });
                 });
+
+                // PWA install prompt
+                this.initInstallPrompt();
             }
+        },
+
+        // PWA Install Prompt
+        initInstallPrompt() {
+            let deferredPrompt;
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                // Prevent the mini-infobar from appearing on mobile
+                e.preventDefault();
+                deferredPrompt = e;
+
+                // Show install banner after 30 seconds if user hasn't already dismissed it
+                const hasInstallPromptDismissed = localStorage.getItem('pwa-install-dismissed');
+                if (!hasInstallPromptDismissed) {
+                    setTimeout(() => {
+                        this.showInstallPrompt(deferredPrompt);
+                    }, 30000);
+                }
+            });
+
+            window.addEventListener('appinstalled', () => {
+                // Clear the deferredPrompt so it can be garbage collected
+                deferredPrompt = null;
+                localStorage.setItem('pwa-install-dismissed', 'true');
+            });
+        },
+
+        // Show PWA install prompt
+        showInstallPrompt(deferredPrompt) {
+            if (!deferredPrompt) return;
+
+            const installBanner = document.createElement('div');
+            installBanner.innerHTML = `
+                <div style="
+                    position: fixed;
+                    bottom: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: var(--meadow);
+                    color: #2a1a08;
+                    padding: 1rem 1.5rem;
+                    border-radius: 1rem;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 1000;
+                    max-width: 90vw;
+                    text-align: center;
+                    font-family: inherit;
+                ">
+                    <div style="margin-bottom: 0.75rem; font-weight: 600;">
+                        📱 Install Orbweaver as an app for easier access
+                    </div>
+                    <button id="pwa-install-btn" style="
+                        background: #2a1a08;
+                        color: var(--meadow);
+                        border: none;
+                        padding: 0.5rem 1rem;
+                        border-radius: 0.5rem;
+                        font-weight: 600;
+                        margin-right: 0.5rem;
+                        cursor: pointer;
+                    ">Install</button>
+                    <button id="pwa-dismiss-btn" style="
+                        background: transparent;
+                        color: #2a1a08;
+                        border: 1px solid #2a1a08;
+                        padding: 0.5rem 1rem;
+                        border-radius: 0.5rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                    ">Not now</button>
+                </div>
+            `;
+
+            document.body.appendChild(installBanner);
+
+            // Install button click
+            document.getElementById('pwa-install-btn').addEventListener('click', async () => {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+
+                if (outcome === 'accepted') {
+                    localStorage.setItem('pwa-install-dismissed', 'true');
+                }
+
+                document.body.removeChild(installBanner);
+                deferredPrompt = null;
+            });
+
+            // Dismiss button click
+            document.getElementById('pwa-dismiss-btn').addEventListener('click', () => {
+                localStorage.setItem('pwa-install-dismissed', 'true');
+                document.body.removeChild(installBanner);
+            });
+
+            // Auto-hide after 10 seconds
+            setTimeout(() => {
+                if (document.body.contains(installBanner)) {
+                    document.body.removeChild(installBanner);
+                }
+            }, 10000);
         },
 
         // Resize handler
@@ -335,6 +521,63 @@
                 resizeTimeout = setTimeout(() => {
                     this.initCarousels();
                 }, 250);
+            });
+        },
+
+        // Scroll-triggered animations with Intersection Observer
+        initScrollAnimations() {
+            // Skip animations if user prefers reduced motion
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                return;
+            }
+
+            // Elements to animate on scroll
+            const animateElements = document.querySelectorAll('section, .cards-wrapper, .service-details');
+
+            // Add initial animation classes
+            animateElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Animate in
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+
+                        // Add staggered animation for cards
+                        const cards = entry.target.querySelectorAll('article');
+                        if (cards.length > 0) {
+                            cards.forEach((card, index) => {
+                                card.style.opacity = '0';
+                                card.style.transform = 'translateY(20px)';
+                                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+
+                                setTimeout(() => {
+                                    card.style.opacity = '1';
+                                    card.style.transform = 'translateY(0)';
+                                }, index * 150); // 150ms delay between cards
+                            });
+                        }
+
+                        // Stop observing once animated
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Start observing elements
+            animateElements.forEach(el => {
+                observer.observe(el);
             });
         },
 

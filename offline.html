@@ -59,7 +59,53 @@
             Like seeds waiting for rain, we'll reconnect when your connection returns. 
             The earth teaches patience—we're learning too.
         </p>
-        <a href="/" class="btn" onclick="window.location.reload(); return false;">Try Again</a>
+        <a href="/" class="btn" onclick="window.location.reload(); return false;" id="retry-btn">Try Again</a>
+        <div id="connection-status" style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;"></div>
+
+        <div style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.3); border-radius: 1rem;">
+            <h3 style="margin-bottom: 0.5rem; color: #6563a0;">While you're offline:</h3>
+            <p style="margin: 0; font-size: 1rem;">
+                📞 Call us: <strong>250-710-1010</strong><br>
+                📧 Email: <strong>hello@orbweaverlandcare.com</strong><br>
+                📍 Service area: <strong>Cowichan Valley</strong>
+            </p>
+        </div>
     </div>
+
+    <script>
+        // Connection status monitoring
+        function updateConnectionStatus() {
+            const status = document.getElementById('connection-status');
+            if (navigator.onLine) {
+                status.textContent = '🟢 Connection restored - redirecting...';
+                setTimeout(() => window.location.reload(), 2000);
+            } else {
+                status.textContent = '🔴 Still offline - checking connection...';
+            }
+        }
+
+        // Listen for connection changes
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+
+        // Initial status check
+        updateConnectionStatus();
+
+        // Periodic connectivity check
+        setInterval(() => {
+            if (navigator.onLine) {
+                // Try to fetch a small resource to verify real connectivity
+                fetch('/?offline-check', {
+                    method: 'HEAD',
+                    cache: 'no-cache',
+                    mode: 'no-cors'
+                }).then(() => {
+                    updateConnectionStatus();
+                }).catch(() => {
+                    // Still offline despite navigator.onLine
+                });
+            }
+        }, 10000);
+    </script>
 </body>
 </html>

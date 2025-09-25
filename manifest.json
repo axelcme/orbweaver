@@ -4,11 +4,51 @@
   "description": "Gardens that change you. Natural landcare services in Cowichan Valley.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f8f2ef",
-  "theme_color": "#7a78b0",
+  "background_color": "#f7f2ee",
+  "theme_color": "#7a79b5",
   "orientation": "portrait-primary",
-  "icons": [],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
   "categories": ["lifestyle", "gardening", "business"],
   "lang": "en-CA",
-  "dir": "ltr"
+  "dir": "ltr",
+  "scope": "/",
+  "shortcuts": [
+    {
+      "name": "Contact Us",
+      "short_name": "Contact",
+      "description": "Get in touch for natural landcare services",
+      "url": "/#contact-form",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
 }

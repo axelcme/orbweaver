@@ -5,20 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Gardens that change you. Cowichan Valley's mindful alternative to lawn warfare. Natural landcare services including garden coaching, gentle maintenance, and permaculture design."
+      content="Transform your outdoor space with expert natural landcare in Cowichan Valley. Garden coaching, ecological maintenance & permaculture design. Your lawn wants to be a garden."
     />
     <meta property="og:title" content="Orbweaver Natural Landcare" />
     <meta
       property="og:description"
-      content="Your lawn wants to be a garden. Natural landcare services in Cowichan Valley."
+      content="Transform your outdoor space with expert natural landcare in Cowichan Valley. Garden coaching, ecological maintenance & permaculture design."
     />
     <meta property="og:type" content="website" />
     <title>Orbweaver Natural Landcare</title>
 
     <!-- Favicon and Web App Manifest -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#7a78b0" />
+    <meta name="theme-color" content="#7a79b5" />
+
+    <!-- Resource hints for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://formspree.io" />
 
     <!-- Preload LCP image for faster loading -->
     <link
@@ -353,6 +361,246 @@
           min-height: 380px;
         }
       }
+
+      /* Skip navigation link */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: var(--camas);
+        color: white;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        border-radius: 0 0 0.25rem 0.25rem;
+        z-index: 1000;
+        font-weight: 600;
+        transition: top 0.3s;
+        transform: translateY(0);
+      }
+      .skip-link:focus {
+        top: 0;
+        transform: translateY(0);
+      }
+
+      /* Ensure skip link is truly hidden when not focused */
+      .skip-link:not(:focus) {
+        clip: rect(1px, 1px, 1px, 1px);
+        height: 1px;
+        overflow: hidden;
+        position: absolute !important;
+        width: 1px;
+      }
+
+      /* Screen reader only content */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* Form validation and success states */
+      .field-error {
+        display: block;
+        color: #c53030;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        line-height: 1.4;
+      }
+
+      input.error,
+      textarea.error,
+      select.error {
+        border-color: #c53030;
+        box-shadow: 0 0 0 2px rgba(197, 48, 48, 0.1);
+      }
+
+      .form-message {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-top: 1rem;
+        font-weight: 500;
+      }
+
+      .form-message.success {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+      }
+
+      .form-message.error {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+      }
+
+      .btn.success {
+        background: #28a745;
+        color: white;
+        transform: translateY(-1px);
+      }
+
+      .btn.success:hover {
+        background: #218838;
+      }
+
+      /* Carousel dot navigation */
+      .carousel-dots button {
+        width: 12px;
+        height: 12px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(107, 76, 55, 0.3);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin: 0 4px;
+      }
+
+      .carousel-dots button:hover,
+      .carousel-dots button:focus {
+        background: rgba(107, 76, 55, 0.6);
+        transform: scale(1.2);
+        outline: 2px solid rgba(107, 76, 55, 0.4);
+        outline-offset: 2px;
+      }
+
+      .carousel-dots button.active {
+        background: var(--text-primary);
+        transform: scale(1.1);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .field-error {
+          color: #ff6b6b;
+        }
+
+        input.error,
+        textarea.error,
+        select.error {
+          border-color: #ff6b6b;
+          box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.1);
+        }
+
+        .form-message.success {
+          background: #2d5a3d;
+          border: 1px solid #4caf50;
+          color: #d4edda;
+        }
+
+        .form-message.error {
+          background: #5a2d2d;
+          border: 1px solid #f44336;
+          color: #ffebee;
+        }
+
+        .carousel-dots button {
+          background: rgba(245, 240, 232, 0.3);
+        }
+
+        .carousel-dots button:hover,
+        .carousel-dots button:focus {
+          background: rgba(245, 240, 232, 0.6);
+          outline: 2px solid rgba(245, 240, 232, 0.4);
+        }
+
+        .carousel-dots button.active {
+          background: var(--text-primary);
+        }
+      }
+
+      /* FAQ Section Styling */
+      .faq-list {
+        max-width: 800px;
+        margin: 2rem auto 0;
+      }
+
+      .faq-item {
+        margin-bottom: 1rem;
+        border: 1px solid var(--lichen);
+        border-radius: 0.5rem;
+        overflow: hidden;
+        background: var(--yarrow);
+      }
+
+      .faq-item summary {
+        padding: 1.25rem 1.5rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        background: var(--yarrow);
+        border: none;
+        color: var(--text-primary);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        user-select: none;
+        transition: background-color 0.2s ease;
+      }
+
+      .faq-item summary:hover {
+        background: var(--lichen);
+      }
+
+      .faq-item summary:focus {
+        outline: 2px solid var(--camas);
+        outline-offset: -2px;
+      }
+
+      .faq-item summary::after {
+        content: '+';
+        font-size: 1.5rem;
+        font-weight: 300;
+        color: var(--oak-green);
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+        margin-left: 1rem;
+      }
+
+      .faq-item[open] summary::after {
+        transform: rotate(45deg);
+      }
+
+      .faq-content {
+        padding: 0 1.5rem 1.25rem;
+        color: var(--text-primary);
+        line-height: 1.6;
+        animation: fadeInDown 0.3s ease-out;
+      }
+
+      .faq-content p {
+        margin: 0;
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .faq-item {
+          border-color: #3a3530;
+          background: #2a2520;
+        }
+
+        .faq-item summary {
+          background: #2a2520;
+        }
+
+        .faq-item summary:hover {
+          background: #3a3530;
+        }
+      }
     </style>
 
     <!-- Structured Data for Local Business SEO -->
@@ -443,9 +691,67 @@
         "image": "https://orbweaver.ca/images/hero-1200.jpg"
       }
     </script>
+
+    <!-- Individual Services Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Natural Landcare Services",
+        "description": "Professional landcare services including garden coaching, maintenance, and design",
+        "itemListElement": [
+          {
+            "@type": "Service",
+            "name": "Garden Coaching",
+            "description": "Learn to read what your plants are saying and create abundance without struggle. Perfect if you want to learn but don't know where to start.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "Orbweaver Natural Landcare"
+            },
+            "areaServed": {
+              "@type": "Place",
+              "name": "Cowichan Valley, BC"
+            },
+            "serviceType": "Educational Consultation",
+            "category": "Landscaping"
+          },
+          {
+            "@type": "Service",
+            "name": "Gentle Maintenance",
+            "description": "Regular care that makes your garden more independent over time. Maintenance with an exit strategy that builds soil and ecosystem health.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "Orbweaver Natural Landcare"
+            },
+            "areaServed": {
+              "@type": "Place",
+              "name": "Cowichan Valley, BC"
+            },
+            "serviceType": "Maintenance Service",
+            "category": "Landscaping"
+          },
+          {
+            "@type": "Service",
+            "name": "Full Garden Design",
+            "description": "Complete landscape design using native plants, food forests, and rain gardens that solve problems while creating beauty. Landscape as possibility.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "Orbweaver Natural Landcare"
+            },
+            "areaServed": {
+              "@type": "Place",
+              "name": "Cowichan Valley, BC"
+            },
+            "serviceType": "Design Service",
+            "category": "Landscaping"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
-    <header>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header role="banner">
       <div class="header-top">
         <h1>Orbweaver</h1>
         <h2>Natural Landcare</h2>
@@ -484,29 +790,29 @@
       </div>
     </header>
 
-    <main>
+    <main id="main-content" role="main">
       <p>
-        What if we worked with nature, rather than declaring war every Sunday?
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit?
       </p>
 
       <blockquote>
         <p>
-          We've been told land needs constant control. Trim this. Spray that.
-          Fight back the chaos.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore.
         </p>
         <p>
-          But what if your garden already knows what it wants to become? What if
-          the secret is just learning how to listen?
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris? Duis
+          aute irure dolor in reprehenderit in voluptate?
         </p>
         <p>
-          That's what we'll do. We'll observe, we'll understand, then we'll
-          guide. The result? Alive and abundant spaces that basically take care
-          of themselves.
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+          doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo
+          inventore veritatis.
         </p>
       </blockquote>
 
-      <section>
-        <h2>How we work</h2>
+      <section aria-labelledby="how-we-work-heading">
+        <h2 id="how-we-work-heading">How we work</h2>
 
         <div class="cards-wrapper">
           <div
@@ -514,39 +820,41 @@
             id="howWeWorkCards"
             tabindex="0"
             role="region"
-            aria-label="How we work services carousel"
+            aria-labelledby="how-we-work-heading"
+            aria-describedby="how-we-work-instructions"
           >
+            <div id="how-we-work-instructions" class="sr-only">
+              Use arrow keys or swipe to navigate between cards. 4 items total.
+            </div>
             <article>
               <h3>Build soil, not dependencies</h3>
               <p>
-                Healthy soil grows healthy plants. We focus on building living
-                soil that gets better each year, without fertilizers.
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do
+                eiusmod tempor incididunt ut labore et dolore magna.
               </p>
             </article>
 
             <article>
               <h3>Plant for the long term</h3>
               <p>
-                We choose plants that want to grow here, from seeds that were
-                born here. They'll need less water and care once established.
+                Ut enim ad minim veniam quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat.
               </p>
             </article>
 
             <article>
               <h3>Welcome wildlife</h3>
               <p>
-                A balanced garden has predators for every pest. We design
-                habitats that attract and shelter beneficial insects, reptiles,
-                and birds.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur excepteur sint.
               </p>
             </article>
 
             <article>
               <h3>Capture rain where it falls</h3>
               <p>
-                Using simple earthworks and smart plantings that slow and sink
-                water, we reduce or eliminate irrigation needs and prevent
-                erosion.
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                accusantium doloremque laudantium totam rem aperiam.
               </p>
             </article>
           </div>
@@ -556,16 +864,15 @@
         <aside>
           <h3>Quiet work</h3>
           <p>
-            We work with land, not against.<br />
-            We use scythes, not mowers. Hand tools, not blowers.
-            <br />
-            Your neighbours will thank you.
+            Work with land, not against<br />
+            Scythes, not mowers. Hand tools—<br />
+            Neighbours will thank you.
           </p>
         </aside>
       </section>
 
-      <section>
-        <h2>What we do</h2>
+      <section aria-labelledby="what-we-do-heading">
+        <h2 id="what-we-do-heading">What we do</h2>
 
         <div class="cards-wrapper">
           <div
@@ -573,48 +880,51 @@
             id="whatWeDoCards"
             tabindex="0"
             role="region"
-            aria-label="What we do services carousel"
+            aria-labelledby="what-we-do-heading"
+            aria-describedby="what-we-do-instructions"
           >
+            <div id="what-we-do-instructions" class="sr-only">
+              Use arrow keys or swipe to navigate between services. 3 items total.
+            </div>
             <article>
               <h3>Garden coaching</h3>
-              <p>For the curious</p>
+              <p>Lorem ipsum dolor sit</p>
               <p>
-                Think of us as your garden translator. We&rsquo;ll teach you to
-                read what your plants are actually saying, build soil that's
-                genuinely alive, and create abundance without the struggle.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                ad minim veniam, quis nostrud exercitation.
               </p>
               <p>
                 <mark
-                  >Perfect if you want to learn but don't know where to
-                  start.</mark
+                  >Lorem ipsum dolor sit amet consectetur adipiscing.</mark
                 >
               </p>
             </article>
 
             <article>
               <h3>Gentle maintenance</h3>
-              <p>For the busy</p>
+              <p>Ut enim ad minim</p>
               <p>
-                Regular care that makes your garden more independent over time,
-                not less. We prune for health, not conformity. Build soil, not
-                deplete it. Every visit moves you closer to a self-sustaining
-                ecosystem.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                anim.
               </p>
               <p>
-                <mark>It's maintenance that has an exit strategy.</mark>
+                <mark>Lorem ipsum dolor sit amet consectetur.</mark>
               </p>
             </article>
 
             <article>
               <h3>Full garden design</h3>
-              <p>For the ready</p>
+              <p>Quis nostrud exercitation</p>
               <p>
-                Let's create something extraordinary. Plants that actually want
-                to be here. Food forests that look like they belong. Rain
-                gardens that solve problems whilst creating beauty.
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                accusantium doloremque laudantium. Totam rem aperiam eaque ipsa
+                quae ab illo inventore veritatis et quasi architecto.
               </p>
               <p>
-                <mark>This is landscape as possibility.</mark>
+                <mark>Lorem ipsum dolor sit amet consectetur adipiscing.</mark>
               </p>
             </article>
           </div>
@@ -623,60 +933,84 @@
 
         <div class="boundaries">
           <strong>What we don&rsquo;t do:</strong>
-          <p>No plastic, no poison, no petroleum.</p>
+          <p>Lorem ipsum dolor sit amet consectetur.</p>
           <p>
-            We don't mow, blow, install irrigation, hardscape, or do anything
-            requiring heavy machinery. For those services, we know excellent
-            people to recommend.
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+            fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
+            sequi nesciunt neque porro.
           </p>
         </div>
       </section>
 
-      <section id="contact-form">
-        <h2>Start something</h2>
+      <section id="contact-form" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Start something</h2>
+
+        <div aria-live="polite" aria-atomic="true" id="form-status" class="sr-only"></div>
 
         <form
           id="contactForm"
           action="https://formspree.io/f/xyzdqbaw"
           method="POST"
+          novalidate
+          aria-describedby="form-description"
         >
-          <p>
-            Tell us about your space and we'll start a conversation. No
-            pressure, no sales pitch. Just two people talking about plants.
+          <p id="form-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
 
-          <label>
+          <label for="contact-name">
             Name
             <input
               type="text"
+              id="contact-name"
               name="name"
               placeholder="What should we call you?"
               required
+              aria-describedby="name-error"
+              autocomplete="given-name"
             />
+            <div id="name-error" class="field-error" role="alert" aria-live="polite"></div>
           </label>
 
-          <label>
+          <label for="contact-email">
             Email
             <input
               type="email"
+              id="contact-email"
               name="email"
               placeholder="your@email.com"
               required
+              aria-describedby="email-error"
+              autocomplete="email"
             />
+            <div id="email-error" class="field-error" role="alert" aria-live="polite"></div>
           </label>
 
-          <label>
+          <label for="contact-phone">
             Phone (optional)
-            <input type="tel" name="phone" placeholder="250-xxx-xxxx" />
+            <input
+              type="tel"
+              id="contact-phone"
+              name="phone"
+              placeholder="250-xxx-xxxx"
+              aria-describedby="phone-error"
+              autocomplete="tel"
+            />
+            <div id="phone-error" class="field-error" role="alert" aria-live="polite"></div>
           </label>
 
-          <label>
+          <label for="contact-city">
             City (optional)
             <input
               type="text"
+              id="contact-city"
               name="city"
               placeholder="Where do your plants live?"
+              aria-describedby="city-error"
+              autocomplete="address-level2"
             />
+            <div id="city-error" class="field-error" role="alert" aria-live="polite"></div>
           </label>
 
           <!-- Hidden field for Formspree -->
@@ -686,25 +1020,33 @@
             value="New inquiry from Orbweaver website"
           />
 
-          <label>
+          <label for="contact-message">
             What's happening with your outdoor space?
             <textarea
+              id="contact-message"
               name="message"
               rows="4"
               placeholder="Honest assessment welcome. 'Total disaster' is a perfectly valid starting point."
               required
+              aria-describedby="message-error"
             ></textarea>
+            <div id="message-error" class="field-error" role="alert" aria-live="polite"></div>
           </label>
 
-          <label>
+          <label for="contact-service">
             What service interests you most?
-            <select name="service">
+            <select
+              id="contact-service"
+              name="service"
+              aria-describedby="service-error"
+            >
               <option value="">Choose one (optional)</option>
               <option value="coaching">Garden coaching</option>
               <option value="maintenance">Gentle maintenance</option>
               <option value="design">Full garden design</option>
               <option value="consultation">Just a consultation</option>
             </select>
+            <div id="service-error" class="field-error" role="alert" aria-live="polite"></div>
           </label>
 
           <!-- Honeypot field for spam prevention -->
@@ -727,6 +1069,54 @@
           <div><strong>Consultation:</strong> $150 (incl. taxes)</div>
           <div><strong>Response time:</strong> Within one week.</div>
           <div><strong>Availability:</strong> Now booking for fall '25</div>
+        </div>
+      </section>
+
+      <section id="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Common questions</h2>
+
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>What's your service area?</summary>
+            <div class="faq-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>How much does a consultation cost?</summary>
+            <div class="faq-content">
+              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>What makes your approach "natural"?</summary>
+            <div class="faq-content">
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Do you work with existing gardens?</summary>
+            <div class="faq-content">
+              <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>What's the difference between coaching and full design?</summary>
+            <div class="faq-content">
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>When is the best time to start a project?</summary>
+            <div class="faq-content">
+              <p>Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio nam libero tempore cum soluta nobis est eligendi.</p>
+            </div>
+          </details>
         </div>
       </section>
     </main>
