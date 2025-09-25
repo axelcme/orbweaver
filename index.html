@@ -131,7 +131,7 @@
       }
       .hero-overlay h2 {
         color: var(--yarrow);
-        font-size: 2.5rem;
+        font-size: 3rem;
         font-weight: 700;
         margin: 0 0 2rem 0;
         font-family: "Fredoka", sans-serif;
@@ -187,13 +187,21 @@
       }
 
       @keyframes flutter-left {
-        0% { transform: rotateY(0deg); }
-        100% { transform: rotateY(45deg); }
+        0% {
+          transform: rotateY(0deg);
+        }
+        100% {
+          transform: rotateY(45deg);
+        }
       }
 
       @keyframes flutter-right {
-        0% { transform: scaleX(-1) rotateY(0deg); }
-        100% { transform: scaleX(-1) rotateY(45deg); }
+        0% {
+          transform: scaleX(-1) rotateY(0deg);
+        }
+        100% {
+          transform: scaleX(-1) rotateY(45deg);
+        }
       }
 
       /* Glimmer Effect */
@@ -214,9 +222,18 @@
       }
 
       @keyframes glimmer-fade {
-        0% { opacity: 0; transform: scale(0); }
-        50% { opacity: 1; transform: scale(1); }
-        100% { opacity: 0; transform: scale(1.5); }
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.5);
+        }
       }
       /* Essential button styles for critical path */
       .btn {
@@ -275,7 +292,7 @@
           min-height: 400px;
         }
         .hero-overlay h2 {
-          font-size: 2rem;
+          font-size: 2.5rem;
         }
         .header-phone {
           top: 1.5rem;
@@ -290,11 +307,21 @@
           --yarrow: #fbf7f0;
           --meadow: #f0d4a8;
         }
-        html { background: #2a2520; }
-        header h1 { text-shadow: none; }
-        .btn-primary:hover { background: #eab528; }
-        .btn-secondary { background: #7d72b8; }
-        .btn-secondary:hover { background: #6e64a5; }
+        html {
+          background: #2a2520;
+        }
+        header h1 {
+          text-shadow: none;
+        }
+        .btn-primary:hover {
+          background: #eab528;
+        }
+        .btn-secondary {
+          background: #7d72b8;
+        }
+        .btn-secondary:hover {
+          background: #6e64a5;
+        }
       }
     </style>
 
@@ -419,7 +446,10 @@
           />
         </picture>
         <div class="hero-overlay">
-          <h2>Your lawn wants to be a garden.</h2>
+          <h2>
+            Your lawn wants <br />
+            to be a garden.
+          </h2>
           <a href="#contact-form" class="btn btn-primary">Get Help</a>
         </div>
       </div>
