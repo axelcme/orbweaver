@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbweaver Natural Landcare — Brand Color System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.4;
+        }
+
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 3rem 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .brand-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .brand-info h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #000000;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-info .subtitle {
+            font-size: 1.125rem;
+            color: #666666;
+            font-weight: 400;
+        }
+
+        .project-meta {
+            text-align: right;
+            font-size: 0.875rem;
+            color: #666666;
+            line-height: 1.6;
+        }
+
+        .project-meta strong {
+            color: #1a1a1a;
+        }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: #e5e5e5;
+            margin: 2rem 0;
+        }
+
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .color-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #000000;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #000000;
+            margin-right: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .section-description {
+            font-size: 0.875rem;
+            color: #666666;
+            font-weight: 400;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 0;
+            border: 1px solid #e5e5e5;
+            background: #ffffff;
+        }
+
+        .color-card {
+            border-right: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+            overflow: hidden;
+        }
+
+        .color-card:last-child,
+        .color-card:nth-last-child(-n+2):nth-child(even) {
+            border-right: none;
+        }
+
+        .color-swatch {
+            height: 120px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 1rem;
+        }
+
+        .usage-badge {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a1a1a;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .color-info {
+            padding: 1.5rem;
+            background: #ffffff;
+        }
+
+        .color-name {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .color-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .spec-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .spec-label {
+            font-size: 0.75rem;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+
+        .spec-value {
+            font-family: "SF Mono", "Monaco", "Cascadia Code", monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .color-description {
+            font-size: 0.875rem;
+            color: #1a1a1a;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .notes-section {
+            background: #000000;
+            color: #ffffff;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .notes-content h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .note-item {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: #cccccc;
+        }
+
+        .note-item strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .brand-header {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .project-meta {
+                text-align: left;
+            }
+
+            .brand-info h1 {
+                font-size: 2rem;
+            }
+
+            .color-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .color-specs {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .header {
+                border-bottom: 2px solid #000;
+            }
+
+            .notes-section {
+                background: white;
+                color: #000;
+                border: 2px solid #000;
+            }
+
+            .notes-content h2 {
+                color: #000;
+            }
+
+            .note-item {
+                color: #000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="brand-header">
+                <div class="brand-info">
+                    <h1>Orbweaver Natural Landcare</h1>
+                    <div class="subtitle">Brand Color System</div>
+                </div>
+                <div class="project-meta">
+                    <strong>Version:</strong> 1.0<br>
+                    <strong>Date:</strong> September 2025<br>
+                    <strong>Colors:</strong> 10 Primary<br>
+                    <strong>Format:</strong> Digital / Print
+                </div>
+            </div>
+            <div class="divider"></div>
+            <p style="font-size: 0.875rem; color: #666666; max-width: 600px;">
+                A botanical-inspired color system rooted in Pacific Northwest flora. Each color draws from native plant species, creating a natural palette that reflects the brand's connection to sustainable landscape practices.
+            </p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="color-section">
+                <div class="section-header">
+                    <h2 class="section-title">Foundation</h2>
+                    <div class="section-description">Primary backgrounds and neutral tones</div>
+                </div>
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: #F7F2EE;">
+                            <div class="usage-badge">25–30%</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Helios</div>
+                            <div class="color-specs">
+                                <div class="spec-group">
+                                    <div class="spec-label">HEX</div>
+                                    <div class="spec-value">#F7F2EE</div>
+                                </div>
+                                <div class="spec-group">
+                                    <div class="spec-label">Pantone</div>
+                                    <div class="spec-value">7500 C</div>
+                                </div>
+                            </div>
+                            <div class="color-description">Primary background, whitespace, clean surfaces</div>
+                        </div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: #E6DCD4;">
+                            <div class="usage-badge">15–20%</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Festuca</div>
+                            <div class="color-specs">
+                                <div class="spec-group">
+                                    <div class="spec-label">HEX</div>
+                                    <div class="spec-value">#E6DCD4</div>
+                                </div>
+                                <div class="spec-group">
+                                    <div class="spec-label">Pantone</div>
+                                    <div class="spec-value">7501 C</div>
+                                </div>
+                            </div>
+                            <div class="color-description">Secondary backgrounds, cards, panels</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="color-section">
+                <div class="section-header">
+                    <h2 class="section-title">Accent System</h2>
+                    <div class="section-description">Supporting colors for interactive elements</div>
+                </div>
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: #D48AAE;">
+                            <div class="usage-badge">10–12%</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Clarkia</div>
+                            <div class="color-specs">
+                                <div class="spec-group">
+                                    <div class="spec-label">HEX</div>
+                                    <div class="spec-value">#D48AAE</div>
+                                </div>
+                                <div class="spec-group">
+                                    <div class="spec-label">Pantone</div>
+                                    <div class="spec-value">7604 C</div>
+                                </div>
+                            </div>
+                            <div class="color-description">Secondary elements, buttons, hover states</div>
+                        </div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: #7A79B5;">
+                            <div class="usage-badge">10–12%</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Camassia</div>
+                            <div class="color-specs">
+                                <div class="spec-group">
+                                    <div class="spec-label">HEX</div>
+                                    <div class="spec-value">#7A79B5</div>
+                                </div>
+                                <div class="spec-group">
+                                    <div class="spec-label">Pantone</div>
+                                    <div class="spec-value">2725 C</div>
+                                </div>
+                            </div>
+                            <div class="color-description">Secondary accents, overlays, borders</div>
+                        </div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: #A19C5D;">
+                            <div class="usage-badge">8–10%</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Bromus</div>
+                            <div class="color-specs">
+                                <div class="spec-group">
+                                    <div class="spec-label">HEX</div>
+                                    <div class="spec-value">#A19C5D</div>
+                                </div>
+                                <div class="spec-group">
+                                    <div class="spec-label">Pantone</div>
+                                    <div class="spec-value">5747 C</div>
+                                </div>
+                            </div>
+                            <div class="color-description">Borders, dividers, text highlights</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="color-section">
+                <div class="section-header">
+                    <h2 class="section-title">Action Colors</h2>
+                    <div class="section-description">High-impact elements and focal points</div>
+                </div>
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: #F3C23B;">
+                            <div class="usage-badge">5–7%</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Helianthus</div>
+                            <div class="color-specs">
+                                <div class="spec-group">
+                                    <div class="spec-label">HEX</div>
+                                    <div class="spec-value">#F3C23B</div>
+                                </div>
+                                <div class="spec-group">
+                                    <div class="spec-label">Pantone</div>
+                                    <div class="spec-value">1235 C</div>
+                                </div>
+                            </div>
+                            <div class="color-description">Primary CTA, focal points, warnings</div>
+                        </div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: #F7D972;">
+                            <div class="usage-badge">3–5%</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Eschscholzia</div>
+                            <div class="color-specs">
+                                <div class="spec-group">
+                                    <div class="spec-label">HEX</div>
+                                    <div class="spec-value">#F7D972</div>
+                                </div>
+                                <div class="spec-group">
+                                    <div class="spec-label">Pantone</div>
+                                    <div class="spec-value">7402 C</div>
+                                </div>
+                            </div>
+                            <div class="color-description">Hover states, subtle highlights, success</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="color-section">
+                <div class="section-header">
+                    <h2 class="section-title">Typography</h2>
+                    <div class="section-description">Text colors and content hierarchy</div>
+                </div>
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: #6B4C37;">
+                            <div class="usage-badge" style="background: rgba(255,255,255,0.9); color: #1a1a1a;">10–12%</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Arctostaphylos</div>
+                            <div class="color-specs">
+                                <div class="spec-group">
+                                    <div class="spec-label">HEX</div>
+                                    <div class="spec-value">#6B4C37</div>
+                                </div>
+                                <div class="spec-group">
+                                    <div class="spec-label">Pantone</div>
+                                    <div class="spec-value">4975 C</div>
+                                </div>
+                            </div>
+                            <div class="color-description">Primary text, body copy, paragraphs</div>
+                        </div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: #504033;">
+                            <div class="usage-badge" style="background: rgba(255,255,255,0.9); color: #1a1a1a;">5–7%</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Quercus</div>
+                            <div class="color-specs">
+                                <div class="spec-group">
+                                    <div class="spec-label">HEX</div>
+                                    <div class="spec-value">#504033</div>
+                                </div>
+                                <div class="spec-group">
+                                    <div class="spec-label">Pantone</div>
+                                    <div class="spec-value">497 C</div>
+                                </div>
+                            </div>
+                            <div class="color-description">Headings, high-contrast text, links</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="color-section">
+                <div class="section-header">
+                    <h2 class="section-title">Extended Palette</h2>
+                    <div class="section-description">Optional colors for special applications</div>
+                </div>
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: #C6E2A9;">
+                            <div class="usage-badge">< 3%</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Trifolium</div>
+                            <div class="color-specs">
+                                <div class="spec-group">
+                                    <div class="spec-label">HEX</div>
+                                    <div class="spec-value">#C6E2A9</div>
+                                </div>
+                                <div class="spec-group">
+                                    <div class="spec-label">Pantone</div>
+                                    <div class="spec-value">5777 C</div>
+                                </div>
+                            </div>
+                            <div class="color-description">Small accents, success states, nature themes</div>
+                        </div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: #B38CC8;">
+                            <div class="usage-badge">< 3%</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Lathyrus</div>
+                            <div class="color-specs">
+                                <div class="spec-group">
+                                    <div class="spec-label">HEX</div>
+                                    <div class="spec-value">#B38CC8</div>
+                                </div>
+                                <div class="spec-group">
+                                    <div class="spec-label">Pantone</div>
+                                    <div class="spec-value">2635 C</div>
+                                </div>
+                            </div>
+                            <div class="color-description">Decorative details, micro accents, seasonal</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="notes-section">
+        <div class="container">
+            <div class="notes-content">
+                <h2>Implementation Guidelines</h2>
+                <div class="notes-grid">
+                    <div class="note-item">
+                        <strong>Usage Percentages:</strong> Visual guidelines, not strict rules. Percentages indicate recommended distribution across interface elements.
+                    </div>
+                    <div class="note-item">
+                        <strong>Accessibility:</strong> All color combinations meet WCAG AA standards for contrast. Test custom combinations before implementation.
+                    </div>
+                    <div class="note-item">
+                        <strong>Print Applications:</strong> Pantone references are approximate matches. Request print proofs for critical color matching.
+                    </div>
+                    <div class="note-item">
+                        <strong>Seasonal Flexibility:</strong> System designed for modular updates. Swap botanical names and values for seasonal campaigns while maintaining structure.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

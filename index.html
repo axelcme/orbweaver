@@ -67,13 +67,14 @@
         box-sizing: border-box;
       }
       :root {
-        --camas: #7a78b0;
-        --oak-green: #9a8c42;
-        --yarrow: #faf8f7;
-        --lichen: #f8f2ef;
+        --camas: #7A79B5;
+        --oak-green: #A19C5D;
+        --yarrow: #F7F2EE;
+        --lichen: #E6DCD4;
         --camas-text: #6563a0;
         --oak-green-text: #6b6030;
-        --text-primary: #3a2a18;
+        --text-primary: #6B4C37;
+        --meadow: #F3C23B;
       }
       html {
         background: var(--lichen);
@@ -91,12 +92,13 @@
       }
       header h1 {
         font-family: "Fredoka", sans-serif;
-        font-size: 3rem;
+        font-size: 2.2rem;
         color: var(--camas-text);
         margin-bottom: 0;
+        text-shadow: 1px 1px 0 var(--meadow);
       }
       header h2 {
-        font-size: 1.25rem;
+        font-size: 0.9rem;
         color: var(--oak-green-text);
         text-transform: uppercase;
         letter-spacing: 0.1em;
@@ -130,11 +132,11 @@
       }
       .hero-overlay h2 {
         color: var(--yarrow);
-        font-size: 2.5rem;
+        font-size: 3.2rem;
         font-weight: 700;
         margin: 0 0 2rem 0;
         font-family: "Fredoka", sans-serif;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        text-shadow: 2px 2px 0 var(--meadow);
       }
 
       /* Hero Animation Canvas */
@@ -257,27 +259,15 @@
       }
       .header-phone {
         position: absolute;
-        top: 2.8rem;
+        top: 2rem;
         right: 0;
         padding: 0.625rem 1.25rem;
         font-size: 0.95rem;
       }
       @media (max-width: 600px) {
-        header h1 {
-          font-size: 2.2rem;
-        }
-        header h2 {
-          font-size: 0.9rem;
-        }
         .hero-image {
           height: 70vh;
           min-height: 400px;
-        }
-        .hero-overlay h2 {
-          font-size: 2rem;
-        }
-        .header-phone {
-          top: 1.5rem;
         }
       }
       @media (prefers-color-scheme: dark) {
@@ -290,6 +280,7 @@
           --meadow: #f0d4a8;
         }
         html { background: #2a2520; }
+        header h1 { text-shadow: none; }
         .btn-primary:hover { background: #eab528; }
         .btn-secondary { background: #9a8ed4; }
         .btn-secondary:hover { background: #8a7dc8; }
